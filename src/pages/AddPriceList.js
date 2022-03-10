@@ -126,11 +126,11 @@ const AddPriceList = ()=>{
          <option value="0.50">0.50</option>
          <option value="0.49">0.49</option>
        </select>
-        <span className="text-danger text-center">{errors.name?.message}</span>
+        <span className="text-danger text-center">{errors.roundoff?.message}</span>
     </div>
   </div>
 
-  <div className="float-right mb-2 mt-5">
+  <div className="float-right mb-5 mt-2">
 
             {loading? (
               <LoadingButton message={"Save and Continue"}/>

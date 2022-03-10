@@ -5,16 +5,30 @@ import {notify} from '../components/Toast';
 import Spinner from '../components/Spinner';
 import {ErrorMessage} from '../components/Message';
 import Loader from '../components/Loader';
-//import {getPriceList,deletePriceList,deletePriceListComplete} from '../store/actions/priceList';
+import {getPriceLists,deletePriceList,deletePriceListComplete} from '../store/actions/priceList';
 
 const PriceList = ()=>{
 
     const dispatch = useDispatch();
-    //const {loading,error,price_lists} = useSelector((state) => state.products);
-    //const deleteState = useSelector((state) => state.deleteProduct);
-    //const {loading:deleteLoading,error:deleteError,success:deleteSuccess} = deleteState;
+    const {loading,error,priceLists} = useSelector((state) => state.priceLists);
+    const deleteState = useSelector((state) => state.deletePriceList);
+    const {loading:deleteLoading,error:deleteError,success:deleteSuccess} = deleteState;
 
+    useEffect(()=>{
+      if(deleteSuccess){
+          notify("success","PriceList Deleted Successfully");
+          dispatch(deletePriceListComplete())
+      }
+      dispatch(getPriceLists());
+  },[dispatch,deleteSuccess])
 
+  const deleteHandler =(priceList)=>{
+    if(window.confirm('Are You Sure to Delete?')){
+      dispatch(deletePriceList(Number(priceList.priceListID)));
+    }
+}
+
+  if(loading) return <Loader/>
 
     return (
         <div className="content-body">
@@ -58,33 +72,35 @@ const PriceList = ()=>{
     <thead className="btn-main p-1">
       <tr>
         <th>Name and Description</th>
-        <th>Currency</th>
-        <th>Details</th>
-        <th>Pricing Scheme</th>
+        <th>Type</th>
+        <th>Mark Type</th>
+        <th>Percentage</th>
         <th>Rounding</th>
         <th >Action</th>
       </tr>
     </thead>
     <tbody>
-        {/* {manufacturers && manufacturers.map(manufacturer=>(
-   <tr key={manufacturer.id}>
-                  <td>{manufacturer.name}</td>
-                  <td>{manufacturer.contact_person}</td>
-                  <td>{manufacturer.contact_phone}</td>
+        {priceLists && priceLists.map(priceList=>(
+   <tr key={priceList.priceListID}>
+                  <td>{priceList.name}</td>
+                  <td>{priceList.type}</td>
+                  <td>{priceList.mark_type}</td>
+                  <td>{priceList.percentage}</td>
+                  <td>{priceList.roundoff}</td>
 
                   <td>
-                    <Link to={`/dashboard/manufacturer/${manufacturer.id}/edit`}>
+                    <Link to={`/dashboard/price-list/${priceList.priceListID}/edit`}>
                     <button className="btn btn-warning mr-1">
                 <i className="feather icon-edit"></i>
                 </button>
                     </Link>
   
-                <button className="btn btn-danger" onClick={()=>deleteHandler(manufacturer)}>
+                <button className="btn btn-danger" onClick={()=>deleteHandler(priceList)}>
                 <i className="feather icon-trash-2"></i>
                 </button>
                 </td>
                   </tr>
-        ))} */}
+        ))}
   
   
     </tbody>

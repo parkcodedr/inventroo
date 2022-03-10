@@ -70,6 +70,7 @@ export const getPriceListDetailReducer = (state = {
     switch (action.type) {
         case actionTypes.GET_PRICE_LIST_DETAIL_START:
             return {
+                ...state,
                 loading: true,
             }
         case actionTypes.GET_PRICE_LIST_DETAIL_SUCCESS:
@@ -87,7 +88,7 @@ export const getPriceListDetailReducer = (state = {
             }
         default:
             return {
-                state
+                ...state
             }
     }
 }
