@@ -2,27 +2,27 @@ import { useForm } from 'react-hook-form';
 import {ErrorMessage} from '../components/Message';
 import { useHistory} from 'react-router-dom';
 import {notify} from '../components/Toast';
+import LoadingButton from '../components/LoadingButton';
 import { useSelector, useDispatch } from 'react-redux';
-//import {addManufacturer,addManufacturerComplete} from '../store/actions/manufacturer';
+import {addPriceList,addPriceListComplete} from '../store/actions/priceList';
 
 const AddPriceList = ()=>{
     const dispatch = useDispatch();
     const history = useHistory();
 
-    //const { success, error, loading} = useSelector((state) => state.addPriceList);
+    const { success, error, loading} = useSelector((state) => state.addPriceList);
     const {register,formState: { errors },handleSubmit} = useForm();
     const { token} = useSelector((state) => state.auth);
 
-    // if(success){
-
-    //     dispatch(addManufacturerComplete());
-    //     history.push('/dashboard/price-list/all');
-    //     notify("success","Price List Added Successfully");
-    //   }
+    if(success){
+        dispatch(addPriceListComplete());
+        history.push('/dashboard/price-list/all');
+        notify("success","Price List Added Successfully");
+      }
 
     const submit = (data)=>{
         console.log(data);
-        //dispatch(addPriceList(data));
+        dispatch(addPriceList(data));
     }
 
     return(
@@ -31,7 +31,7 @@ const AddPriceList = ()=>{
             <div className="row mt-3">
                 <div className="col-md-8">
             <form onSubmit={handleSubmit(submit)}>
-                {/* {error && <ErrorMessage message={error}/>} */}
+                {error && <ErrorMessage message={error}/>}
     <div className="form-group row">
     <label htmlFor="name" className="col-sm-3 col-form-label text-danger">
         Name</label>
@@ -92,13 +92,13 @@ const AddPriceList = ()=>{
     </div>
   </div>
   <div className="form-group row">
-    <label className="col-sm-3 col-form-label">
+    <label className="col-sm-3 col-form-label text-danger">
         Percentage</label>
     <div className="col-sm-9">
     <div className="input-group">
   <div className="input-group-prepend">
 
-  <select className="custom-select" name="percentageType">
+  <select className="custom-select" name="mark_type" {...register("mark_type")} >
   <option value="markup">Markup</option>
   <option value="markdown">Markdown</option>
   </select>
@@ -114,12 +114,37 @@ const AddPriceList = ()=>{
     </div>
   </div>
 
-
-
-  <div className="d-flex justify-content-end">
-      <button className="btn btn-main m-1">Save and Continue</button>
-        <button className="btn btn-outline-main m-1">Cancel</button>
+  <div className="form-group row">
+    <label htmlFor="name" className="col-sm-3 col-form-label text-danger">
+        Roundoff To</label>
+    <div className="col-sm-9">
+      <select className="custom-select" name="roundoff" {...register("roundoff", { required: "Roundoff to is required" })}
+       >
+         <option value="never mind">Never Mind</option>
+         <option value="whole number">Nearest Whole Number</option>
+         <option value="0.99">0.99</option>
+         <option value="0.50">0.50</option>
+         <option value="0.49">0.49</option>
+       </select>
+        <span className="text-danger text-center">{errors.name?.message}</span>
     </div>
+  </div>
+
+  <div className="float-right mb-2 mt-5">
+
+            {loading? (
+              <LoadingButton message={"Save and Continue"}/>
+            ):(
+      <button type="submit" className="btn btn-main mr-1">
+      <i className="fa fa-check-square-o"></i> Save and Continue
+      </button>
+            )}
+								
+
+                                <button type="reset" className="btn btn-warning ">
+									<i className="feather icon-x"></i> Cancel
+								</button>
+							</div>
                 </form>
                 </div>
          </div>

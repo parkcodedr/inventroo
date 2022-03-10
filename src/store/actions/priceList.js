@@ -42,9 +42,9 @@ export const addPriceList = (priceList) => {
                     dispatch(addPriceListSuccess());
                 }).catch(error => {
                     if (error.response) {
-                        const { ResponseMessage } = error.response.data;
+                        const { message } = error.response.data;
                         console.log(error.response.data);
-                        dispatch(addPriceListFail(ResponseMessage));
+                        dispatch(addPriceListFail(message));
 
                     } else if (error.request) {
                         console.log(error);
