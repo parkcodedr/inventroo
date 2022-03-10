@@ -59,7 +59,7 @@ const rootReducer = combineReducers({
     productGroupDetail:getProductGroupDetailReducer,
     addPriceList:addPriceListReducer,
     priceLists:getPriceListsReducer,
-    priceListDetails:getPriceListDetailReducer,
+    priceListDetail:getPriceListDetailReducer,
     updatePriceList:updatePriceListReducer,
     deletePriceList:deletePriceListReducer,
 });

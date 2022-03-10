@@ -28,6 +28,7 @@ import EditProduct from './EditProduct';
 import PriceList from './PriceList';
 import AddPriceList from './AddPriceList';
 import AddInventoryAdjustment from './AddInventoryAdjustment';
+import EditPriceList from './EditPriceList';
 import Form from './Form';
 import Tag from './Tag';
 
@@ -63,6 +64,7 @@ EditProduct,
 PriceList,
 AddPriceList,
 AddInventoryAdjustment,
+EditPriceList,
 Form,
 Tag
 }

@@ -22,7 +22,8 @@ import {Warehouse,
   AddPriceList,
   AddInventoryAdjustment,
   Form,
-  Tag
+  Tag,
+  EditPriceList
 } from '../../pages';
 
 
@@ -150,6 +151,11 @@ export const routes = [
       path: "/dashboard/price-list/new",
       exact: true,
       main: () => <AddPriceList/>
+    },
+    {
+      path: "/dashboard/price-list/:priceListId/edit",
+      exact: true,
+      main: () => <EditPriceList/>
     },
     ,
     {

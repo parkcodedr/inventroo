@@ -22,13 +22,12 @@ const PriceList = ()=>{
       dispatch(getPriceLists());
   },[dispatch,deleteSuccess])
 
+  
   const deleteHandler =(priceList)=>{
     if(window.confirm('Are You Sure to Delete?')){
       dispatch(deletePriceList(Number(priceList.priceListID)));
     }
 }
-
-  if(loading) return <Loader/>
 
     return (
         <div className="content-body">
@@ -60,13 +59,13 @@ const PriceList = ()=>{
       </button>
   </Link>
       </div>
-          {/* {
+          {
           loading? (
             <Loader/>
           ):error?(
             <ErrorMessage message={error}/>
-          ):( */}
-  
+          ):(
+      
           <div className="unit-list mt-2 mb-5 mt-2">
           <table className="table table-responsive-sm">
     <thead className="btn-main p-1">
@@ -102,13 +101,13 @@ const PriceList = ()=>{
                   </tr>
         ))}
   
-  
+ 
     </tbody>
     </table>
           </div>
   
   
-          {/* )} */}
+          )}
           </div>
        );
 }

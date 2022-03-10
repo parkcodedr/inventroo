@@ -64,7 +64,6 @@ export const getPriceListsReducer = (state = initialState, action) => {
 }
 
 export const getPriceListDetailReducer = (state = {
-    priceList:{},
     loading: false,
 }, action) => {
     switch (action.type) {
