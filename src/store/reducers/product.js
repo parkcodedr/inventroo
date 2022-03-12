@@ -50,7 +50,7 @@ export const getProductsReducer = (state = initialState, action) => {
                 products:action.products,
                 error: ""
             }
-        
+
         case actionTypes.GET_PRODUCTS_FAIL:
             return {
                 loading: false,
@@ -64,7 +64,6 @@ export const getProductsReducer = (state = initialState, action) => {
 }
 
 export const getProductDetailReducer = (state = {
-    
     loading: false,
 }, action) => {
     switch (action.type) {
@@ -83,7 +82,7 @@ export const getProductDetailReducer = (state = {
                 units:action.units,
                 error: ""
             }
-        
+
         case actionTypes.GET_PRODUCT_DETAIL_FAIL:
             return {
                 loading: false,
@@ -111,13 +110,13 @@ export const updateProductReducer = (state = {}, action) => {
         case actionTypes.UPDATE_PRODUCT_COMPLETE:
             return {
             }
-        
+
         case actionTypes.UPDATE_PRODUCT_FAIL:
             return {
                 loading: false,
                 error: action.error
             }
-        
+
         default:
             return {
                 state
@@ -140,13 +139,13 @@ export const deleteProductReducer = (state = {}, action) => {
         case actionTypes.DELETE_PRODUCT_COMPLETE:
             return {
             }
-        
+
         case actionTypes.DELETE_PRODUCT_FAIL:
             return {
                 loading: false,
                 error: action.error
             }
-        
+
         default:
             return {
                 state

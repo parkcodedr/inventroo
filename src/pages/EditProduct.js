@@ -48,7 +48,7 @@ const EditProduct= ()=>{
       }
 
     useEffect(()=>{
-        if(!product){
+        if(!product || product.productID!=id){
             dispatch(getProductDetail(id));
         }else{
             reset({
@@ -77,7 +77,7 @@ const EditProduct= ()=>{
             })
         }
     },[product,id])
-    
+
 
 
     const submitProduct = (data)=>{
@@ -108,7 +108,7 @@ const EditProduct= ()=>{
       }
         dispatch(updateProduct(productData));
     }
-        
+
 
     return(
         <div className="content-body">
@@ -233,10 +233,10 @@ const EditProduct= ()=>{
     <label className="col-sm-2 col-form-label">
     Manufacturer </label>
     <div className="col-sm-4">
-    <select className="custom-select" {...register("manufacturer")} name="manufacturer">
+    <select className="custom-select"  {...register("manufacturer")} name="manufacturer">
        <option>Select Manufacturer</option>
        {manufacturers && manufacturers.map(manufacturer=>(
-         <option value={manufacturer.id}>{manufacturer.name}</option>
+         <option value={manufacturer.id} key={manufacturer.id}>{manufacturer.name}</option>
        ))}
      </select>
     </div>

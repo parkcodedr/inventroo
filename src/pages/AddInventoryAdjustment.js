@@ -14,7 +14,7 @@ const AddInventoryAdjustment = ()=>{
     const { token} = useSelector((state) => state.auth);
 
     // if(success){
-        
+
     //     dispatch(addManufacturerComplete());
     //     history.push('/dashboard/price-list/all');
     //     notify("success","Price List Added Successfully");
@@ -51,22 +51,22 @@ const AddInventoryAdjustment = ()=>{
 </div>
     </div>
   </div>
-    
+
   <div className="form-group row">
     <label className="col-sm-3 col-form-label">
         Reference Number</label>
-        
+
     <div className="col-sm-9">
     <select class="custom-select" name="reference" {...register("reference")} >
     <option value="1">1</option>
       <option value="2">2</option>
       <option value="3">3</option>
-     
+
     </select>
-        
+
     </div>
   </div>
-  
+
   <div className="form-group row">
     <label htmlFor="name" className="col-sm-3 col-form-label text-danger">
         Date *</label>
@@ -102,8 +102,8 @@ const AddInventoryAdjustment = ()=>{
       <option value="4">Stock Writen off</option>
       <option value="5">stocktaking results</option>
       <option value="6">Inventory Revaluation</option>
-     
-     
+
+
     </select>
         <span className="text-danger text-center">{errors.reason?.message}</span>
     </div>
@@ -116,13 +116,34 @@ const AddInventoryAdjustment = ()=>{
       <textarea className="form-control" name="description"
        {...register("decription")} rows={5} cols={4}
        ></textarea>
-        
+
     </div>
   </div>
-  <div className="d-flex">
-      <button className="btn btn-main m-1">Save as Draft</button>
-      <button className="btn btn-outline-main m-1" type="submit">Convert to Adjusted</button>
-    <button className="btn btn-outline-main m-1">Cancel</button>
+  <table className="table group-table ">
+  <tr className="bg-main text-white">
+  <th scope="col">Item Details</th>
+  <th scope="col">Quantity Available</th>
+  <th scope="col">New Quantity on Hand</th>
+  <th scope="col">Quantity Adjusted</th>
+  <th scope="col">Purchase Price</th>
+  <th scope="col">Cost Price</th>
+  </tr>
+
+  <tr>
+  <td ><input type="text" className="form-control" /></td>
+  <td ><input type="text" className="form-control"/></td>
+  <td><input type="text" className="form-control" /></td>
+  <td><input type="text" className="form-control" /></td>
+  <td><input type="text" className="form-control" /></td>
+  <td><input type="text" className="form-control" /></td>
+  </tr>
+
+  </table>
+  <input className="btn btn-outline-main" value="Add another line" type="button"/>
+  <div className="d-flex mt-3">
+      <button className="btn btn-main mr-1">Save as Draft</button>
+      <button className="btn btn-outline-main mr-1" type="submit">Convert to Adjusted</button>
+    <button className="btn btn-outline-main">Cancel</button>
     </div>
                 </form>
                 </div>
