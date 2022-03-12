@@ -39,7 +39,7 @@ const AddProductGroup = ()=>{
     accept: 'image/jpeg,image/png'
   });
 
-  
+
 
 
   useEffect(()=>{
@@ -48,7 +48,7 @@ const AddProductGroup = ()=>{
     dispatch(getUnits(token));
     dispatch(getTaxes());
   },[]);
-  
+
   if(loading) return <Loader/>
 
 const submit = (data)=>{
@@ -88,7 +88,7 @@ if(addSuccess){
 
     <form onSubmit={handleSubmit(submit)}>
     <div className="row mt-2">
-      
+
     <div className="col-md-9">
     {addError && <ErrorMessage message={addError}/>}
     <div className="form-group row">
@@ -143,8 +143,8 @@ if(addSuccess){
        {units && units.map(unit=>(
         <option value={unit.id}  key={unit.id}>{unit.display_name}</option>
        ))}
-       
-       
+
+
      </select>
     </div>
     <label className="col-sm-2 col-form-label">
@@ -246,7 +246,7 @@ if(addSuccess){
       <th scope="col">ISBN</th>
       <th scope="col">REORDER POINT</th>
     </tr>
-    
+
   </thead>
 
   <tbody>
@@ -254,7 +254,7 @@ if(addSuccess){
       <td>
         <textarea className="form-control col" rows={1}></textarea>
       </td>
-      <td ><input type="text" className="form-control col" /></td>
+      <td ><input type="text" className="form-control" /></td>
       <td ><input type="text" className="form-control"/></td>
       <td><input type="text" className="form-control" /></td>
       <td><input type="text" className="form-control" /></td>
@@ -302,7 +302,7 @@ if(addSuccess){
 <i className="fa fa-check-square-o"></i> Save and Continue
 </button>
             )}
-								
+
 
                                 <button type="reset" className="btn btn-warning ">
 									<i className="feather icon-x"></i> Cancel

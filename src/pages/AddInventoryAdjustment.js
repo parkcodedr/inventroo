@@ -1,15 +1,19 @@
+import React,{useEffect,useState} from 'react';
 import { useForm } from 'react-hook-form';
 import {ErrorMessage} from '../components/Message';
 import { useHistory} from 'react-router-dom';
 import {notify} from '../components/Toast';
+import Loader from '../components/Loader';
 import { useSelector, useDispatch } from 'react-redux';
 //import {addManufacturer,addManufacturerComplete} from '../store/actions/manufacturer';
+import {getProducts} from '../store/actions/product';
 
 const AddInventoryAdjustment = ()=>{
     const dispatch = useDispatch();
     const history = useHistory();
+    const [form,setForm] = useState([]);
 
-    //const { success, error, loading} = useSelector((state) => state.addPriceList);
+    const { products, error, loading} = useSelector((state) => state.products);
     const {register,formState: { errors },handleSubmit} = useForm();
     const { token} = useSelector((state) => state.auth);
 
@@ -24,6 +28,18 @@ const AddInventoryAdjustment = ()=>{
         console.log(data);
         //dispatch(addPriceList(data));
     }
+    const handleChange = (e)=>{
+      console.log(e.target.value);
+      // reset({
+      //   ""
+      // })
+    }
+
+    useEffect(()=>{
+      dispatch(getProducts());
+    },[])
+
+    if(loading) return <Loader/>
 
     return(
         <div className="content-body">
@@ -122,6 +138,7 @@ const AddInventoryAdjustment = ()=>{
   <table className="table group-table ">
   <tr className="bg-main text-white">
   <th scope="col">Item Details</th>
+  <th></th><th></th>
   <th scope="col">Quantity Available</th>
   <th scope="col">New Quantity on Hand</th>
   <th scope="col">Quantity Adjusted</th>
@@ -130,12 +147,19 @@ const AddInventoryAdjustment = ()=>{
   </tr>
 
   <tr>
-  <td ><input type="text" className="form-control" /></td>
-  <td ><input type="text" className="form-control"/></td>
-  <td><input type="text" className="form-control" /></td>
-  <td><input type="text" className="form-control" /></td>
-  <td><input type="text" className="form-control" /></td>
-  <td><input type="text" className="form-control" /></td>
+  <td colSpan={3}>
+  <select className="custom-select" name="product_name" onChange={(e)=>handleChange(e)}>
+  <option >Select a product</option>
+  {products && products.map(product=>(
+    <option value={product.productID} key={product.productID}>{product.name}</option>
+  ))}
+  </select>
+  </td>
+  <td ><input type="text" className="form-control" name="opening_stock"/></td>
+  <td><input type="text" className="form-control" name="new_stock_in_hand" /></td>
+  <td><input type="text" className="form-control" name="quantity_adjusted" /></td>
+  <td><input type="text" className="form-control" name="cost_price" /></td>
+  <td><input type="text" className="form-control" name="sale_price" /></td>
   </tr>
 
   </table>
