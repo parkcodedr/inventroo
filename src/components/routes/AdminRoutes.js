@@ -23,7 +23,8 @@ import {Warehouse,
   AddInventoryAdjustment,
   Form,
   Tag,
-  EditPriceList
+  EditPriceList,
+  Dashboard,
 } from '../../pages';
 
 
@@ -32,7 +33,7 @@ export const routes = [
     {
         path: "/dashboard",
         exact: true,
-        main: () =><h1>Dashboard</h1>
+        main: () =><Dashboard/>
       },
     {
       path: "/dashboard/organization-profile",

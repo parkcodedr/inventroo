@@ -286,3 +286,22 @@ padding:1px;
   margin-left: 5px;
   cursor: pointer;
 }
+
+.activity-card{
+  border:1px solid #4c27b3;
+  border-radius:20px; 
+  text-align:center;
+  padding:50px 20px;
+  margin:8px 12px;
+  height:200px;
+  align-items:center;
+  
+}
+.activity-wrapper{
+  background:#f1f8fa;
+}
+.inventory-summary {
+  border:1px solid #4c27b3;
+  border-radius:20px; 
+  margin:15px 4px;
+}
