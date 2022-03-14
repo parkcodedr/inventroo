@@ -1,3 +1,4 @@
+import React from 'react';
 import AddUserRole from "./AddUserRole";
 import Warehouse from "./Warehouse";
 import ProductList from "./ProductList";
@@ -11,7 +12,7 @@ import OrganizationProfile from "./OrganizationProfile";
 import UserRoles from "./UserRoles";
 import ProductGroup from "./ProductGroup";
 import AddProductGroup from "./AddProductGroup";
-import Login from './Login';
+//import Login from './Login';
 import { Register } from './Register';
 import Dashboard from './Dashboard';
 import Home from './Home';
@@ -31,6 +32,7 @@ import AddInventoryAdjustment from './AddInventoryAdjustment';
 import EditPriceList from './EditPriceList';
 import Form from './Form';
 import Tag from './Tag';
+const Login = React.lazy(() => import("./Login"));
 
 
 export{

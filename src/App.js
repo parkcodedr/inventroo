@@ -20,8 +20,8 @@ import {
 
 export default function App() {
 
-    return (
 
+    return (
       <div>
         <Switch>
         <Route exact path="/">
@@ -31,7 +31,9 @@ export default function App() {
             <Register />
           </Route>
           <Route path="/login">
-            <Login/>
+          <React.Suspense fallback={<>Loading...</>}>
+          <Login/>
+            </React.Suspense>
           </Route>
           <Route path="/dashboard">
             <AdminDashboard/>
