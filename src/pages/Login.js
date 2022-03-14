@@ -1,8 +1,8 @@
 import React,{useEffect,useState} from 'react';
 import {Link,useHistory} from 'react-router-dom';
-import { useTitle } from '../components/hooks/useTitle';
-import {loginUser} from '../store/actions/auth';
-import {getModules} from '../store/actions/modules';
+import { useTitle } from 'components/hooks/useTitle';
+import {loginUser} from 'store/actions/auth';
+import {getModules} from 'store/actions/modules';
 import {useDispatch,useSelector} from 'react-redux';
 
 const Login = ()=>{

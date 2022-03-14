@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
-import {ErrorMessage} from '../components/Message';
+import {ErrorMessage} from 'components/Message';
 import { useHistory} from 'react-router-dom';
-import {notify} from '../components/Toast';
+import {notify} from 'components/Toast';
 import LoadingButton from '../components/LoadingButton';
 import { useSelector, useDispatch } from 'react-redux';
 import {addPriceList,addPriceListComplete} from '../store/actions/priceList';
