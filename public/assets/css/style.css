@@ -292,16 +292,49 @@ padding:1px;
   border-radius:20px; 
   text-align:center;
   padding:50px 20px;
-  margin:8px 12px;
-  height:200px;
+  background:white;
+  margin:8px 3px;
+  height:180px;
   align-items:center;
   
 }
 .activity-wrapper{
-  background:#f1f8fa;
+  background:#f2f4f5;
 }
 .inventory-summary {
   border:1px solid #4c27b3;
   border-radius:20px; 
   margin:15px 4px;
 }
+
+.progress {
+  position: relative;
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+}
+.progress .number {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+svg circle {
+  fill: none;
+  stroke: #b9b9c8;
+  stroke-width: 14;
+  stroke-linecap: round;
+  transform: translate(5px, 5px);
+  stroke-dashoffset: -5;
+  stroke-dasharray: 200;
+}
+
+
+
+
+
