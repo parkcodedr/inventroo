@@ -93,6 +93,8 @@ const ProductList = ()=>{
       <th >UPC</th>
       <th >STOCK ON HAND</th>
       <th >REORDER POINT</th>
+      {/* <th >COST PRICE</th>
+      <th >SALES PRICE</th> */}
       <th >STATUS</th>
       <th >MANUFACTURER</th>
       <th>ACTIONS</th>
@@ -106,6 +108,8 @@ const ProductList = ()=>{
           <td>{product.upc}</td>
           <td>{product.opening_stock}</td>
           <td>{product.recorder_point}</td>
+          {/* <td>{product.cost_price}</td>
+          <td>{product.sale_price}</td> */}
           <td>{product.productStatus}</td>
           <td>{product.manufacturer?.name}</td>
 

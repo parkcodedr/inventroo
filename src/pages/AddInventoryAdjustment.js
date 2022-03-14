@@ -98,32 +98,39 @@ const prevIsValid = ()=>{
   }
 
 
-
+const updateInput = (index,product)=>{
+  form.map((item, index) => {
+    const allPrev = [...form];
+    form[index].opening_stock = product.opening_stock;
+    console.log(index);
+    setForm(allPrev);
+  });
+}
 
   const handleChange = (index,event)=>{
     event.preventDefault();
     event.persist();
-    if(event.target.name=="product_name"){
-      dispatch(getProductDetail(event.target.value));
-     if(product){
-      setForm((prev)=>{
-        console.log(prev);
-        return prev.map((item,i)=>{
-            if(i!==index){
-                return item;
-            }
+    // if(event.target.name=="product_name"){
+    //   dispatch(getProductDetail(Number(form[index].product_name)));
+    //  if(product){
+    //   setForm((prev)=>{
+    //     console.log(prev);
+    //     return prev.map((item,i)=>{
+    //         if(i!==index){
+    //             return item;
+    //         }
 
-            return {
-                ...item,
-                ["cost_price"]:product.cost_price,
-                ["sale_price"]:product.sale_price,
-                ["opening_stock"]:product.opening_stock,
+    //         return {
+    //             ...item,
+    //             ["cost_price"]:product.cost_price,
+    //             ["sale_price"]:product.sale_price,
+    //             ["opening_stock"]:product.opening_stock,
                
-            }
-        })
-    })
-     }
-    }
+    //         }
+    //     })
+    // })
+    //  }
+    // }
     setForm((prev)=>{
         return prev.map((item,i)=>{
             if(i!==index){
@@ -171,13 +178,17 @@ const handleRemove = (e,index)=>{
         Mode of Adjustment</label>
     <div className="col-sm-9">
     <div class="form-check">
-  <input class="form-check-input" type="radio" name="adjustmentMode" />
+  <input class="form-check-input" type="radio" name="adjustmentMode"
+  {...register("adjustmentMode")} value="quantity"
+   />
   <label class="form-check-label">
     Quantity Adjustment
   </label>
 </div>
 <div class="form-check mt-1">
-  <input class="form-check-input" type="radio" name="adjustmentMode" />
+  <input class="form-check-input" value="value" type="radio" name="adjustmentMode"
+  {...register("adjustmentMode")}
+   />
   <label class="form-check-label" htmlFor="adjustmentMode">
     Value Adjustment
   </label>
@@ -252,7 +263,7 @@ const handleRemove = (e,index)=>{
 
     </div>
   </div>
-  {JSON.stringify(form)}
+  
   <table className="table group-table">
  <thead>
  <tr className="bg-main text-white">
