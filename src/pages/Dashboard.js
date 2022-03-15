@@ -1,8 +1,8 @@
 const Dashboard = ()=>{
   return(
     <div className="content-body">
-      <h2 className="font-weight-bold ml-3">Dashboard</h2>
-      <section className="row p-2 activity-wrapper mx-auto">
+      <h2 className="font-weight-bold">Dashboard</h2>
+      <section className="row p-2 activity-wrapper mx-auto mt-1">
         <div className="col-md-8">
           <h5 className="font-weight-bold">Sales Activity</h5>
           <div className="row">
@@ -63,7 +63,7 @@ const Dashboard = ()=>{
           </div>
           <div className="col-md-5">
           <p className="text-center">Active Items</p>
-          <div class="progress">
+          <div class="progress mx-auto">
                 <svg>
                   <circle cx="38" cy="38" r="36"></circle>
                 </svg>
