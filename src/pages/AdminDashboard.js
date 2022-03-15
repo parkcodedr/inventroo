@@ -5,7 +5,7 @@ import {
   NavLink,
   useHistory
 } from "react-router-dom";
-import MainSideBar from "../components/MainSideBar";
+
 import SideBar from "../components/SideBar";
 import Nav from "../components/Nav";
 import TopNav from "../components/TopNav";

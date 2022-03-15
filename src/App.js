@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React from 'react';
 
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer} from 'react-toastify';
@@ -38,7 +38,7 @@ export default function App() {
           <Route path="/dashboard">
             <AdminDashboard/>
           </Route>
-         
+
           <Route path="/email-confirmation">
             <EmailConfirmation />
           </Route>
