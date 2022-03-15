@@ -129,158 +129,248 @@ const TopNav = () => {
                 </fieldset>
             </div>
          </ul>
-            <ul className="nav navbar-nav col-md-2 mt-0">
-              <li className="dropdown dropdown-notification nav-item">
+            <ul className="nav navbar-nav col-md-2">
+              <li className="dropdown dropdown-notification nav-item ">
                 <a className="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
                   <div className=""><i></i></div><span className="">{user? user.first_name:"Okwori"}</span>
                   </a>
-                <ul className="dropdown-menu dropdown-menu-media dropdown-menu-right">
+                <ul className="dropdown-menu dropdown-menu-media dropdown-menu-right color-light">
 
                       <li className="scrollable-container media-list ">
                       <a href="javascript:void(0)">
-                      <div className="media justify-content-center">
+                      <div className="media justify-content-center mt-0 mx-auto ">
 
-                        <div className="d-flex justify-content-center flex-column">
-                          <div>
-                            <img className="ml-2" width="50%" height="50%" alt="user" src="/app-assets/images/logo/user-64.png"/>
+                        <div className="d-flex justify-content-center flex-column ">
+
+                            <img className="mx-auto"  width="50%" height="50%" alt="user" src="/app-assets/images/logo/user-64.png"/>
+
+                          <h4 className="text-center mt-2">OLA BANJI</h4>
+
+                          <div className="text-center mt-0 mx-auto">
+                            <p>User ID: 7865748</p>
+                            <p>mark@gmail.com</p>
+                            <p className="mt-2">
+
+                              <Link to="/dashboard" >My Account</Link>|
+                              <Link className="text-danger" onClick={logoutUser}> Sign out</Link>
+                            </p>
                           </div>
-                          <h4 className="text-center">{user && user.name}</h4>
-                          <p>User ID: {user && user.userID}</p>
-                          <p>{user && user.email}</p>
+
                         </div>
-                      </div></a>
+                      </div>
+                      </a>
 
                       </li>
+
+                      <li className="dropdown-menu-header bg-white">
+                        <h6 className="dropdown-header m-0 p-2"><span className="grey darken-2">MY ORGANIZATIONS</span><span className="float-right m-0 text-capitalize color-main"> <i className="feather icon-settings mr-1"></i> <Link to={'/account/setup/org-profile'}>Manage</Link></span></h6>
+                      </li>
+                        <div className="d-flex justify-content-between p-2 bg-white">
+                        <div>
+                        <h4>Gabriel</h4>
+                        <p>Organization ID: 0908776</p>
+                        <p>FREE</p>
+                        </div>
+                        <i className="fa fa-check-circle text-success"></i>
+                        </div>
 
                 </ul>
               </li>
 
             </ul>
-            <ul className="nav navbar-nav col-md-6 ">
 
+            <ul className="nav navbar-nav col-md-6 ">
               <li className="dropdown dropdown-notification nav-item">
                   <a className="nav-link nav-link-label" href="#" data-toggle="dropdown">
                     <i className="ficon feather icon-user-plus"></i></a>
-                <ul className="dropdown-menu dropdown-menu-media dropdown-menu-right">
+                <ul className="dropdown-menu dropdown-menu-media dropdown-menu-right color-light">
                   <li className="scrollable-container media-list">
-                    <a href="javascript:void(0)">
-                    <div className="media justify-content-center">
 
-                      <div className="d-flex justify-content-center flex-column">
-                        <div className="">
-                          <img className="ml-2" width="50%" height="50%" alt="user" src="/app-assets/images/logo/user-64.png"/>
-                        </div>
-                        <h4 className="text-center mt-2">OLA BANJI</h4>
+                  <section className="search-container p-1 " >
+                  <p>Settings</p>
+                  <fieldset className="form-group position-relative has-icon-left">
+                    <input type="text" class="form-control form-control-sm  round"
+                        placeholder="search settings"/>
+                    <div className="form-control-position">
+                        <i className="feather icon-search pl-1 pt-1"></i>
+                    </div>
 
-                        <div className="text-center mt-0">
-                          <p>User ID: 7865748</p>
-                          <p>mark@gmail.com</p>
-                          <p className="mt-2">
+                </fieldset>
+                  </section>
 
-                            <Link to="/dashboard" >My Account</Link>|
-                            <Link className="text-danger" onClick={logoutUser}> Sign out</Link>
-                          </p>
-                        </div>
+                   </li>
 
-                      </div>
-                    </div></a><a href="javascript:void(0)">
+                   <div className="settings-nav pb-5 bg-white">
+                   <ul class="nav flex-column ">
+                     <li class="nav-item">
+                       <Link class="nav-link ml-2" to={'/account/setup/org-profile'}>
+                       <i className="feather icon-users"></i>
+                       Organization Profile</Link>
+                     </li>
+                     <li class="nav-item">
+                       <Link class="nav-link ml-2" to={'/account/setup/user-role'}>
+                        <i className="feather icon-users"></i>
+                       Users & Roles</Link>
+                     </li>
+                     <li class="nav-item">
 
-                   </a></li>
+                       <Link class="nav-link ml-2" to={'/account/setup/warehouse'}>
+                       <i className="feather icon-home"></i>
+                       Warehouse</Link>
+                     </li>
+                     <li class="nav-item">
+                       <Link class="nav-link ml-2" to={'/account/setup/branches'}>
+                       <i className="fa fa-building"></i>
+                       Branches</Link>
+                     </li>
 
-                      <li className="dropdown-menu-header">
-                        <h6 className="dropdown-header m-0 p-2"><span className="grey darken-2"><Link to={'/account/setup/org-profile'}>MY ORGANIZATIONS</Link></span><span className="feather icon-settings float-right m-0"> <a href="#">Manage</a></span></h6>
-                      </li>
+                   </ul>
+                   </div>
 
                 </ul>
               </li>
 
               <li className="dropdown dropdown-notification nav-item"><a className="nav-link nav-link-label" href="#" data-toggle="dropdown"><i className="ficon feather icon-bell"></i></a>
-                <ul className="dropdown-menu dropdown-menu-media dropdown-menu-right">
-                  <li className="dropdown-menu-header">
-                    <h6 className="dropdown-header m-0"><span className="grey darken-2">Settings</span><span className="notification-tag badge badge-warning float-right m-0">4 New</span></h6>
-                  </li>
-                  <li className="scrollable-container media-list"><a href="javascript:void(0)">
-                      <div className="media">
-                        <div className="media-left">
-                          <div className="avatar avatar-online avatar-sm ed-circle"><img src="/app-assets/images/portrait/small/avatar-s-1.png" alt="avatar"/><i></i></div>
-                        </div>
-                        <div className="media-body">
-                          <h6 className="media-heading">Margaret Govan</h6>
-                          <p className="notification-text font-small-3 text-muted">I like your portfolio, let's start.</p><small>
-                            <time className="media-meta text-muted" datetime="2015-06-11T18:29:20+08:00">Today</time></small>
-                        </div>
-                      </div></a><a href="javascript:void(0)">
-                      <div className="media">
-                        <div className="media-left"><span className="avatar avatar-sm avatar-busy ed-circle"><img src="/app-assets/images/portrait/small/avatar-s-2.png" alt="avatar"/><i></i></span></div>
-                        <div className="media-body">
-                          <h6 className="media-heading">Bret Lezama</h6>
-                          <p className="notification-text font-small-3 text-muted">I have seen your work, there is</p><small>
-                            <time className="media-meta text-muted" datetime="2015-06-11T18:29:20+08:00">Tuesday</time></small>
-                        </div>
-                      </div></a>
+              <ul className="dropdown-menu dropdown-menu-media dropdown-menu-right color-light">
+                <li className="scrollable-container media-list">
 
-                      </li>
-                  <li className="dropdown-menu-footer"><a className="dropdown-item text-muted text-center" href="javascript:void(0)">Read all messages</a></li>
-                </ul>
+                <section className="search-container p-1 " >
+                <p>Settings</p>
+                <fieldset className="form-group position-relative has-icon-left">
+                  <input type="text" class="form-control form-control-sm  round"
+                      placeholder="search settings"/>
+                  <div className="form-control-position">
+                      <i className="feather icon-search pl-1 pt-1"></i>
+                  </div>
+
+              </fieldset>
+                </section>
+
+                 </li>
+
+                 <div className="settings-nav pb-5 bg-white">
+                 <ul class="nav flex-column ">
+                   <li class="nav-item">
+                     <Link class="nav-link ml-2" to={'/account/setup/org-profile'}>
+                     <i className="feather icon-users"></i>
+                     Organization Profile</Link>
+                   </li>
+                   <li class="nav-item">
+                     <Link class="nav-link ml-2" to={'/account/setup/user-role'}>
+                      <i className="feather icon-users"></i>
+                     Users & Roles</Link>
+                   </li>
+                   <li class="nav-item">
+
+                     <Link class="nav-link ml-2" to={'/account/setup/warehouse'}>
+                     <i className="feather icon-home"></i>
+                     Warehouse</Link>
+                   </li>
+                   <li class="nav-item">
+                     <Link class="nav-link ml-2" to={'/account/setup/branches'}>
+                     <i className="fa fa-building"></i>
+                     Branches</Link>
+                   </li>
+
+                 </ul>
+                 </div>
+
+              </ul>
               </li>
 
               <li className="dropdown dropdown-notification nav-item"><a className="nav-link nav-link-label" href="#" data-toggle="dropdown"><i className="ficon feather icon-settings"></i></a>
-                <ul className="dropdown-menu dropdown-menu-media dropdown-menu-right">
-                  <li className="dropdown-menu-header">
-                    <h6 className="dropdown-header m-0"><span className="grey darken-2">Settings</span><span className="notification-tag badge badge-warning float-right m-0">4 New</span></h6>
-                  </li>
-                  <li className="scrollable-container media-list"><a href="javascript:void(0)">
-                      <div className="media">
-                        <div className="media-left">
-                          <div className="avatar avatar-online avatar-sm ed-circle"><img src="/app-assets/images/portrait/small/avatar-s-1.png" alt="avatar"/><i></i></div>
-                        </div>
-                        <div className="media-body">
-                          <h6 className="media-heading">Margaret Govan</h6>
-                          <p className="notification-text font-small-3 text-muted">I like your portfolio, let's start.</p><small>
-                            <time className="media-meta text-muted" datetime="2015-06-11T18:29:20+08:00">Today</time></small>
-                        </div>
-                      </div></a><a href="javascript:void(0)">
-                      <div className="media">
-                        <div className="media-left"><span className="avatar avatar-sm avatar-busy ed-circle"><img src="/app-assets/images/portrait/small/avatar-s-2.png" alt="avatar"/><i></i></span></div>
-                        <div className="media-body">
-                          <h6 className="media-heading">Bret Lezama</h6>
-                          <p className="notification-text font-small-3 text-muted">I have seen your work, there is</p><small>
-                            <time className="media-meta text-muted" datetime="2015-06-11T18:29:20+08:00">Tuesday</time></small>
-                        </div>
-                      </div></a>
+              <ul className="dropdown-menu dropdown-menu-media dropdown-menu-right color-light">
+                <li className="scrollable-container media-list">
 
-                      </li>
-                  <li className="dropdown-menu-footer"><a className="dropdown-item text-muted text-center" href="javascript:void(0)">Read all messages</a></li>
-                </ul>
+                <section className="search-container p-1 " >
+                <p>Settings</p>
+                <fieldset className="form-group position-relative has-icon-left">
+                  <input type="text" class="form-control form-control-sm  round"
+                      placeholder="search settings"/>
+                  <div className="form-control-position">
+                      <i className="feather icon-search pl-1 pt-1"></i>
+                  </div>
+
+              </fieldset>
+                </section>
+
+                 </li>
+
+                 <div className="settings-nav pb-5 bg-white">
+                 <ul class="nav flex-column ">
+                   <li class="nav-item">
+                     <Link class="nav-link ml-2" to={'/account/setup/org-profile'}>
+                     <i className="feather icon-users"></i>
+                     Organization Profile</Link>
+                   </li>
+                   <li class="nav-item">
+                     <Link class="nav-link ml-2" to={'/account/setup/user-role'}>
+                      <i className="feather icon-users"></i>
+                     Users & Roles</Link>
+                   </li>
+                   <li class="nav-item">
+
+                     <Link class="nav-link ml-2" to={'/account/setup/warehouse'}>
+                     <i className="feather icon-home"></i>
+                     Warehouse</Link>
+                   </li>
+                   <li class="nav-item">
+                     <Link class="nav-link ml-2" to={'/account/setup/branches'}>
+                     <i className="fa fa-building"></i>
+                     Branches</Link>
+                   </li>
+
+                 </ul>
+                 </div>
+
+              </ul>
               </li>
               <li className="dropdown dropdown-notification nav-item"><a className="nav-link nav-link-label" href="#" data-toggle="dropdown"><i className="ficon feather icon-info"></i></a>
-                <ul className="dropdown-menu dropdown-menu-media dropdown-menu-right">
-                  <li className="dropdown-menu-header">
-                    <h6 className="dropdown-header m-0"><span className="grey darken-2">Settings</span><span className="notification-tag badge badge-warning float-right m-0">4 New</span></h6>
-                  </li>
-                  <li className="scrollable-container media-list"><a href="javascript:void(0)">
-                      <div className="media">
-                        <div className="media-left">
-                          <div className="avatar avatar-online avatar-sm ed-circle"><img src="/app-assets/images/portrait/small/avatar-s-1.png" alt="avatar"/><i></i></div>
-                        </div>
-                        <div className="media-body">
-                          <h6 className="media-heading">Margaret Govan</h6>
-                          <p className="notification-text font-small-3 text-muted">I like your portfolio, let's start.</p><small>
-                            <time className="media-meta text-muted" datetime="2015-06-11T18:29:20+08:00">Today</time></small>
-                        </div>
-                      </div></a><a href="javascript:void(0)">
-                      <div className="media">
-                        <div className="media-left"><span className="avatar avatar-sm avatar-busy ed-circle"><img src="/app-assets/images/portrait/small/avatar-s-2.png" alt="avatar"/><i></i></span></div>
-                        <div className="media-body">
-                          <h6 className="media-heading">Bret Lezama</h6>
-                          <p className="notification-text font-small-3 text-muted">I have seen your work, there is</p><small>
-                            <time className="media-meta text-muted" datetime="2015-06-11T18:29:20+08:00">Tuesday</time></small>
-                        </div>
-                      </div></a>
+              <ul className="dropdown-menu dropdown-menu-media dropdown-menu-right color-light">
+                <li className="scrollable-container media-list">
 
-                      </li>
-                  <li className="dropdown-menu-footer"><a className="dropdown-item text-muted text-center" href="javascript:void(0)">Read all messages</a></li>
-                </ul>
+                <section className="search-container p-1 " >
+                <p>Settings</p>
+                <fieldset className="form-group position-relative has-icon-left">
+                  <input type="text" class="form-control form-control-sm  round"
+                      placeholder="search settings"/>
+                  <div className="form-control-position">
+                      <i className="feather icon-search pl-1 pt-1"></i>
+                  </div>
+
+              </fieldset>
+                </section>
+
+                 </li>
+
+                 <div className="settings-nav pb-5 bg-white">
+                 <ul class="nav flex-column ">
+                   <li class="nav-item">
+                     <Link class="nav-link ml-2" to={'/account/setup/org-profile'}>
+                     <i className="feather icon-users"></i>
+                     Organization Profile</Link>
+                   </li>
+                   <li class="nav-item">
+                     <Link class="nav-link ml-2" to={'/account/setup/user-role'}>
+                      <i className="feather icon-users"></i>
+                     Users & Roles</Link>
+                   </li>
+                   <li class="nav-item">
+
+                     <Link class="nav-link ml-2" to={'/account/setup/warehouse'}>
+                     <i className="feather icon-home"></i>
+                     Warehouse</Link>
+                   </li>
+                   <li class="nav-item">
+                     <Link class="nav-link ml-2" to={'/account/setup/branches'}>
+                     <i className="fa fa-building"></i>
+                     Branches</Link>
+                   </li>
+
+                 </ul>
+                 </div>
+
+              </ul>
               </li>
 
             </ul>
