@@ -75,7 +75,6 @@ export const getProductDetailReducer = (state = {
             return {
                 loading: false,
                 product:action.product,
-                product:action.product,
                 taxes:action.taxes,
                 manufacturers:action.manufacturers,
                 brands:action.brands,

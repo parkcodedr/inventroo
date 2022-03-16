@@ -11,7 +11,6 @@ import {getProducts,getProductDetail} from '../store/actions/product';
 const AddInventoryAdjustment = ()=>{
     const dispatch = useDispatch();
     const history = useHistory();
-    const [selectedProduct,setSelectedProduct] = useState({});
     const [adjustmentMode,setAdjustmentMode] = useState("quantity");
     const [form,setForm] = useState([
       {
@@ -36,7 +35,7 @@ const AddInventoryAdjustment = ()=>{
     const { products, error, loading} = useSelector((state) => state.products);
     const { product,loading:productLoading} = useSelector((state) => state.productDetail);
     const {register,formState: { errors },handleSubmit} = useForm();
-
+    const { token} = useSelector((state) => state.auth);
 
     // if(success){
 
@@ -108,41 +107,38 @@ const prevIsValid = ()=>{
 
 
 const updateInput = (index,product)=>{
-  let data = [...form];
-  console.log({product});
-  data[index].cost_price = product.cost_price;
-  data[index].opening_stock = product.opening_stock;
-  data[index].sale_price=product.sale_price;
-  setForm(data);
-
+  form.map((item, index) => {
+    const allPrev = [...form];
+    form[index].opening_stock = product.opening_stock;
+    console.log(index);
+    setForm(allPrev);
+  });
 }
 
   const handleChange = (index,event)=>{
     event.preventDefault();
     event.persist();
-    
-    if(event.target.name=="product_id"){
-      if(!product){
-        console.log("changed");
-        console.log(event.target.value);
-        dispatch(getProductDetail(Number(event.target.value)));
-      }else{
-        if(product.productID!=event.target.value){
-          console.log("worked");
-          dispatch(getProductDetail(Number(event.target.value)));
-        }
-      }
+    // if(event.target.name=="product_name"){
+    //   dispatch(getProductDetail(Number(form[index].product_name)));
+    //  if(product){
+    //   setForm((prev)=>{
+    //     console.log(prev);
+    //     return prev.map((item,i)=>{
+    //         if(i!==index){
+    //             return item;
+    //         }
 
-    if(product){
-      console.log({product});
-      updateInput(index,product);
-      if(!productLoading){
-        setSelectedProduct(product);
-      }
-    }
-      
-  
-    }
+    //         return {
+    //             ...item,
+    //             ["cost_price"]:product.cost_price,
+    //             ["sale_price"]:product.sale_price,
+    //             ["opening_stock"]:product.opening_stock,
+               
+    //         }
+    //     })
+    // })
+    //  }
+    // }
     setForm((prev)=>{
         return prev.map((item,i)=>{
             if(i!==index){
@@ -179,15 +175,14 @@ const handleAdjustmentMode = (e)=>{
       dispatch(getProducts());
     },[])
 
-    console.log({selectedProduct});
-
     if(loading) return <Loader/>
     
 
     return(
         <div className="content-body">
             <h4 className="font-weight-bold">New Adjustment</h4>
-            
+           
+                
             <form onSubmit={handleSubmit(submit)}>
             <div className="row mt-3">
                 {/* {error && <ErrorMessage message={error}/>} */}
@@ -285,8 +280,8 @@ const handleAdjustmentMode = (e)=>{
   </div>
 
 
-  
-  <table className="table group-table">
+  {JSON.stringify(form)}
+  <table className="table group-table table-responsive">
   <thead>
  {adjustmentMode==="quantity"?(
 
@@ -325,13 +320,12 @@ const handleAdjustmentMode = (e)=>{
   ))}
   </select>
   </td>
-  <td ><input type="text" className="form-control" value={productLoading?"...":item.opening_stock} name="opening_stock" onChange={(e)=>handleChange(index,e)}/ ></td>
+  <td ><input type="text" className="form-control" value={item.opening_stock} name="opening_stock" onChange={(e)=>handleChange(index,e)}/ ></td>
   <td><input type="text" className="form-control" value={item.new_stock_in_hand} name="new_stock_in_hand" onChange={(e)=>handleChange(index,e)} /></td>
   <td><input type="text" className="form-control" value={item.quantity_adjusted} name="quantity_adjusted" onChange={(e)=>handleChange(index,e)} /></td>
   <td><input type="text" className="form-control" value={item.sale_price} name="sale_price"  onChange={(e)=>handleChange(index,e)}/></td>
   <td><input type="text" className="form-control" value={item.cost_price} name="cost_price"  onChange={(e)=>handleChange(index,e)}/></td>
   <td><i className="feather icon-trash btn btn-danger" onClick={(e)=>handleRemove(e,index)}></i></td>
-  
   </tr>
 
     ):(
@@ -359,16 +353,16 @@ const handleAdjustmentMode = (e)=>{
 </tbody>
 
 </table>
-  
-    
-
-</div>
-<input className="btn btn-outline-main" onClick={handleAddMore}  value="Add another line" type="button"/>
+  <div className="row">
+    <input className="btn btn-outline-main" onClick={handleAddMore}  value="Add another line" type="button"/>
+  </div>
   <div className="d-flex mt-3">
       <button className="btn btn-main mr-1">Save as Draft</button>
       <button className="btn btn-outline-main mr-1" type="submit">Convert to Adjusted</button>
     <button className="btn btn-outline-main">Cancel</button>
     </div>
+
+</div>
                 </form>
                
          
