@@ -11,12 +11,11 @@ import {getProducts,getProductDetail} from '../store/actions/product';
 const AddInventoryAdjustment = ()=>{
     const dispatch = useDispatch();
     const history = useHistory();
-    const [selectedProduct,setSelectedProduct] = useState({});
     const [adjustmentMode,setAdjustmentMode] = useState("quantity");
     const [form,setForm] = useState([
       {
-        product_id:"",
-        opening_stock:"",
+        product_id:0,
+        opening_stock:0,
         cost_price:0,
         sale_price:0,
         new_stock_in_hand:0,
@@ -45,12 +44,42 @@ const AddInventoryAdjustment = ()=>{
     //     notify("success","Price List Added Successfully");
     //   }
 
+    // {"product_id": 2, "current_value": 2000,
+    // "changed_value": 3000, "adjustment_value": "+50", 
+    //"quantity_available": 20, "quantity_on_hand": 15, 
+    //"adjusted_quantity_value": "-25",
+    //  "purchase_price": 3040, "cost_price": 3500}
+
     const submit = (data)=>{
         console.log(data);
-        //dispatch(addPriceList(data));
+        const adjustedProducts = [];
+        form.map(item=>{
+          adjustedProducts.push({
+            "current_value":item.current_value,
+            "changed_value":item.changed_value,
+            "adjustment_value":item.adjustment_value,
+            "quantity_available":item.opening_stock,
+            "quantity_on_hand":Number(item.new_stock_in_hand),
+            "adjusted_quantity_value":item.quantity_adjusted,
+            "purchase_price":item.sale_price,
+            "cost_price":item.cost_price,
+
+          })
+        })
+        const params = {};
+        params.reference = data.reference;
+        params.adjustment_type = adjustmentMode;
+        params.account_id = data.account;
+        params.description = data.description;
+        params.reason = data.reason;
+        params.products=adjustedProducts;
+        console.log(params);
+        console.log(data);
     }
 
-
+    // if(product){
+    //   setSelectedProduct(product);
+    // }
     
 const prevIsValid = ()=>{
   if (form.length === 0) {
@@ -101,20 +130,36 @@ const prevIsValid = ()=>{
     }
 
       if(prevIsValid()){
-
           setForm(prev=>[...prev,inputState]);
       }
   }
 
 
+
+
 const updateInput = (index,product)=>{
+  if(product){
   let data = [...form];
-  console.log({product});
+  console.log({index});
   data[index].cost_price = product.cost_price;
   data[index].opening_stock = product.opening_stock;
   data[index].sale_price=product.sale_price;
   setForm(data);
+  }
 
+}
+const handleQuantityonHande = (index,event)=>{
+ 
+    let data = [...form];
+    console.log({index});
+    data[index].new_stock_in_hand =(Number(data[index].opening_stock) + Number(data[index].quantity_adjusted));
+    setForm(data);
+}
+
+const handleQuantityAdjusted = (index,event)=>{
+  let data = [...form];
+  data[index].quantity_adjusted =(Number(data[index].new_stock_in_hand) - Number(data[index].opening_stock)); 
+  setForm(data);
 }
 
   const handleChange = (index,event)=>{
@@ -122,27 +167,10 @@ const updateInput = (index,product)=>{
     event.persist();
     
     if(event.target.name=="product_id"){
-      if(!product){
-        console.log("changed");
-        console.log(event.target.value);
-        dispatch(getProductDetail(Number(event.target.value)));
-      }else{
-        if(product.productID!=event.target.value){
-          console.log("worked");
-          dispatch(getProductDetail(Number(event.target.value)));
-        }
-      }
+      const oldProduct = products.find(record=>record.productID==event.target.value);
+        updateInput(index,oldProduct); 
+    }
 
-    if(product){
-      console.log({product});
-      updateInput(index,product);
-      if(!productLoading){
-        setSelectedProduct(product);
-      }
-    }
-      
-  
-    }
     setForm((prev)=>{
         return prev.map((item,i)=>{
             if(i!==index){
@@ -167,7 +195,6 @@ const updateInput = (index,product)=>{
 
 const handleRemove = (e,index)=>{
   e.preventDefault();
-  console.log(index);
   setForm(prev=>prev.filter((item)=>item!==prev[index]));
 }
 
@@ -175,15 +202,16 @@ const handleAdjustmentMode = (e)=>{
   setAdjustmentMode(e.target.value);
 }
 
+
+
     useEffect(()=>{
       dispatch(getProducts());
     },[])
 
-    console.log({selectedProduct});
+   
 
     if(loading) return <Loader/>
     
-
     return(
         <div className="content-body">
             <h4 className="font-weight-bold">New Adjustment</h4>
@@ -284,7 +312,7 @@ const handleAdjustmentMode = (e)=>{
   </div>
   </div>
 
-
+{JSON.stringify(form)}
   
   <table className="table group-table">
   <thead>
@@ -325,9 +353,9 @@ const handleAdjustmentMode = (e)=>{
   ))}
   </select>
   </td>
-  <td ><input type="text" className="form-control" value={productLoading?"...":item.opening_stock} name="opening_stock" onChange={(e)=>handleChange(index,e)}/ ></td>
-  <td><input type="text" className="form-control" value={item.new_stock_in_hand} name="new_stock_in_hand" onChange={(e)=>handleChange(index,e)} /></td>
-  <td><input type="text" className="form-control" value={item.quantity_adjusted} name="quantity_adjusted" onChange={(e)=>handleChange(index,e)} /></td>
+  <td ><input type="text" className="form-control" value={item.opening_stock} name="opening_stock" onChange={(e)=>handleChange(index,e)}/ ></td>
+  <td><input type="text" className="form-control" value={item.new_stock_in_hand} name="new_stock_in_hand" onChange={(e)=>handleChange(index,e)}  onBlur={(e)=>handleQuantityAdjusted(index,e)} /></td>
+  <td><input type="text" className="form-control" value={item.quantity_adjusted} name="quantity_adjusted" onChange={(e)=>handleChange(index,e)} onBlur={(e)=>handleQuantityonHande(index,e)} /></td>
   <td><input type="text" className="form-control" value={item.sale_price} name="sale_price"  onChange={(e)=>handleChange(index,e)}/></td>
   <td><input type="text" className="form-control" value={item.cost_price} name="cost_price"  onChange={(e)=>handleChange(index,e)}/></td>
   <td><i className="feather icon-trash btn btn-danger" onClick={(e)=>handleRemove(e,index)}></i></td>
