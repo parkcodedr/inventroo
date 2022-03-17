@@ -37,14 +37,14 @@ export const addInventoryAdjustment = (inventoryAdjustment) => {
                 'Content-Type': 'application/json',
                 'Authorization':`Bearer ${token}`
             }
-            ApiService.post("/inventoryAdjustment/add", inventoryAdjustment,{headers})
+            ApiService.post("/inventoryAdj/add", inventoryAdjustment,{headers})
                 .then(response => {
                     dispatch(addInventoryAdjustmentSuccess());
                 }).catch(error => {
                     if (error.response) {
-                        const { message } = error.response.data;
-                        console.log(error.response.data);
-                        dispatch(addInventoryAdjustmentFail(message));
+                        const { ResponseMessage } = error.response.data;
+                        console.log({ResponseMessage});
+                        dispatch(addInventoryAdjustmentFail(ResponseMessage));
 
                     } else if (error.request) {
                         console.log(error);
@@ -89,7 +89,7 @@ export const getInventoryAdjustments = () => {
                 'Content-Type': 'application/json',
                 'Authorization':`Bearer ${token}`
             }
-            ApiService.get("/inventoryAdjustment/all",{headers})
+            ApiService.get("/inventoryAdj/all",{headers})
                 .then(response => {
                     const {inventoryAdjustments} = response.data;
                     dispatch(getInventoryAdjustmentsSuccess(inventoryAdjustments));
@@ -143,7 +143,7 @@ export const getInventoryAdjustmentDetail = (id) => {
                 'Content-Type': 'application/json',
                 'Authorization':`Bearer ${token}`
             }
-            ApiService.get(`/inventoryAdjustment/find?inventoryAdjustmentID=${id}`,{headers})
+            ApiService.get(`/inventoryAdj/find?inventoryAdjustmentID=${id}`,{headers})
                 .then(response => {
                     console.log(response.data);
                     const {inventoryAdjustment} = response.data;
@@ -203,7 +203,7 @@ export const updateInventoryAdjustment = (inventoryAdjustment) => {
                 'Content-Type': 'application/json',
                 'Authorization':`Bearer ${token}`
             }
-            ApiService.post("/inventoryAdjustment/modify",inventoryAdjustment,{headers})
+            ApiService.post("/inventoryAdj/modify",inventoryAdjustment,{headers})
                 .then(response => {
                     //const {manufacturers} = response.data;
                     dispatch(updateInventoryAdjustmentSuccess());
@@ -261,7 +261,7 @@ export const deleteInventoryAdjustment = (id) => {
                 'Content-Type': 'application/json',
                 'Authorization':`Bearer ${token}`
             }
-            ApiService.get(`/inventoryAdjustment/remove?inventoryAdjustmentID=${id}`,{headers})
+            ApiService.get(`/inventoryAdj/remove?inventoryAdjustmentID=${id}`,{headers})
                 .then(response => {
                     dispatch(deleteInventoryAdjustmentSuccess());
                 }).catch(error => {

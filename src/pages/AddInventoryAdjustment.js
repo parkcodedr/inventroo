@@ -5,8 +5,9 @@ import { useHistory} from 'react-router-dom';
 import {notify} from '../components/Toast';
 import Loader from '../components/Loader';
 import { useSelector, useDispatch } from 'react-redux';
-//import {addManufacturer,addManufacturerComplete} from '../store/actions/manufacturer';
+import {addInventoryAdjustment,addInventoryAdjustmentComplete} from '../store/actions/inventoryAdjustment';
 import {getProducts,getProductDetail} from '../store/actions/product';
+import ButtonProcessing from 'components/ButtonProcessing';
 
 const AddInventoryAdjustment = ()=>{
     const dispatch = useDispatch();
@@ -32,23 +33,16 @@ const AddInventoryAdjustment = ()=>{
     }
     ]);
 
+    const { loading:addLoading,success:addSuccess,addError} = useSelector((state) => state.addInventoryAdjustment);
     const { products, error, loading} = useSelector((state) => state.products);
-    const { product,loading:productLoading} = useSelector((state) => state.productDetail);
     const {register,formState: { errors },handleSubmit} = useForm();
 
 
-    // if(success){
-
-    //     dispatch(addManufacturerComplete());
-    //     history.push('/dashboard/price-list/all');
-    //     notify("success","Price List Added Successfully");
-    //   }
-
-    // {"product_id": 2, "current_value": 2000,
-    // "changed_value": 3000, "adjustment_value": "+50", 
-    //"quantity_available": 20, "quantity_on_hand": 15, 
-    //"adjusted_quantity_value": "-25",
-    //  "purchase_price": 3040, "cost_price": 3500}
+    if(addSuccess){
+        dispatch(addInventoryAdjustmentComplete());
+        history.push('/dashboard/inventory-adjustment/all');
+        notify("success","Inventory Adjusted Successfully");
+      }
 
     const submit = (data)=>{
         console.log(data);
@@ -75,11 +69,11 @@ const AddInventoryAdjustment = ()=>{
         params.products=adjustedProducts;
         console.log(params);
         console.log(data);
+        dispatch(addInventoryAdjustment(params));
+        
     }
 
-    // if(product){
-    //   setSelectedProduct(product);
-    // }
+   
     
 const prevIsValid = ()=>{
   if (form.length === 0) {
@@ -144,6 +138,7 @@ const updateInput = (index,product)=>{
   data[index].cost_price = product.cost_price;
   data[index].opening_stock = product.opening_stock;
   data[index].sale_price=product.sale_price;
+  data[index].current_value=product.sale_price;
   setForm(data);
   }
 
@@ -156,9 +151,22 @@ const handleQuantityonHande = (index,event)=>{
     setForm(data);
 }
 
+const handleChangeValue = (index,event)=>{
+ 
+  let data = [...form];
+  data[index].adjusted_value =Number(data[index].changed_value) - Number(data[index].current_value);
+  setForm(data);
+}
+
 const handleQuantityAdjusted = (index,event)=>{
   let data = [...form];
   data[index].quantity_adjusted =(Number(data[index].new_stock_in_hand) - Number(data[index].opening_stock)); 
+  setForm(data);
+}
+
+const handleValueAdjusted = (index,event)=>{
+  let data = [...form];
+  data[index].changed_value =(Number(data[index].current_value) + Number(data[index].adjusted_value)); 
   setForm(data);
 }
 
@@ -167,8 +175,8 @@ const handleQuantityAdjusted = (index,event)=>{
     event.persist();
     
     if(event.target.name=="product_id"){
-      const oldProduct = products.find(record=>record.productID==event.target.value);
-        updateInput(index,oldProduct); 
+      const selectedProduct = products.find(record=>record.productID==event.target.value);
+        updateInput(index,selectedProduct); 
     }
 
     setForm((prev)=>{
@@ -215,10 +223,12 @@ const handleAdjustmentMode = (e)=>{
     return(
         <div className="content-body">
             <h4 className="font-weight-bold">New Adjustment</h4>
-            
+           
+            {error && <ErrorMessage message={error}/>}
             <form onSubmit={handleSubmit(submit)}>
             <div className="row mt-3">
-                {/* {error && <ErrorMessage message={error}/>} */}
+            {addError && <ErrorMessage message={addError}/>}
+                
   <div className="col-md-8">
 <div className="form-group row">
     <label htmlFor="name" className="col-sm-3 col-form-label text-danger">
@@ -287,12 +297,12 @@ const handleAdjustmentMode = (e)=>{
     <div className="col-sm-9">
     <select class="custom-select" name="reason" {...register("reason", { required: "Reason is required" })}>
     <option>Select a reason</option>
-    <option value="1">Stock on fire</option>
-      <option value="2">Stolen goods</option>
-      <option value="3">Damaged goods</option>
-      <option value="4">Stock Writen off</option>
-      <option value="5">stocktaking results</option>
-      <option value="6">Inventory Revaluation</option>
+    <option value="Stock on fire">Stock on fire</option>
+      <option value="Stolen goods">Stolen goods</option>
+      <option value="Damaged goods">Damaged goods</option>
+      <option value="Stock Writen off">Stock Writen off</option>
+      <option value="Stocktaking results">Stocktaking results</option>
+      <option value="Inventory Revaluation">Inventory Revaluation</option>
 
 
     </select>
@@ -305,14 +315,13 @@ const handleAdjustmentMode = (e)=>{
         Description</label>
     <div className="col-sm-9">
       <textarea className="form-control" name="description"
-       {...register("decription")} rows={5} cols={4}
+       {...register("description", { required: "Description is required" })} rows={5} cols={4}
        ></textarea>
-
+ <span className="text-danger text-center">{errors.description?.message}</span>
     </div>
   </div>
   </div>
 
-{JSON.stringify(form)}
   
   <table className="table group-table">
   <thead>
@@ -374,8 +383,8 @@ const handleAdjustmentMode = (e)=>{
   </td>
 
   <td><input type="text" className="form-control" value={item.current_value} name="current_value" onChange={(e)=>handleChange(index,e)} /></td>
-  <td><input type="text" className="form-control" value={item.changed_value} name="changed_value" onChange={(e)=>handleChange(index,e)} /></td>
-  <td><input type="text" className="form-control" value={item.adjusted_value} name="adjusted_value"  onChange={(e)=>handleChange(index,e)}/></td>
+  <td><input type="text" className="form-control" value={item.changed_value} name="changed_value" onChange={(e)=>handleChange(index,e)} onBlur={(e)=>handleChangeValue(index,e)} /></td>
+  <td><input type="text" className="form-control" value={item.adjusted_value} name="adjusted_value"  onChange={(e)=>handleChange(index,e)} onBlur={(e)=>handleValueAdjusted(index,e)}  /></td>
   <td><i className="feather icon-trash btn btn-danger" onClick={(e)=>handleRemove(e,index)}></i></td>
   </tr>
     )
@@ -394,7 +403,11 @@ const handleAdjustmentMode = (e)=>{
 <input className="btn btn-outline-main" onClick={handleAddMore}  value="Add another line" type="button"/>
   <div className="d-flex mt-3">
       <button className="btn btn-main mr-1">Save as Draft</button>
-      <button className="btn btn-outline-main mr-1" type="submit">Convert to Adjusted</button>
+      {addLoading? (
+        <ButtonProcessing message ="Convert to Adjusted"/>
+      ):(
+        <button className="btn btn-outline-main mr-1" type="submit">Convert to Adjusted</button>
+      )}
     <button className="btn btn-outline-main">Cancel</button>
     </div>
                 </form>

@@ -17,6 +17,7 @@ import { addTaxReducer, deleteTaxReducer, getTaxDetailReducer, getTaxesReducer, 
 import { addProductReducer, deleteProductReducer, getProductDetailReducer, getProductsReducer, updateProductReducer } from "./product";
 import {addProductGroupReducer,getProductGroupsReducer,updateProductGroupReducer,deleteProductGroupReducer,getProductGroupDetailReducer} from './productGroup';
 import { addPriceListReducer,getPriceListsReducer, getPriceListDetailReducer,updatePriceListReducer,deletePriceListReducer } from "./priceList";
+import { addInventoryAdjustmentReducer } from "./inventoryAdjustment";
 
 const rootReducer = combineReducers({
     auth: authReducer,
@@ -62,6 +63,7 @@ const rootReducer = combineReducers({
     priceListDetail:getPriceListDetailReducer,
     updatePriceList:updatePriceListReducer,
     deletePriceList:deletePriceListReducer,
+    addInventoryAdjustment:addInventoryAdjustmentReducer
 });
 
 export default rootReducer;

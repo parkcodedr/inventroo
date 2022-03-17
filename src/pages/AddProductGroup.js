@@ -71,6 +71,7 @@ const submit = (data)=>{
   productData.append("attributes[]",JSON.stringify(attributes));
 
   dispatch(addProductGroup(productData));
+ 
 }
 
 if(addSuccess){
