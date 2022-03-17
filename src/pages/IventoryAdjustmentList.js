@@ -1,8 +1,9 @@
 
 import {Link} from 'react-router-dom';
 const InventoryAdjustmentList = ()=>{
-    return(
 
+
+    return(
 <div className="content-body">
 <div className="row d-flex justify-content-between ml-2 mr-5 ">
 <div className="">

@@ -40,18 +40,19 @@ const AddInventoryAdjustment = ()=>{
 
     if(addSuccess){
         dispatch(addInventoryAdjustmentComplete());
-        history.push('/dashboard/inventory-adjustment/all');
+        history.push('/dashboard/inventory-adjustment');
         notify("success","Inventory Adjusted Successfully");
       }
 
     const submit = (data)=>{
-        console.log(data);
+        const productParams = new FormData();
         const adjustedProducts = [];
         form.map(item=>{
           adjustedProducts.push({
+            "product_id":item.product_id,
             "current_value":item.current_value,
             "changed_value":item.changed_value,
-            "adjustment_value":item.adjustment_value,
+            "adjustment_value":item.adjusted_value,
             "quantity_available":item.opening_stock,
             "quantity_on_hand":Number(item.new_stock_in_hand),
             "adjusted_quantity_value":item.quantity_adjusted,
@@ -60,16 +61,17 @@ const AddInventoryAdjustment = ()=>{
 
           })
         })
-        const params = {};
-        params.reference = data.reference;
-        params.adjustment_type = adjustmentMode;
-        params.account_id = data.account;
-        params.description = data.description;
-        params.reason = data.reason;
-        params.products=adjustedProducts;
-        console.log(params);
+        
+        productParams.append("reference",data.reference);
+        productParams.append("adjustment_type",adjustmentMode);
+        productParams.append("account_id",data.account);
+        productParams.append("description",data.description);
+        productParams.append("reason",data.reason);
+        productParams.append("products[]",JSON.stringify(adjustedProducts[0]));
+        
         console.log(data);
-        dispatch(addInventoryAdjustment(params));
+        
+        dispatch(addInventoryAdjustment(productParams));
         
     }
 
