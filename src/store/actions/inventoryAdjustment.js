@@ -91,8 +91,9 @@ export const getInventoryAdjustments = () => {
             }
             ApiService.get("/inventoryAdj/all",{headers})
                 .then(response => {
-                    const {inventoryAdjustments} = response.data;
-                    dispatch(getInventoryAdjustmentsSuccess(inventoryAdjustments));
+                    const {inventory_adjustments} = response.data;
+                    console.log(response.data);
+                    dispatch(getInventoryAdjustmentsSuccess(inventory_adjustments));
                 }).catch(error => {
                     if (error.response) {
                         const { message } = error.response.data;

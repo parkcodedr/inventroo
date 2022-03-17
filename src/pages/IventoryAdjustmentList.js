@@ -1,11 +1,48 @@
-
+import React,{useEffect} from 'react';
 import {Link} from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import {notify} from '../components/Toast';
+import {ErrorMessage} from '../components/Message';
+import Loader from '../components/Loader';
+import {getInventoryAdjustments,deleteInventoryAdjustment,deleteInventoryAdjustmentComplete} from '../store/actions/inventoryAdjustment';
+
+
 const InventoryAdjustmentList = ()=>{
+  const dispatch = useDispatch();
+  const {loading,error,inventoryAdjustments} = useSelector((state) => state.inventoryAdjustment);
+  const deleteState = useSelector((state) => state.deleteInventoryAdjustment);
+  const {loading:deleteLoading,error:deleteError,success:deleteSuccess} = deleteState;
 
 
-    return(
+
+
+
+
+  useEffect(()=>{
+    if(deleteSuccess){
+        notify("success","Inventory Adjustment Deleted Successfully");
+        dispatch(deleteInventoryAdjustmentComplete())
+    }
+    dispatch(getInventoryAdjustments());
+},[dispatch,deleteSuccess])
+
+const deleteHandler =(inventoryAdjustment)=>{
+  if(window.confirm('Are You Sure to Delete?')){
+    dispatch(deleteInventoryAdjustment(Number(inventoryAdjustment.iventoryAdjustmentID)));
+  }
+}
+
+  return(
 <div className="content-body">
-<div className="row d-flex justify-content-between ml-2 mr-5 ">
+  {
+loading? (
+  <Loader/>
+):error?(
+  error && <ErrorMessage message={error} />
+):(
+
+<>
+  <div className="row d-flex justify-content-between ml-2 mr-5 ">
 <div className="">
   <h3 className="font-weight-bold">
   Inventory Adjustment
@@ -60,74 +97,54 @@ const InventoryAdjustmentList = ()=>{
     
 
     <div className="mx-auto">
-    <table className="table table-striped table-responsive-sm">
+    <table className="table ">
   <thead className="btn-main p-1">
     <tr>
-      <th>Name</th>
-      <th >SKU</th>
-      <th >STOCK ON HAND</th>
-      <th >REORDER POINT</th>
+      <th>Date</th>
+      <th >Reason</th>
+      <th >Description</th>
+      <th >Status</th>
+      <th >Reference</th>
+      <th >Type</th>
+      <th >Created By</th>
+      <th >Action</th>
     </tr>
   </thead>
   <tbody>
-      <tr>
-          <td>Milk</td>
-          <td>7656</td>
-          <td>908976</td>
-          <td>21</td>
-    </tr>
-    <tr>
-          <td>Milk</td>
-          <td>7656</td>
-          <td>908976</td>
-          <td>21</td>
-    </tr>
-    <tr>
-          <td>Milk</td>
-          <td>7656</td>
-          <td>908976</td>
-          <td>21</td>
-    </tr>
-    <tr>
-          <td>Milk</td>
-          <td>7656</td>
-          <td>908976</td>
-          <td>21</td>
-    </tr>
-    <tr>
-          <td>Milk</td>
-          <td>7656</td>
-          <td>908976</td>
-          <td>21</td>
-    </tr>
-    <tr>
-          <td>Milk</td>
-          <td>7656</td>
-          <td>908976</td>
-          <td>21</td>
-    </tr>
-    <tr>
-          <td>Milk</td>
-          <td>7656</td>
-          <td>908976</td>
-          <td>21</td>
-    </tr>
-    <tr>
-          <td>Milk</td>
-          <td>7656</td>
-          <td>908976</td>
-          <td>21</td>
-    </tr>
-    <tr>
-          <td>Milk</td>
-          <td>7656</td>
-          <td>908976</td>
-          <td>21</td>
-    </tr>
+  {inventoryAdjustments && inventoryAdjustments.map(inventoryAdjustment=>(
+   <tr key={inventoryAdjustment.inventoryAdjustmentID}>
+                  <td>{inventoryAdjustment.date_created}</td>
+                  <td>{inventoryAdjustment.reason}</td>
+                  <td>{inventoryAdjustment.description}</td>
+                  <td>{inventoryAdjustment.status}</td>
+                  <td>{inventoryAdjustment.reference_no}</td>
+                  <td>{inventoryAdjustment.adjustment_type}</td>
+                  
+                  <td>{inventoryAdjustment.created_by?.name}</td>
+                  
+
+                  <td>
+                    <Link to={`/dashboard/inventory-adjustment/${inventoryAdjustment.iventoryAdjustmentID}/edit`}>
+                    <button className="btn btn-warning mr-1">
+                <i className="feather icon-edit"></i>
+                </button>
+                    </Link>
+  
+                <button className="btn btn-danger" onClick={()=>deleteHandler(inventoryAdjustment)}>
+                <i className="feather icon-trash-2"></i>
+                </button>
+                </td>
+                  </tr>
+        ))}
+    
   </tbody>
   </table>
     </div>
-            
+    </>
+)
+  }
+
+        
 
 </div>
 

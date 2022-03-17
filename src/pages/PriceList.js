@@ -2,7 +2,6 @@ import React,{useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import {notify} from '../components/Toast';
-import Spinner from '../components/Spinner';
 import {ErrorMessage} from '../components/Message';
 import Loader from '../components/Loader';
 import {getPriceLists,deletePriceList,deletePriceListComplete} from '../store/actions/priceList';
