@@ -2,7 +2,7 @@ import React,{useEffect,useState} from 'react';
 import {Link,useHistory} from 'react-router-dom';
 import { useTitle } from 'components/hooks/useTitle';
 import {loginUser} from 'store/actions/auth';
-import {getModules} from 'store/actions/modules';
+import {ErrorMessage} from '../components/Message';
 import {useDispatch,useSelector} from 'react-redux';
 
 const Login = ()=>{
@@ -49,9 +49,10 @@ const Login = ()=>{
     },[])
 return(
     <div className="app-content content">
+       
     <div className="content-overlay"></div>
     <div className="content-wrapper">
-
+    
       <div className="row justify-content-center">
 
                   <img src="/app-assets/images/logo/troo-logo-color2.png"
@@ -71,9 +72,10 @@ return(
                       <span className="">
                           <strong>Login</strong></span></h4>
                   <div className="card-body pt-0">
-                  <h5 className="text-danger text-center">
-                      {error && error}
-                  </h5>
+                  <p className="text-danger text-center">
+                  {error && <ErrorMessage message={error} />}
+                  </p>
+                 
                       <form className="form-horizontal" onSubmit={login}>
                           <fieldset className="form-group floating-label-form-group">
                               <label htmlFor="user-name">Email</label>

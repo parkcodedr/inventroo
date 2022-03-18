@@ -76,7 +76,7 @@ export const getInventoryAdjustmentDetailReducer = (state = {
             return {
                 loading: false,
                 inventoryAdjustment:action.inventoryAdjustment,
-                
+                products:action.products,
                 error: ""
             }
         

@@ -97,17 +97,17 @@ loading? (
     
 
     <div className="mx-auto">
-    <table className="table ">
+    <table className="table group-table ">
   <thead className="btn-main p-1">
     <tr>
-      <th>Date</th>
-      <th >Reason</th>
-      <th >Description</th>
-      <th >Status</th>
-      <th >Reference</th>
-      <th >Type</th>
-      <th >Created By</th>
-      <th >Action</th>
+      <th scope="col">Date</th>
+      <th  scope="col">Reason</th>
+      <th  scope="col">Description</th>
+      <th  scope="col">Status</th>
+      <th  scope="col">Reference</th>
+      <th  scope="col">Type</th>
+      <th  scope="col">Created By</th>
+      <th  scope="col">Action</th>
     </tr>
   </thead>
   <tbody>

@@ -24,7 +24,7 @@ const EditPriceList= ()=>{
     const { priceList, error, loading} = priceListDetail;
     const updateState = useSelector((state) => state.updatePriceList);
     const { success:updateSuccess, error:updateError, loading:updateLoading} = updateState;
-    const { token} = useSelector((state) => state.auth);
+  
 
     if(updateSuccess){
         history.push('/dashboard/price-list/all');
@@ -37,7 +37,7 @@ const EditPriceList= ()=>{
             dispatch(getPriceListDetail(id));
         }else{
             reset({
-              name:priceList.name,
+            name:priceList.name,
             type:priceList.type,
             description:priceList.description,
             percentage:priceList.percentage,

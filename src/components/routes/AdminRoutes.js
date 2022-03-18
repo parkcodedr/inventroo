@@ -25,6 +25,7 @@ import {Warehouse,
   Tag,
   EditPriceList,
   Dashboard,
+  EditInventoryAdjustment
 } from '../../pages';
 
 
@@ -163,6 +164,11 @@ export const routes = [
       path: "/dashboard/inventory-adjustment/new",
       exact: true,
       main: () => <AddInventoryAdjustment/>
+    },
+    {
+      path: "/dashboard/inventory-adjustment/:inventoryAdjustmentId/edit",
+      exact: true,
+      main: () => <EditInventoryAdjustment/>
     },
     {
       path: "/dashboard/packages",

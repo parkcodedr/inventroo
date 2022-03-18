@@ -119,10 +119,11 @@ export const getInventoryAdjustmentDetailStart = () => {
     };
 };
 
-export const getInventoryAdjustmentDetailSuccess = (inventoryAdjustment) => {
+export const getInventoryAdjustmentDetailSuccess = (inventoryAdjustment,products) => {
     return {
         type: actionTypes.GET_INVENTORY_ADJUSTMENT_DETAIL_SUCCESS,
         inventoryAdjustment,
+        products,
         
     };
 };
@@ -147,8 +148,8 @@ export const getInventoryAdjustmentDetail = (id) => {
             ApiService.get(`/inventoryAdj/find?inventoryAdjustmentID=${id}`,{headers})
                 .then(response => {
                     console.log(response.data);
-                    const {inventoryAdjustment} = response.data;
-                    dispatch(getInventoryAdjustmentDetailSuccess(inventoryAdjustment));
+                    const {inventory_adjustment,products} = response.data;
+                    dispatch(getInventoryAdjustmentDetailSuccess(inventory_adjustment,products));
                 }).catch(error => {
                     if (error.response) {
                         const { message } = error.response.data;
