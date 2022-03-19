@@ -38,6 +38,7 @@ const Login = ()=>{
     document.body.classList.remove("fixed-navbar");
     document.body.classList.remove("vertical-layout");
     document.body.classList.remove("vertical-menu-modern");
+    document.body.setAttribute("data-col","");
     return ()=>{
       document.body.classList.add("vertical-layout");
       document.body.classList.add("vertical-menu-modern");
@@ -49,7 +50,6 @@ const Login = ()=>{
     },[])
 return(
     <div className="app-content content">
-       
     <div className="content-overlay"></div>
     <div className="content-wrapper">
     
@@ -61,9 +61,9 @@ return(
           </div>
       <div className="content-body">
 
-  <section className="row flexbox-container mt-1 ">
-  <div className="col-md-12 d-flex align-items-center justify-content-center">
-      <div className="col-md-3 p-0 ">
+  <section className="row mt-1 ">
+  <div className="col-md-12 col-sm-12 col-lg-12 d-flex align-items-center justify-content-center">
+      <div className="col-lg-3 p-0 ">
           <div className="card p-1 shadow-none  border-main 3 m-0" style={{ borderRadius:'20px' }}>
 
               <div className="card-content mt-5 ">

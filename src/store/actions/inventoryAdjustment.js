@@ -207,12 +207,11 @@ export const updateInventoryAdjustment = (inventoryAdjustment) => {
             }
             ApiService.post("/inventoryAdj/modify",inventoryAdjustment,{headers})
                 .then(response => {
-                    //const {manufacturers} = response.data;
                     dispatch(updateInventoryAdjustmentSuccess());
                 }).catch(error => {
                     if (error.response) {
                         const { ResponseMessage } = error.response.data;
-                        console.log(error.response.data);
+                        console.log(ResponseMessage);
                         dispatch(updateInventoryAdjustmentFail(ResponseMessage));
 
                     } else if (error.request) {

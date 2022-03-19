@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer} from 'react-toastify';
@@ -19,7 +19,6 @@ import {
   PageNotFound} from './pages'
 
 export default function App() {
-
 
     return (
       <div>

@@ -6,7 +6,6 @@ import {notify} from 'components/Toast';
 import Loader from 'components/Loader';
 import { useSelector, useDispatch } from 'react-redux';
 import {updateInventoryAdjustment,getInventoryAdjustmentDetail,updateInventoryAdjustmentComplete} from '../store/actions/inventoryAdjustment';
-import {getProducts} from 'store/actions/product';
 import ButtonProcessing from 'components/ButtonProcessing';
 
 const EditInventoryAdjustment = ()=>{
@@ -24,11 +23,11 @@ const EditInventoryAdjustment = ()=>{
     const [form,setForm] = useState([
       {
         product_id:0,
-        opening_stock:0,
+        quantity_available:0,
         cost_price:0,
-        sale_price:0,
-        new_stock_in_hand:0,
-        quantity_adjusted:0,
+        purchase_price:0,
+        quantity_on_hand:0,
+        adjusted_quantity_value:0,
         current_value:0,
         changed_value:0,
         adjustment_value:0,
@@ -36,7 +35,7 @@ const EditInventoryAdjustment = ()=>{
         errors:{
             product_name:null,
             cost_price:null,
-            sale_price:null,
+            purchase_price:null,
         }
     }
     ]);
@@ -49,13 +48,7 @@ const EditInventoryAdjustment = ()=>{
         dispatch(updateInventoryAdjustmentComplete());
       }
 
-    
-    const submitInventoryAdjustment = (data)=>{
-        data.priceListID = id;
-        dispatch(updateInventoryAdjustment(data));
-    }
-        
-
+ 
 
     if(updateSuccess){
         dispatch(updateInventoryAdjustmentComplete());
@@ -72,15 +65,16 @@ const EditInventoryAdjustment = ()=>{
             "current_value":item.current_value,
             "changed_value":item.changed_value,
             "adjustment_value":item.adjustment_value,
-            "quantity_available":item.opening_stock,
-            "quantity_on_hand":Number(item.new_stock_in_hand),
-            "adjusted_quantity_value":item.quantity_adjusted,
-            "purchase_price":item.sale_price,
+            "quantity_available":item.quantity_available,
+            "quantity_on_hand":Number(item.quantity_on_hand),
+            "adjusted_quantity_value":item.adjusted_quantity_value,
+            "purchase_price":item.purchase_price,
             "cost_price":item.cost_price,
 
           })
         })
-        
+    
+        productParams.append("inventoryAdjustmentID",inventoryAdjustment.iventoryAdjustmentID);
         productParams.append("reference",data.reference);
         productParams.append("adjustment_type",adjustmentMode);
         productParams.append("account_id",data.account);
@@ -125,11 +119,11 @@ const prevIsValid = ()=>{
       e.preventDefault();
       const inputState = {
         product_id:"",
-        opening_stock:"",
+        quantity_available:"",
         cost_price:0,
-        sale_price:0,
-        new_stock_in_hand:0,
-        quantity_adjusted:0,
+        purchase_price:0,
+        quantity_on_hand:0,
+        adjusted_quantity_value:0,
         current_value:0,
         changed_value:0,
         adjustment_value:0,
@@ -138,7 +132,7 @@ const prevIsValid = ()=>{
         errors:{
             product_id:null,
             cost_price:null,
-            sale_price:null,
+            purchase_price:null,
         }
     }
 
@@ -153,9 +147,9 @@ const updateInput = (index,product)=>{
   let data = [...form];
   console.log({index});
   data[index].cost_price = product.cost_price;
-  data[index].opening_stock = product.opening_stock;
-  data[index].sale_price=product.sale_price;
-  data[index].current_value=product.sale_price;
+  data[index].quantity_available = product.quantity_available;
+  data[index].purchase_price=product.purchase_price;
+  data[index].current_value=product.purchase_price;
   setForm(data);
   }
 
@@ -164,7 +158,7 @@ const handleQuantityonHande = (index,event)=>{
  
     let data = [...form];
     console.log({index});
-    data[index].new_stock_in_hand =(Number(data[index].opening_stock) + Number(data[index].quantity_adjusted));
+    data[index].quantity_on_hand =(Number(data[index].quantity_available) + Number(data[index].adjusted_quantity_value));
     setForm(data);
 }
 
@@ -177,7 +171,7 @@ const handleChangeValue = (index,event)=>{
 
 const handleQuantityAdjusted = (index,event)=>{
   let data = [...form];
-  data[index].quantity_adjusted =(Number(data[index].new_stock_in_hand) - Number(data[index].opening_stock)); 
+  data[index].adjusted_quantity_value =(Number(data[index].quantity_on_hand) - Number(data[index].quantity_available)); 
   setForm(data);
 }
 
@@ -233,7 +227,7 @@ const handleAdjustmentMode = (e)=>{
             dispatch(getInventoryAdjustmentDetail(id));
         }else{
             reset({
-                reference:inventoryAdjustment.reference,
+                reference:inventoryAdjustment.reference_no,
                 account:inventoryAdjustment.account_id,
                 reason:inventoryAdjustment.reason,
                 description:inventoryAdjustment.description,
@@ -241,9 +235,14 @@ const handleAdjustmentMode = (e)=>{
   
             })
             setAdjustmentMode(inventoryAdjustment.adjustment_type);
-            setForm(inventoryAdjustment.adjustmentProducts);
+            const {adjustmentProducts} = inventoryAdjustment;
+            const selectedProduct = adjustmentProducts.map(item=>{
+              item.product_id = item.product.id;
+              return item;
+            })
+            setForm(selectedProduct);
         }
-    },[])
+    },[inventoryAdjustment,id])
    
 
     if(loading) return <Loader/>
@@ -262,13 +261,14 @@ const handleAdjustmentMode = (e)=>{
 <div className="row mt-3">
 
 <div className="col-md-8">
+  {updateError && <ErrorMessage message={updateError}/>}
 <div className="form-group row">
     <label htmlFor="name" className="col-sm-3 col-form-label text-danger">
         Mode of Adjustment</label>
     <div className="col-sm-9">
     <div class="form-check">
   <input class="form-check-input" type="radio" name="adjustmentMode"
-   value="quantity" checked={adjustmentMode==="quantity"} onChange={handleAdjustmentMode}
+   value="quantity" checked={adjustmentMode==="quantity"} disabled={adjustmentMode!=="quantity"} onChange={handleAdjustmentMode}
    />
   <label class="form-check-label">
     Quantity Adjustment
@@ -276,7 +276,7 @@ const handleAdjustmentMode = (e)=>{
 </div>
 <div class="form-check mt-1">
   <input class="form-check-input" value="value" type="radio" name="adjustmentMode"
-  onChange={handleAdjustmentMode} checked={adjustmentMode==="value"}
+  onChange={handleAdjustmentMode} checked={adjustmentMode==="value"} disabled={adjustmentMode!=="value"}
    />
   <label class="form-check-label" htmlFor="adjustmentMode">
     Value Adjustment
@@ -290,13 +290,8 @@ const handleAdjustmentMode = (e)=>{
         Reference Number</label>
 
     <div className="col-sm-9">
-    <select class="custom-select" name="reference" {...register("reference")} >
-    <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-
-    </select>
-
+    <input className="form-control" disabled name="reference" {...register("reference")} />
+    
     </div>
   </div>
   <div className="form-group row">
@@ -350,7 +345,7 @@ const handleAdjustmentMode = (e)=>{
 </div>
 
 
-<table className="table group-table">
+<table className="table ">
 <thead>
 {adjustmentMode==="quantity"?(
 
@@ -388,12 +383,12 @@ const handleAdjustmentMode = (e)=>{
   </select>
   </td>
   <td >
-      <input type="text" className="form-control" value={item.opening_stock} name="opening_stock" onChange={(e)=>handleChange(index,e)} />
+      <input type="text" className="form-control" value={item.quantity_available} name="quantity_available" onChange={(e)=>handleChange(index,e)} />
 
       </td>
-  <td><input type="text" className="form-control" value={item.new_stock_in_hand} name="new_stock_in_hand" onChange={(e)=>handleChange(index,e)}  onBlur={(e)=>handleQuantityAdjusted(index,e)} /></td>
-  <td><input type="text" className="form-control" value={item.quantity_adjusted} name="quantity_adjusted" onChange={(e)=>handleChange(index,e)} onBlur={(e)=>handleQuantityonHande(index,e)} /></td>
-  <td><input type="text" className="form-control" value={item.sale_price} name="sale_price"  onChange={(e)=>handleChange(index,e)}/></td>
+  <td><input type="text" className="form-control" value={item.quantity_on_hand} name="quantity_on_hand" onChange={(e)=>handleChange(index,e)}  onBlur={(e)=>handleQuantityAdjusted(index,e)} /></td>
+  <td><input type="text" className="form-control" value={item.adjusted_quantity_value} name="adjusted_quantity_value" onChange={(e)=>handleChange(index,e)} onBlur={(e)=>handleQuantityonHande(index,e)} /></td>
+  <td><input type="text" className="form-control" value={item.purchase_price} name="purchase_price"  onChange={(e)=>handleChange(index,e)}/></td>
   <td><input type="text" className="form-control" value={item.cost_price} name="cost_price"  onChange={(e)=>handleChange(index,e)}/></td>
   <td><i className="feather icon-trash btn btn-danger" onClick={(e)=>handleRemove(e,index)}></i></td>
 
@@ -425,11 +420,11 @@ const handleAdjustmentMode = (e)=>{
 </div>
 <input className="btn btn-outline-main" onClick={handleAddMore}  value="Add another line" type="button"/>
   <div className="d-flex mt-3">
-      <button className="btn btn-main mr-1">Save as Draft</button>
+      
       {updateLoading? (
         <ButtonProcessing message ="Save"/>
       ):(
-        <button className="btn btn-outline-main mr-1" type="submit"> Save</button>
+        <button className="btn btn-main mr-1" type="submit"> Save</button>
       )}
     <button className="btn btn-outline-main">Cancel</button>
     </div>

@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {registerUser} from '../store/actions/register';
 import { useHistory} from 'react-router-dom';
 import {notify} from '../components/Toast';
+import { Link } from 'react-router-dom';
 
 
 export const Register = () => {
@@ -11,9 +12,8 @@ export const Register = () => {
     const history = useHistory();
     const dispatch = useDispatch();
     const { success, error, loading } = useSelector((state) => state.register);
-    //useTitle('Inventroo | Register');
-    console.log(success);
-
+    useTitle('Inventroo | Register');
+   
 const [businessName,setBusinessName]= useState("");
 const [email,setEmail] = useState("");
 const [password,setPassword] =useState("");
@@ -59,25 +59,20 @@ useEffect(()=>{
           <div className="content-body">
               <div className="row justify-content-center align-items-center">
               <img src="/app-assets/images/logo/troo-logo-color2.png" 
-                  alt="branding logo" className="mb-2"/>
+                  alt="branding logo" className="mb-1"/>
               </div>
               
       <section className="row flexbox-container">
-          <p className=" m-auto mb-3"><strong>New Account</strong></p>
+          <p className=" m-auto mb-1"><strong>New Account</strong></p>
       <div className="col-md-12 col-sm-12 col-lg-12 d-flex align-items-center justify-content-center mt-1">
           
           <div className="col-lg-3 p-0 ">
               <div className="card p-1 shadow-none  border-main m-0" style={{borderRadius:"20px"}}>
-                  <div className="card-header border-0">
-                      <div className="card-title text-center">
-                          
-                      </div>
-                      
-                  </div>
+                  
                   <div className="card-content">
-                      <h5 className="card-subtitle text-muted mb-1 mx-1 bold">
-                          <span className="">
-                              <strong>Register</strong></span></h5>
+                      <h5 className="card-subtitle text-muted mt-1 mx-1 font-weight-bold">
+                      Register
+                          </h5>
                       <div className="card-body pt-0">
                           <form className="form-horizontal" onSubmit={handleSubmit}>
                               <p className="text-danger">{error && error}</p>
@@ -130,7 +125,7 @@ useEffect(()=>{
                           </form>
                       </div>
                      
-                      
+                      <p className="text-center">Already Register? <Link to={'/login'}>Login here</Link></p>
                   </div>
                   
               </div>
