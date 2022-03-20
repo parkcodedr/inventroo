@@ -258,38 +258,76 @@ a[data-toggle="collapse"] {
 padding:1px;
 }
 
-.tag-container {
-  min-width: 60%;
-  max-width: 75%;
-  display: flex;
-  flex-wrap: wrap;
-  min-height: 30px;
-  border: 1px solid gray;
-  border-radius: 5px;
-  padding: 10px;
-}
-.tag {
-  display: flex;
-  align-items: center;
-  padding: 5px;
-  border: 1px solid gray;
-  border-radius: 5px;
-  height: 25px;
-  margin: 2px 5px 2px 0px;
-  color: green;
+.tags-input {
+	display: flex;
+	align-items: flex-start;
+	flex-wrap: wrap;
+	min-height: 38px;
+	padding: 0 4px;
+	border: 1px solid rgb(214, 216, 218);
+	border-radius: 6px;
 }
 
-.tag-container input {
-  border: none;
-  flex: 1;
-  outline: none;
-  padding: 5;
-  color: green;
+.tags-input:focus-within {
+		border: 1px solid #0052cc;
+	}
+	input {
+		flex: 1;
+		border: none;
+		height: 40px;
+		font-size: 14px;
+		padding: 4px 0 0 0;
+  }
+  input:focus {
+			outline: transparent;
+		}
+
+
+#tags {
+	display: flex;
+	flex-wrap: wrap;
+	padding: 0;
+	margin: 4px 0 0 0;
 }
-.tag span {
-  margin-left: 5px;
-  cursor: pointer;
+
+.tag {
+	width: auto;
+	height: 28px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #fff;
+	padding: 0 4px;
+	font-size: 12px;
+	list-style: none;
+	border-radius: 6px;
+	margin: 0 4px 4px 0;
+	background: #0052cc;
 }
+	.tag-title {
+		margin-top: 2px;
+	}
+	.tag-close-icon {
+		display: block;
+		width: 14px;
+		height: 14px;
+		line-height: 14px;
+		text-align: center;
+		font-size: 14px;
+		margin-left: 6px;
+		color: #0052cc;
+		border-radius: 50%;
+		background: #fff;
+		cursor: pointer;
+	}
+
+
+@media screen and (max-width: 567px) {
+	.tags-input {
+		width: calc(100vw - 32px);
+	}
+}
+
 
 .activity-card{
   border:1px solid #4c27b3;

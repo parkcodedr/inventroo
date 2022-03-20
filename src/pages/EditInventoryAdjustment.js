@@ -345,7 +345,7 @@ const handleAdjustmentMode = (e)=>{
 </div>
 
 
-<table className="table ">
+<table className="table group-table">
 <thead>
 {adjustmentMode==="quantity"?(
 

@@ -171,6 +171,11 @@ export const routes = [
       main: () => <EditInventoryAdjustment/>
     },
     {
+      path: "/dashboard/tags",
+      exact: true,
+      main: () => <Tag/>
+    },
+    {
       path: "/dashboard/packages",
       exact: true,
       main: () => <Form/>

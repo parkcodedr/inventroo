@@ -1,36 +1,25 @@
 import React,{useState} from 'react';
-import usePrevious from '../components/hooks/usePrevious';
+import TagsInput from 'pages/TagsInput';
 
 const Form = ()=>{
-    const [form,setForm] = useState([]);
-    const [product,setProduct] = useState([]);
+    const [form,setForm] = useState([
+      {
+        name:"",
+        options:"",
+
+        errors:{
+            name:null,
+            options:null,  
+        }
+    }
+    ]);
+    const [product,setProduct] = useState([
+      
+    ]);
    
 
-const prevIsValid = ()=>{
-    if (form.length === 0) {
-        return true;
-      }
-
-      const someEmpty = form.some(
-        (item) => item.name === "" || item.options === ""
-      );
-
-      if (someEmpty) {
-        form.map((item, index) => {
-          const allPrev = [...form];
-  
-          if (form[index].options === "") {
-            allPrev[index].errors.options = "Options is required";
-          }
-  
-          if (form[index].name === "") {
-            allPrev[index].errors.name = "name is required";
-          }
-          setForm(allPrev);
-        });
-      }
-  
-      return !someEmpty;
+    const selectedTags = tags => {
+      console.log(tags);
     };
 
 
@@ -82,11 +71,8 @@ const prevIsValid = ()=>{
                 salePrice:null,
             }
         }
-
-        if(prevProductIsValid()){
-            const {options} = form[0];
             setProduct(prev=>[...prev,productState]);
-        }
+       
 
     }
 
@@ -104,10 +90,8 @@ const prevIsValid = ()=>{
             }
         }
 
-        if(prevIsValid()){
-
             setForm(prev=>[...prev,inputState]);
-        }
+        
     }
 
     const handleChange = (index,event)=>{
@@ -176,7 +160,7 @@ return(
 
     {form.map((item,index)=>(
     <div className="form-row" key={`item-${index}`}>
-        <div className="col-md-3 offset-md-2">
+        <div className="col-md-4 offset-md-1">
       <label>Attributes</label>
       <input type="text" className={item.errors.name?"form-control is-invalid":"form-control"} name="name" 
       value={item.name}
@@ -186,15 +170,21 @@ return(
            {item.errors?.name}
        </span>
     </div>
-    <div className="col-md-3 offset-md-2">
+    <div className="col-md-4 offset-md-1 ">
       <label >Options</label>
-      <input type="text" className="form-control" 
+
+      <TagsInput selectedTags={selectedTags}
+      onChange={(e)=>handleChange(index,e)}
+      name="options" 
+        tags={[]}/>
+
+      {/* <input type="text"
       name="options" data-role="tagsinput"
       value={item.options}
       onBlur={handleAddProduct}
       className={item.errors.options?"form-control is-invalid":"form-control"}
       onChange={(e)=>handleChange(index,e)}
-      />
+      /> */}
       <span className="invalid-feedback">
            {item.errors?.options}
        </span>

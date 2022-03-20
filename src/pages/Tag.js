@@ -1,7 +1,12 @@
 import React,{useState} from 'react';
+import TagsInput from 'pages/TagsInput';
 
 const Tag = ()=>{
 const [tags, setTags] = useState([]);
+
+const selectedTags = tags => {
+  console.log(tags);
+};
   const addTag = (e) => {
     if (e.key === "Enter") {
       if (e.target.value.length > 0) {
@@ -17,6 +22,9 @@ const [tags, setTags] = useState([]);
   };
   return (
     <div className="App">
+      <div className="col-md-6">
+      <TagsInput selectedTags={selectedTags}  tags={['Nodejs', 'MongoDB']}/>
+      </div>
       <div className="tag-container">
         {tags.map((tag, index) => {
           return (
@@ -27,7 +35,9 @@ const [tags, setTags] = useState([]);
         })}
 
         <input onKeyDown={addTag} />
+        
       </div>
+      {tags}
     </div>
   );
 

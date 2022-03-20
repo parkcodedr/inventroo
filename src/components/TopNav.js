@@ -103,7 +103,8 @@ const TopNav = () => {
 
               <li className="nav-item d-none d-md-block">
                   <a className="nav-link" ><i className="ficon feather icon-refresh-cw"></i>
-              </a></li>
+              </a>
+              </li>
 
               <div className="col-xl-8 col-lg-8 col-md-8 d-flex align-items-center ">
                 <fieldset className="form-group has-icon-left search-bar">
