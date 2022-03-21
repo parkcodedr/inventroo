@@ -1,7 +1,7 @@
 
 
 import React,{useState,useEffect} from 'react';
-import {Link} from 'react-router-dom';
+import TagsInput from 'pages/TagsInput';
 import {useDropzone} from 'react-dropzone';
 import { useForm } from 'react-hook-form';
 import {ErrorMessage} from '../components/Message';
@@ -21,6 +21,117 @@ const AddProductGroup = ()=>{
   const dispatch = useDispatch();
   const history = useHistory();
   const [imageError,setImageError] = useState("");
+  const [product,setProduct] = useState([]);
+    const [form,setForm] = useState([
+      {
+        name:"",
+        options:"",
+
+        errors:{
+            name:null,
+            options:null,  
+        }
+    }
+    ]);
+
+    const selectedTags = tags => {
+      console.log(tags);
+    };
+
+    const handleAddMore = (e)=>{
+      e.preventDefault();
+      const inputState = {
+          name:"",
+          options:"",
+
+          errors:{
+              name:null,
+              options:null,  
+          }
+      }
+
+          setForm(prev=>[...prev,inputState]);
+      
+  }
+
+  const handleChange = (index,event)=>{
+    event.preventDefault();
+    event.persist();
+    setForm((prev)=>{
+        return prev.map((item,i)=>{
+            if(i!==index){
+                return item;
+            }
+
+            return {
+                ...item,
+                [event.target.name]:event.target.value,
+
+                errors: {
+                    ...item.errors,
+                    [event.target.name]:
+                      event.target.value.length > 0
+                        ? null
+                        : [event.target.name] + " Is required",
+                  },
+            }
+        })
+    })
+}
+
+const handleRemove = (e,index)=>{
+  e.preventDefault();
+  setForm(prev=>prev.filter((item)=>item!==prev[index]));
+}
+
+const handleAddProduct = (e)=>{
+  e.preventDefault();
+  console.log('add');
+  const productState = {
+      productName:"",
+      sku:"",
+      costPrice:0,
+      salePrice:0,
+      upc:"",
+      ean:"",
+      isbn:"",
+      reOrderPoin:"",
+
+      errors:{
+          productName:null,
+          costPrice:null,
+          salePrice:null,
+      }
+  }
+      setProduct(prev=>[...prev,productState]);
+ 
+
+}
+
+const handleProductChange = (index,event)=>{
+  event.preventDefault();
+  event.persist();
+  setProduct((prev)=>{
+      return prev.map((item,i)=>{
+          if(i!==index){
+              return item;
+          }
+
+          return {
+              ...item,
+              [event.target.name]:event.target.value,
+
+              errors: {
+                  ...item.errors,
+                  [event.target.name]:
+                    event.target.value.length > 0
+                      ? null
+                      : [event.target.name] + " Is required",
+                },
+          }
+      })
+  })
+}
 
   const { success:addSuccess, error:addError, loading:addLoading} = useSelector((state) => state.addProductGroup);
   const { units} = useSelector((state) => state.units);
@@ -43,10 +154,10 @@ const AddProductGroup = ()=>{
 
 
   useEffect(()=>{
-    dispatch(getManufacturers(token));
-    dispatch(getBrands(token));
-    dispatch(getUnits(token));
-    dispatch(getTaxes());
+    // dispatch(getManufacturers(token));
+    // dispatch(getBrands(token));
+    // dispatch(getUnits(token));
+    // dispatch(getTaxes());
   },[]);
 
   if(loading) return <Loader/>
@@ -86,15 +197,13 @@ if(addSuccess){
     <h3 className="font-weight-bold">New Product Group</h3>
 </div>
 
-
     <form onSubmit={handleSubmit(submit)}>
-    <div className="row mt-2">
-
-    <div className="col-md-9">
     {addError && <ErrorMessage message={addError}/>}
-    <div className="form-group row">
-<label htmlFor="type" className="col-sm-2 col-form-label">Type</label>
-<div className="col-sm-10">
+    <div className="row mt-2 row mx-auto">
+      <div className="col-md-7">
+      <div className="form-group row">
+<label htmlFor="type" className="col-sm-3 col-form-label">Type</label>
+<div className="col-sm-9">
     <div className="form-check form-check-inline">
   <input className="form-check-input" type="radio" value="Goods" name="type"
   {...register("type", { required: "Product Type is required" })}
@@ -112,9 +221,9 @@ if(addSuccess){
 </div>
 
   <div className="form-group row">
-    <label htmlFor="productName" className="col-sm-2 col-form-label text-danger">
+    <label htmlFor="productName" className="col-sm-3 col-form-label text-danger">
         Product Group Name * </label>
-    <div className="col-sm-10">
+    <div className="col-sm-9">
       <input type="text" className="form-control" name="name"
       {...register("name", { required: "Product Name is required" })}
        />
@@ -125,8 +234,8 @@ if(addSuccess){
 
 
   <div className="form-group row">
-    <label htmlFor="description" className="col-sm-2 col-form-label">Description</label>
-    <div className="col-sm-10">
+    <label htmlFor="description" className="col-sm-3 col-form-label">Description</label>
+    <div className="col-sm-9">
       <textarea className="form-control" rows={4} cols={8}></textarea>
       <div className="form-check form-check-inline">
   <input className="form-check-input position-static" name="returnable" value="1" type="checkbox" {...register("returnable")} />
@@ -134,8 +243,29 @@ if(addSuccess){
 </div>
     </div>
   </div>
+      </div>
 
-      <div className="form-group row">
+      <div className="d-flex flex-column col-md-3 align-items-center">
+<section className="container  drop-zone-new" >
+      <div {...getRootProps({className: 'dropzone'})}>
+        <input {...getInputProps()} name="file"/>
+         <i className="feather icon-image icon-size"></i>
+        <p>Drag Image (s) here or click to select files</p>
+
+      </div>
+
+    </section>
+    <aside className="text-center">
+        <h6 className="font-weight-bold mt-1">{acceptedFiles.length} File Selected</h6>
+      </aside>
+    </div>
+
+
+    </div>
+    
+    <div className="row mx-auto">
+    <div className="col-md-10">
+    <div className="form-group row">
     <label className="col-sm-2 col-form-label">
     Unit </label>
     <div className="col-sm-4">
@@ -183,38 +313,55 @@ if(addSuccess){
     </div>
   </div>
   <p className="text-danger">Multiple Products?</p>
-  <div className="form-row ">
-    <div className="col-md-4 offset-md-2">
-      <label>Attributes</label>
-      <input type="text" className="form-control" name="attribute" {...register("attribute")} />
+
+  {form.map((item,index)=>(
+    <div className="form-row" key={`item-${index}`}>
+        <div className="col-md-4 offset-md-2">
+      <label cla>Attributes</label>
+      <input type="text" className={item.errors.name?"form-control is-invalid":"form-control"} name="name" 
+      value={item.name}
+      onChange={(e)=>handleChange(index,e)}
+       />
+       <span className="invalid-feedback">
+           {item.errors?.name}
+       </span>
     </div>
-    <div className="col-md-4 offset-md-2">
+    <div className="col-md-5">
       <label >Options</label>
-      <input type="text" className="form-control" name="options" {...register("options")}/>
+
+      <TagsInput selectedTags={selectedTags}
+      addProduct={handleAddProduct}
+      onChange={(e)=>handleChange(index,e)}
+    
+      name="options" 
+        tags={[]}/>
+
+      {/* <input type="text"
+      name="options" data-role="tagsinput"
+      value={item.options}
+      onBlur={handleAddProduct}
+      className={item.errors.options?"form-control is-invalid":"form-control"}
+      onChange={(e)=>handleChange(index,e)}
+      /> */}
+      <span className="invalid-feedback">
+           {item.errors?.options}
+       </span>
     </div>
-    <p className="offset-md-2 mt-1">
-      <i className="feather icon-plus-circle color-main add-btn"></i> Add more Attributes</p>
-  </div>
+    <div className="col-md-1 mt-3">
+    <i className="feather icon-x-circle color-main" onClick={(e)=>handleRemove(e,index)} style={{ fontSize:'16px',cursor:'pointer' }}></i>
     </div>
+        </div>
+))}
+  <span onClick={handleAddMore} className="offset-md-2 " ><i  className="fa fa-plus-circle color-main mt-1" style={{ fontSize:'18px',cursor:'pointer' }}></i> Add More attributes</span>
+           
+   
 
-    <div className="d-flex flex-column col-md-3 align-items-center">
-<section className="container  drop-zone-new" >
-      <div {...getRootProps({className: 'dropzone'})}>
-        <input {...getInputProps()} name="file"/>
-         <i className="feather icon-image icon-size"></i>
-        <p>Drag Image (s) here or click to select files</p>
-
-      </div>
-
-    </section>
-    <aside className="text-center">
-        <h6 className="font-weight-bold mt-1">{acceptedFiles.length} File Selected</h6>
-      </aside>
-    </div>
+   
 
     </div>
-
-      <div className="bg-light row justify-content-between align-items-center p-2 mt-1">
+<section className="col-md-12">
+  
+<div className="bg-light row justify-content-between align-items-center p-2 mt-1">
   <div>
   <div className="form-check form-check-inline">
   <label className="form-check-label mr-2">Select Your Product Type:</label>
@@ -234,8 +381,9 @@ if(addSuccess){
   <label className="form-check-label" >Include Opening Stock?</label>
 </div>
       </div>
+</section>
 
-      <table className="table table-responsive group-table">
+    <table className="table table-responsive group-table">
   <thead>
     <tr>
       <th scope="col" className="text-danger">Product Name</th>
@@ -251,11 +399,14 @@ if(addSuccess){
   </thead>
 
   <tbody>
-  <tr>
+  {product.map((item,index)=>
+    <tr key={`${item}-${index}`}>
       <td>
-        <textarea className="form-control col" rows={1}></textarea>
+        <textarea className="form-control" name="productName" rows={1}
+        onChange={(e)=>handleProductChange(index,e)} 
+        value={`${form[0].name}/${form[0].options}`}></textarea>
       </td>
-      <td ><input type="text" className="form-control" /></td>
+      <td ><input type="text" className="form-control" name="sku" onChange={(e)=>handleProductChange(index,e)} /></td>
       <td ><input type="text" className="form-control"/></td>
       <td><input type="text" className="form-control" /></td>
       <td><input type="text" className="form-control" /></td>
@@ -263,6 +414,8 @@ if(addSuccess){
       <td><input type="text" className="form-control" /></td>
       <td><input type="text" className="form-control" /></td>
     </tr>
+
+  )}
   </tbody>
   </table>
 
@@ -294,7 +447,10 @@ if(addSuccess){
 					</div>
           </div>
           </div>
-    <div className="float-right mb-2 mt-5">
+    
+
+</div>
+<div className="float-right mb-1 mt-1">
 
             {addLoading? (
               <LoadingButton message={"Save and Continue"}/>
@@ -309,8 +465,6 @@ if(addSuccess){
 									<i className="feather icon-x"></i> Cancel
 								</button>
 							</div>
-
-
     </form>
 
     </div>

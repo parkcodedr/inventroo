@@ -13,9 +13,7 @@ const Form = ()=>{
         }
     }
     ]);
-    const [product,setProduct] = useState([
-      
-    ]);
+    const [product,setProduct] = useState([]);
    
 
     const selectedTags = tags => {
