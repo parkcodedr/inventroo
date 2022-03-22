@@ -1,5 +1,4 @@
 import React from 'react';
-import { addProduct } from 'store/actions/product';
 
 const TagsInput = props => {
 	const [tags, setTags] = React.useState(props.tags);
@@ -30,7 +29,6 @@ const TagsInput = props => {
 			<input
 				type="text"
 				onBlur={event => {
-					props.addProduct(event)
 					addTags(event)
 				}}
 				

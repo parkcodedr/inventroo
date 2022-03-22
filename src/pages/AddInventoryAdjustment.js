@@ -69,8 +69,6 @@ const AddInventoryAdjustment = ()=>{
         productParams.append("reason",data.reason);
         productParams.append("products[]",JSON.stringify(adjustedProducts[0]));
         
-        console.log(data);
-        
         dispatch(addInventoryAdjustment(productParams));
         
     }

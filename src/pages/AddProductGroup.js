@@ -20,8 +20,9 @@ const AddProductGroup = ()=>{
 
   const dispatch = useDispatch();
   const history = useHistory();
-  const [imageError,setImageError] = useState("");
-  const [product,setProduct] = useState([]);
+  const [tags,setTags] = useState([]);
+  const [product,setProduct] = useState([
+  ]);
     const [form,setForm] = useState([
       {
         name:"",
@@ -35,8 +36,13 @@ const AddProductGroup = ()=>{
     ]);
 
     const selectedTags = tags => {
-      console.log(tags);
+      setTags(tags)
+      handleAddProduct();
+      // const prevTags = [...tags];
+      // const newTags = [...prevTags,...tags];
+      // setTags([...new Set(newTags)]);
     };
+    console.log(tags);
 
     const handleAddMore = (e)=>{
       e.preventDefault();
@@ -84,11 +90,9 @@ const handleRemove = (e,index)=>{
   setForm(prev=>prev.filter((item)=>item!==prev[index]));
 }
 
-const handleAddProduct = (e)=>{
-  e.preventDefault();
-  console.log('add');
+const handleAddProduct = ()=>{
   const productState = {
-      productName:"",
+      name:"",
       sku:"",
       costPrice:0,
       salePrice:0,
@@ -96,16 +100,15 @@ const handleAddProduct = (e)=>{
       ean:"",
       isbn:"",
       reOrderPoin:"",
-
-      errors:{
-          productName:null,
-          costPrice:null,
-          salePrice:null,
-      }
   }
       setProduct(prev=>[...prev,productState]);
  
 
+}
+const updateProductInput = (index,event)=>{
+  let data = [...product];
+  data[index].name = event.target.value;
+  setProduct(data);
 }
 
 const handleProductChange = (index,event)=>{
@@ -121,13 +124,7 @@ const handleProductChange = (index,event)=>{
               ...item,
               [event.target.name]:event.target.value,
 
-              errors: {
-                  ...item.errors,
-                  [event.target.name]:
-                    event.target.value.length > 0
-                      ? null
-                      : [event.target.name] + " Is required",
-                },
+             
           }
       })
   })
@@ -313,7 +310,7 @@ if(addSuccess){
     </div>
   </div>
   <p className="text-danger">Multiple Products?</p>
-
+{JSON.stringify(product)}
   {form.map((item,index)=>(
     <div className="form-row" key={`item-${index}`}>
         <div className="col-md-4 offset-md-2">
@@ -331,10 +328,10 @@ if(addSuccess){
 
       <TagsInput selectedTags={selectedTags}
       addProduct={handleAddProduct}
-      onChange={(e)=>handleChange(index,e)}
-    
+    //  onChange={(e)=>updateProductInput(e)}
       name="options" 
-        tags={[]}/>
+      tags={[]}
+        />
 
       {/* <input type="text"
       name="options" data-role="tagsinput"
@@ -402,17 +399,17 @@ if(addSuccess){
   {product.map((item,index)=>
     <tr key={`${item}-${index}`}>
       <td>
-        <textarea className="form-control" name="productName" rows={1}
+        <textarea className="form-control" name="name" rows={1}
         onChange={(e)=>handleProductChange(index,e)} 
-        value={`${form[0].name}/${form[0].options}`}></textarea>
+        value={`${form[0].name}/${tags[index]}`}></textarea>
       </td>
       <td ><input type="text" className="form-control" name="sku" onChange={(e)=>handleProductChange(index,e)} /></td>
-      <td ><input type="text" className="form-control"/></td>
-      <td><input type="text" className="form-control" /></td>
-      <td><input type="text" className="form-control" /></td>
-      <td><input type="text" className="form-control" /></td>
-      <td><input type="text" className="form-control" /></td>
-      <td><input type="text" className="form-control" /></td>
+      <td ><input type="text" className="form-control" name="costPrice" onChange={(e)=>handleProductChange(index,e)} /></td>
+      <td><input type="text" className="form-control" name="salePrice"  onChange={(e)=>handleProductChange(index,e)}  /></td>
+      <td><input type="text" className="form-control" name="upc" onChange={(e)=>handleProductChange(index,e)}  /></td>
+      <td><input type="text" className="form-control" name="ean" onChange={(e)=>handleProductChange(index,e)}  /></td>
+      <td><input type="text" className="form-control" name="isbn" onChange={(e)=>handleProductChange(index,e)}  /></td>
+      <td><input type="text" className="form-control" name="reOrderPoint" onChange={(e)=>handleProductChange(index,e)}  /></td>
     </tr>
 
   )}
