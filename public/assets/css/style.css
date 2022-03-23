@@ -271,13 +271,14 @@ padding:1px;
 .tags-input:focus-within {
 		border: 1px solid #0052cc;
 	}
-	input {
+	.input-tag {
 		flex: 1;
 		border: none;
 		height: 40px;
 		font-size: 14px;
 		padding: 4px 0 0 0;
   }
+
   input:focus {
 			outline: transparent;
 		}

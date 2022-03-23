@@ -35,7 +35,23 @@ const AddProductGroup = ()=>{
     }
     ]);
 
-      console.log(tags);
+    const { success:addSuccess, error:addError, loading:addLoading} = useSelector((state) => state.addProductGroup);
+  const { units} = useSelector((state) => state.units);
+  const { taxes} = useSelector((state) => state.taxes);
+  const { brands} = useSelector((state) => state.brands);
+  const { loading,success,error,manufacturers} = useSelector((state) => state.manufacturers);
+  const {register,formState: { errors },handleSubmit} = useForm();
+  const { token} = useSelector((state) => state.auth);
+
+  const {
+    acceptedFiles,
+    fileRejections,
+    getRootProps,
+    getInputProps
+  } = useDropzone({
+    accept: 'image/jpeg,image/png'
+  });
+
     const selectedTags = tags => {
       setTags(tags)
       handleAddProduct(tags)
@@ -45,7 +61,6 @@ const AddProductGroup = ()=>{
       // setTags([...new Set(newTags)]);
       
     };
-    console.log(tags);
 
     const handleAddMore = (e)=>{
       e.preventDefault();
@@ -66,6 +81,7 @@ const AddProductGroup = ()=>{
   const handleChange = (index,event)=>{
     event.preventDefault();
     event.persist();
+    console.log('call');
     setForm((prev)=>{
         return prev.map((item,i)=>{
             if(i!==index){
@@ -94,17 +110,6 @@ const handleRemove = (e,index)=>{
 }
 
 const handleAddProduct = (tags)=>{
-  const productState = {
-      name:"",
-      sku:"",
-      costPrice:0,
-      salePrice:0,
-      upc:"",
-      ean:"",
-      isbn:"",
-      reOrderPoin:"",
-  }
-
 setProduct((prev)=>{
   console.log(prev.length);
   return [...prev,
@@ -133,10 +138,6 @@ const updateProductInput = (index,event)=>{
 const handleProductChange = (index,event)=>{
   event.preventDefault();
   event.persist();
-  if(event.target.name=="name"){
-    console.log(event.target.value);
-  }
-
   setProduct((prev)=>{
       return prev.map((item,i)=>{
           if(i!==index){
@@ -151,53 +152,55 @@ const handleProductChange = (index,event)=>{
   })
 }
 
-  const { success:addSuccess, error:addError, loading:addLoading} = useSelector((state) => state.addProductGroup);
-  const { units} = useSelector((state) => state.units);
-  const { taxes} = useSelector((state) => state.taxes);
-  const { brands} = useSelector((state) => state.brands);
-  const { loading,success,error,manufacturers} = useSelector((state) => state.manufacturers);
-  const {register,formState: { errors },handleSubmit} = useForm();
-  const { token} = useSelector((state) => state.auth);
-
-  const {
-    acceptedFiles,
-    fileRejections,
-    getRootProps,
-    getInputProps
-  } = useDropzone({
-    accept: 'image/jpeg,image/png'
-  });
+  
 
 
 
 
   useEffect(()=>{
-    // dispatch(getManufacturers(token));
-    // dispatch(getBrands(token));
-    // dispatch(getUnits(token));
-    // dispatch(getTaxes());
+    dispatch(getManufacturers(token));
+    dispatch(getBrands(token));
+    dispatch(getUnits(token));
+    dispatch(getTaxes());
   },[]);
 
   if(loading) return <Loader/>
 
 const submit = (data)=>{
   const productData = new FormData();
-    console.log(data);
+  const adjustedProducts = [];
+       
+  product.map(item=>{
+    
+    adjustedProducts.push({
+      "name":item.name,
+      "sku":item.sku,
+      "cost_price":item.costPrice,
+      "sale_price":item.salePrice,
+      "upc":item.upc,
+      "isbn":item.isbn,
+      "ean":item.ean,
+      "recorder_point":Number(item.reOrderPoint),
+
+    })
+  });
+ 
+    console.log(form);
     const attributes=[];
-    attributes.push({name:data.attribute,options:data.options});
-    attributes.push({name:"size",options:"32,43"});
+    attributes.push({name:form[0].name,option:tags.join(',')});
     console.log(attributes);
 
 
   productData.append("product_image",acceptedFiles[0]);
-  productData.append("name",data.name);
+  productData.append("name",productName);
   productData.append("type",data.type);
   productData.append("returnable",Number(data.returnable));
   productData.append("unit_id",data.unit);
   productData.append("brand_id",data.brand);
   productData.append("tax_id",data.tax);
   productData.append("manufacturer_id",data.manufacturer);
-  productData.append("attributes[]",JSON.stringify(attributes));
+  productData.append("attributes[]",JSON.stringify(attributes[0]));
+  productData.append("products[]",JSON.stringify(adjustedProducts[0]));
 
   dispatch(addProductGroup(productData));
  
@@ -214,9 +217,9 @@ if(addSuccess){
 <div className="row mx-auto">
     <h3 className="font-weight-bold">New Product Group</h3>
 </div>
-
+{addError && <ErrorMessage message={addError}/>}
     <form onSubmit={handleSubmit(submit)}>
-    {addError && <ErrorMessage message={addError}/>}
+   
     <div className="row mt-2 row mx-auto">
       <div className="col-md-7">
       <div className="form-group row">
@@ -244,7 +247,9 @@ if(addSuccess){
     <div className="col-sm-9">
       <input type="text" className="form-control" 
       value={productName}
+     
       onChange={(e)=>setProductName(e.target.value)} 
+      
      
        />
        <span className="text-danger text-center">{errors.product_name?.message}</span>
@@ -333,11 +338,11 @@ if(addSuccess){
     </div>
   </div>
   <p className="text-danger">Multiple Products?</p>
-
+{JSON.stringify(product)}
   {form.map((item,index)=>(
     <div className="form-row" key={`item-${index}`}>
         <div className="col-md-4 offset-md-2">
-      <label cla>Attributes</label>
+      <label >Attributes</label>
       <input type="text" className={item.errors.name?"form-control is-invalid":"form-control"} name="name" 
       value={item.name}
       onChange={(e)=>handleChange(index,e)}
@@ -351,7 +356,7 @@ if(addSuccess){
 
       <TagsInput selectedTags={selectedTags}
       addProduct={handleAddProduct}
-    //  onChange={(e)=>updateProductInput(e)}
+      // onChange={(e)=>handleChange(index,e)}
       name="options" 
       tags={[]}
         />
@@ -450,15 +455,15 @@ if(addSuccess){
 							<div className="card-body">
               <div className="form-row">
     <div className="form-group col-md-4">
-      <label for="">Sales Account</label>
+      <label >Sales Account</label>
       <input type="text" className="form-control" />
     </div>
     <div className="form-group col-md-4">
-      <label for="">Purchase Account</label>
+      <label >Purchase Account</label>
       <input type="text" className="form-control" />
     </div>
     <div className="form-group col-md-4">
-      <label for="">Inventory Account</label>
+      <label >Inventory Account</label>
       <input type="text" className="form-control" />
     </div>
   </div>
