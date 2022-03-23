@@ -11,6 +11,7 @@ import ManufacturerList from "./ManufacturerList";
 import OrganizationProfile from "./OrganizationProfile";
 import UserRoles from "./UserRoles";
 import ProductGroup from "./ProductGroup";
+import ProductGroupList from "./ProductGroupList";
 import AddProductGroup from "./AddProductGroup";
 import { Register } from './Register';
 import Dashboard from './Dashboard';
@@ -69,5 +70,6 @@ AddInventoryAdjustment,
 EditPriceList,
 Form,
 Tag,
-EditInventoryAdjustment
+EditInventoryAdjustment,
+ProductGroupList
 }

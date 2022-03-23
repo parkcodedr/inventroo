@@ -7,8 +7,8 @@ import {getProductGroups,deleteProductGroup,deleteProductGroupComplete} from '..
 
 const ProductGroupList = () => {
     const dispatch = useDispatch();
-    const {loading,error,manufacturers} = useSelector((state) => state.manufacturers);
-    const deleteState = useSelector((state) => state.deleteManufacturer);
+    const {loading,error,productGroups} = useSelector((state) => state.productGroups);
+    const deleteState = useSelector((state) => state.deleteProductGroup);
     const {loading:deleteLoading,error:deleteError,success:deleteSuccess} = deleteState;
     const { token} = useSelector((state) => state.auth);
 
@@ -16,12 +16,12 @@ const ProductGroupList = () => {
       if(deleteSuccess){
       dispatch(deleteProductGroupComplete());
       }
-        dispatch(getProductGroups(token));
+        dispatch(getProductGroups());
     },[dispatch,deleteSuccess]);
 
     const deleteHandler =(productGroup)=>{
         if(window.confirm('Are You Sure to Delete?')){
-          dispatch(deleteProductGroup(productGroup.id,token));
+          dispatch(deleteProductGroup(productGroup.productGroupID,token));
         }
     }
 
@@ -54,6 +54,8 @@ const ProductGroupList = () => {
       <th>NAME</th>
       <th >TYPE</th>
       <th >RETURNABLE</th>
+      <th >STATUS</th>
+      <th >PRODUCT NAME</th>
       <th >ACTION</th>
     </tr>
   </thead>
@@ -62,7 +64,9 @@ const ProductGroupList = () => {
  <tr key={productGroup.productGroupID}>
                 <td>{productGroup.name}</td>
                 <td>{productGroup.type}</td>
-                <td>{productGroup.returnable}</td>
+                <td>{(productGroup.returnable)===1? "True":"False"}</td>
+                <td>{productGroup.productGroupStatus}</td>
+                <td>{productGroup.products[0]?.name}</td>
                 <td>
                   <Link to={`/dashboard/productGroup/${productGroup.productGroupID}/edit`}>
                   <button className="btn btn-warning mr-1">

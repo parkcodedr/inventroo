@@ -91,6 +91,7 @@ export const getProductGroups = () => {
             }
             ApiService.get("/productGroup/all",{headers})
                 .then(response => {
+                    console.log(response.data);
                     const {productGroups} = response.data;
                     dispatch(getProductGroupsSuccess(productGroups));
                 }).catch(error => {

@@ -25,7 +25,8 @@ import {Warehouse,
   Tag,
   EditPriceList,
   Dashboard,
-  EditInventoryAdjustment
+  EditInventoryAdjustment,
+  ProductGroupList
 } from '../../pages';
 
 
@@ -62,6 +63,12 @@ export const routes = [
       path: "/dashboard/product-group",
       exact: true,
       main: () => <ProductGroup/>
+    }
+    ,
+    {
+      path: "/dashboard/product-group/all",
+      exact: true,
+      main: () => <ProductGroupList/>
     }
     ,
     {
