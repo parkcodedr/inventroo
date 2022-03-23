@@ -21,8 +21,8 @@ const AddProductGroup = ()=>{
   const dispatch = useDispatch();
   const history = useHistory();
   const [tags,setTags] = useState([]);
-  const [product,setProduct] = useState([
-  ]);
+  const [productName,setProductName] = useState("");
+  const [product,setProduct] = useState([]);
     const [form,setForm] = useState([
       {
         name:"",
@@ -35,12 +35,15 @@ const AddProductGroup = ()=>{
     }
     ]);
 
+      console.log(tags);
     const selectedTags = tags => {
       setTags(tags)
-      handleAddProduct();
+      handleAddProduct(tags)
+     
       // const prevTags = [...tags];
       // const newTags = [...prevTags,...tags];
       // setTags([...new Set(newTags)]);
+      
     };
     console.log(tags);
 
@@ -90,7 +93,7 @@ const handleRemove = (e,index)=>{
   setForm(prev=>prev.filter((item)=>item!==prev[index]));
 }
 
-const handleAddProduct = ()=>{
+const handleAddProduct = (tags)=>{
   const productState = {
       name:"",
       sku:"",
@@ -101,7 +104,23 @@ const handleAddProduct = ()=>{
       isbn:"",
       reOrderPoin:"",
   }
-      setProduct(prev=>[...prev,productState]);
+
+setProduct((prev)=>{
+  console.log(prev.length);
+  return [...prev,
+    {
+      name:`${productName}-${tags[prev.length]}`,
+      sku:"",
+      costPrice:0,
+      salePrice:0,
+      upc:"",
+      ean:"",
+      isbn:"",
+      reOrderPoint:"",
+  }
+  ]
+});
+
  
 
 }
@@ -114,6 +133,10 @@ const updateProductInput = (index,event)=>{
 const handleProductChange = (index,event)=>{
   event.preventDefault();
   event.persist();
+  if(event.target.name=="name"){
+    console.log(event.target.value);
+  }
+
   setProduct((prev)=>{
       return prev.map((item,i)=>{
           if(i!==index){
@@ -123,8 +146,6 @@ const handleProductChange = (index,event)=>{
           return {
               ...item,
               [event.target.name]:event.target.value,
-
-             
           }
       })
   })
@@ -221,10 +242,12 @@ if(addSuccess){
     <label htmlFor="productName" className="col-sm-3 col-form-label text-danger">
         Product Group Name * </label>
     <div className="col-sm-9">
-      <input type="text" className="form-control" name="name"
-      {...register("name", { required: "Product Name is required" })}
+      <input type="text" className="form-control" 
+      value={productName}
+      onChange={(e)=>setProductName(e.target.value)} 
+     
        />
-       <span className="text-danger text-center">{errors.name?.message}</span>
+       <span className="text-danger text-center">{errors.product_name?.message}</span>
     </div>
   </div>
 
@@ -310,7 +333,7 @@ if(addSuccess){
     </div>
   </div>
   <p className="text-danger">Multiple Products?</p>
-{JSON.stringify(product)}
+
   {form.map((item,index)=>(
     <div className="form-row" key={`item-${index}`}>
         <div className="col-md-4 offset-md-2">
@@ -401,7 +424,7 @@ if(addSuccess){
       <td>
         <textarea className="form-control" name="name" rows={1}
         onChange={(e)=>handleProductChange(index,e)} 
-        value={`${form[0].name}/${tags[index]}`}></textarea>
+        value={item.name}></textarea>
       </td>
       <td ><input type="text" className="form-control" name="sku" onChange={(e)=>handleProductChange(index,e)} /></td>
       <td ><input type="text" className="form-control" name="costPrice" onChange={(e)=>handleProductChange(index,e)} /></td>

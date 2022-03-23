@@ -29,7 +29,7 @@ const TagsInput = props => {
 			<input
 				type="text"
 				onBlur={event => {
-					addTags(event)
+					addTags(event);
 				}}
 				
 				
