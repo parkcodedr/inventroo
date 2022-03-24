@@ -4,10 +4,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import {notify} from '../components/Toast';
 import {ErrorMessage} from '../components/Message';
 import Loader from '../components/Loader';
+import { useTitle } from 'components/hooks/useTitle';
 import {getInventoryAdjustments,deleteInventoryAdjustment,deleteInventoryAdjustmentComplete} from '../store/actions/inventoryAdjustment';
 
 
 const InventoryAdjustmentList = ()=>{
+  useTitle("Inventroo | Adjustments")
   const dispatch = useDispatch();
   const {loading,error,inventoryAdjustments} = useSelector((state) => state.inventoryAdjustment);
   const deleteState = useSelector((state) => state.deleteInventoryAdjustment);

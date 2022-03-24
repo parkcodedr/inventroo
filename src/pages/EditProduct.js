@@ -1,6 +1,5 @@
 
 import React,{useState,useEffect} from 'react';
-import {Link} from 'react-router-dom';
 import {useDropzone} from 'react-dropzone';
 import { useForm } from 'react-hook-form';
 import {ErrorMessage} from '../components/Message';
@@ -8,14 +7,14 @@ import ButtonProcessing from '../components/ButtonProcessing';
 import {useHistory,useParams} from 'react-router-dom';
 import {notify} from '../components/Toast';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTitle } from 'components/hooks/useTitle';
 
 import {updateProduct,updateProductComplete,getProductDetail} from '../store/actions/product';
 
 const EditProduct= ()=>{
-
+useTitle("Inventroo | Edit Product");
     const {
         acceptedFiles,
-        fileRejections,
         getRootProps,
         getInputProps
       } = useDropzone({

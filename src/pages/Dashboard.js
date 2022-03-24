@@ -1,4 +1,6 @@
+import { useTitle } from 'components/hooks/useTitle';
 const Dashboard = ()=>{
+  useTitle("Inventroo | Dashboard");
   return(
     <div className="content-body">
       <h2 className="font-weight-bold">Dashboard</h2>

@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form';
 import React,{useEffect,useState} from 'react';
 import {Link} from 'react-router-dom';
 import { useHistory} from 'react-router-dom';
+import { useTitle } from 'components/hooks/useTitle';
 import { useSelector, useDispatch } from 'react-redux';
 import {addBrandsComplete, getBrands,addBrands,deleteBrand} from '../store/actions/brand';
 import {notify} from '../components/Toast';
@@ -9,6 +10,7 @@ import Loader from '../components/Loader';
 import {ErrorMessage} from '../components/Message';
 
 const UnitList = () => {
+  useTitle("Inventroo | Brands");
     const dispatch = useDispatch();
     const history = useHistory();
     const {loading,error,manufacturers,brands,success} = useSelector((state) => state.brands);

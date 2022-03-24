@@ -5,9 +5,11 @@ import {notify} from '../components/Toast';
 import Spinner from '../components/Spinner';
 import {ErrorMessage} from '../components/Message';
 import Loader from '../components/Loader';
+import { useTitle } from 'components/hooks/useTitle';
 import {getProducts,deleteProduct,deleteProductComplete} from '../store/actions/product';
 
 const ProductList = ()=>{
+    useTitle("Inventroo | Products")
     const dispatch = useDispatch();
     const {loading,error,products} = useSelector((state) => state.products);
     const deleteState = useSelector((state) => state.deleteProduct);

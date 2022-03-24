@@ -4,10 +4,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import {notify} from '../components/Toast';
 import {ErrorMessage} from '../components/Message';
 import Loader from '../components/Loader';
+import { useTitle } from 'components/hooks/useTitle';
 import {getPriceLists,deletePriceList,deletePriceListComplete} from '../store/actions/priceList';
 
 const PriceList = ()=>{
-
+useTitle("Inventroo | Price List")
     const dispatch = useDispatch();
     const {loading,error,priceLists} = useSelector((state) => state.priceLists);
     const deleteState = useSelector((state) => state.deletePriceList);

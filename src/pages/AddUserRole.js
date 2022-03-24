@@ -6,14 +6,13 @@ import {getModules} from '../store/actions/modules';
 import {addUserRole,addUserRoleComplete} from '../store/actions/organizationProfile';
 import { useHistory} from 'react-router-dom';
 import {notify} from '../components/Toast';
-import LoadingButton from '../components/LoadingButton';
 import { useForm } from 'react-hook-form';
 import TopNav from '../components/TopNav';
 import SideBar from '../components/SideBar';
 import Loader from '../components/Loader';
 
 const AddUserRole = () => {
-  useTitle('Inventroo | Add Roles');
+  useTitle('Inventroo | New User Role');
   const dispatch = useDispatch();
   const history = useHistory();
   const { success, error, loading,modules } = useSelector((state) => state.modules);

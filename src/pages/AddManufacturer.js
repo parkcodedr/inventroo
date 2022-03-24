@@ -2,10 +2,12 @@ import { useForm } from 'react-hook-form';
 import {ErrorMessage} from '../components/Message';
 import { useHistory} from 'react-router-dom';
 import {notify} from '../components/Toast';
+import { useTitle } from 'components/hooks/useTitle';
 import { useSelector, useDispatch } from 'react-redux';
 import {addManufacturer,addManufacturerComplete} from '../store/actions/manufacturer';
 
 const AddManufacturer = ()=>{
+  useTitle("Inventroo | New Manufacturer");
     const dispatch = useDispatch();
   const history = useHistory();
 

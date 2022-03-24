@@ -3,9 +3,11 @@ import {Link} from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import {ErrorMessage} from '../components/Message';
 import Loader from '../components/Loader';
+import { useTitle } from 'components/hooks/useTitle';
 import {getProductGroups,deleteProductGroup,deleteProductGroupComplete} from '../store/actions/productGroup';
 
 const ProductGroupList = () => {
+  useTitle("Inventroo | Product Groups")
     const dispatch = useDispatch();
     const {loading,error,productGroups} = useSelector((state) => state.productGroups);
     const deleteState = useSelector((state) => state.deleteProductGroup);

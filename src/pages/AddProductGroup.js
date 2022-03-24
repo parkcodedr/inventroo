@@ -3,26 +3,30 @@
 import React,{useState,useEffect} from 'react';
 import TagsInput from 'pages/TagsInput';
 import {useDropzone} from 'react-dropzone';
+import { useTitle } from 'components/hooks/useTitle';
 import { useForm } from 'react-hook-form';
-import {ErrorMessage} from '../components/Message';
-import LoadingButton from '../components/LoadingButton';
+import {ErrorMessage} from 'components/Message';
+import LoadingButton from 'components/LoadingButton';
 import { useHistory} from 'react-router-dom';
-import {notify} from '../components/Toast';
-import Loader from '../components/Loader';
+import {notify} from 'components/Toast';
+import Loader from 'components/Loader';
 import { useSelector, useDispatch } from 'react-redux';
-import {getManufacturers} from '../store/actions/manufacturer';
-import {getBrands} from '../store/actions/brand';
-import {getUnits} from '../store/actions/unit';
-import {getTaxes} from '../store/actions/tax';
-import {addProductGroup,addProductGroupComplete} from '../store/actions/productGroup';
-
+import {getManufacturers} from 'store/actions/manufacturer';
+import {getBrands} from 'store/actions/brand';
+import {getUnits} from 'store/actions/unit';
+import {getTaxes} from 'store/actions/tax';
+import {addProductGroup,addProductGroupComplete} from 'store/actions/productGroup';
+import {thumbsContainer,thumb,thumbInner,img} from 'components/styles/DropZoneStyle';
+import ImageThumbs from 'components/ImageThumbs';
 const AddProductGroup = ()=>{
+  useTitle('Inventroo | New Product Group');
 
   const dispatch = useDispatch();
   const history = useHistory();
   const [tags,setTags] = useState([]);
   const [productName,setProductName] = useState("");
   const [product,setProduct] = useState([]);
+  const [files, setFiles] = useState([]);
     const [form,setForm] = useState([
       {
         name:"",
@@ -49,7 +53,12 @@ const AddProductGroup = ()=>{
     getRootProps,
     getInputProps
   } = useDropzone({
-    accept: 'image/jpeg,image/png'
+    accept: 'image/jpeg,image/png',
+    onDrop: acceptedFiles => {
+      setFiles(acceptedFiles.map(file => Object.assign(file, {
+        preview: URL.createObjectURL(file)
+      })));
+    }
   });
 
     const selectedTags = tags => {
@@ -200,7 +209,7 @@ const submit = (data)=>{
   productData.append("tax_id",data.tax);
   productData.append("manufacturer_id",data.manufacturer);
   productData.append("attributes[]",JSON.stringify(attributes[0]));
-  productData.append("products[]",JSON.stringify(adjustedProducts[0]));
+  productData.append("products",JSON.stringify(adjustedProducts));
 
   dispatch(addProductGroup(productData));
  
@@ -280,11 +289,12 @@ if(addSuccess){
       </div>
 
     </section>
-    <aside className="text-center">
-        <h6 className="font-weight-bold mt-1">{acceptedFiles.length} File Selected</h6>
+    <aside style={thumbsContainer}>
+       <ImageThumbs files={files} 
+       thumb={thumb} img={img}
+       thumbInner={thumbInner} />
       </aside>
     </div>
-
 
     </div>
     
@@ -338,7 +348,7 @@ if(addSuccess){
     </div>
   </div>
   <p className="text-danger">Multiple Products?</p>
-{JSON.stringify(product)}
+
   {form.map((item,index)=>(
     <div className="form-row" key={`item-${index}`}>
         <div className="col-md-4 offset-md-2">
@@ -444,7 +454,7 @@ if(addSuccess){
   </tbody>
   </table>
 
-  <div id="accordionWrap2" role="tablist" aria-multiselectable="true" className="mt-5 mb-2">
+  <div id="accordionWrap2" role="tablist" aria-multiselectable="true" className="mt-2">
   <div className="card shadow-none accordion collapse-icon accordion-icon-rotate left">
 					<div id="heading21" className="card-header primary" data-toggle="collapse" href="#accordion21" aria-expanded="false"
 					aria-controls="accordion21" >

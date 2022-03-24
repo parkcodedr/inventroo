@@ -1,13 +1,13 @@
 import React,{useEffect,useState} from 'react';
-import { useForm } from 'react-hook-form';
 import {ErrorMessage} from '../components/Message';
 import { useHistory,useParams} from 'react-router-dom';
 import {notify} from '../components/Toast';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTitle } from 'components/hooks/useTitle';
 import {updateTax,updateTaxComplete,getTaxDetail} from '../store/actions/tax';
 
 const EditTax= ()=>{
-
+useTitle("Inventroo | Edit Tax")
     const dispatch = useDispatch();
     const history = useHistory();
     const params = useParams();
@@ -16,8 +16,6 @@ const EditTax= ()=>{
     const { tax, error, loading} = taxDetail;
     const updateState = useSelector((state) => state.updateTax);
     const { success:updateSuccess, error:updateError, loading:updateLoading} = updateState;
-    const { token} = useSelector((state) => state.auth);
-
     const [name,setName] = useState("");
     const [percentage,setPercentage] = useState("");
     const [validateError,setValidateError] = useState("");

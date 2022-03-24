@@ -3,11 +3,12 @@ import { useForm } from 'react-hook-form';
 import {ErrorMessage} from '../components/Message';
 import { useHistory,useParams} from 'react-router-dom';
 import {notify} from '../components/Toast';
+import { useTitle } from 'components/hooks/useTitle';
 import { useSelector, useDispatch } from 'react-redux';
 import {updateBrand,updateBrandComplete,getBrandDetail} from '../store/actions/brand';
 
 const EditBrand = ()=>{
-    const {register,reset,formState: { errors },handleSubmit} = useForm();
+    useTitle("Inventroo | Edit Brand");
     const [name,setName] = useState("");
     const [manufacturer,setManufacturer] = useState("");
     const [validateError,setValidateError] = useState("");

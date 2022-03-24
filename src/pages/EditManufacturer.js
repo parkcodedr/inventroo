@@ -4,10 +4,11 @@ import {ErrorMessage} from '../components/Message';
 import { useHistory,useParams} from 'react-router-dom';
 import {notify} from '../components/Toast';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTitle } from 'components/hooks/useTitle';
 import {updateManufacturer,updateManufacturerComplete,getManufacturerDetail} from '../store/actions/manufacturer';
 
 const EditManufacturer = ()=>{
-    const {register,reset,formState: { errors },handleSubmit} = useForm();
+    useTitle("Inventroo | Edit Manufacturer");
     const [name,setName] = useState("");
     const [contactPerson,setContactPerson] = useState("");
     const [contactPhone,setContactPhone] = useState("");
