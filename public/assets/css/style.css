@@ -184,6 +184,9 @@ a[data-toggle="collapse"] {
 #sidebar ul li a:hover {
   background: #792ddd;
 }
+.sub-menu:hover{
+  background: #792ddd;
+}
 
 .settings-nav ul li:hover {
  background: #792ddd;
@@ -379,4 +382,7 @@ svg circle {
 
 .color-light{
     background:#f2f4f5;
+}
+.btn-plus {
+  cursor:pointer;
 }

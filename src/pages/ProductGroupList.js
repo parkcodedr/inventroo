@@ -57,7 +57,7 @@ const ProductGroupList = () => {
       <th >TYPE</th>
       <th >RETURNABLE</th>
       <th >STATUS</th>
-      <th >PRODUCT NAME</th>
+      <th >PRODUCTS</th>
       <th >ACTION</th>
     </tr>
   </thead>
@@ -68,7 +68,13 @@ const ProductGroupList = () => {
                 <td>{productGroup.type}</td>
                 <td>{(productGroup.returnable)===1? "True":"False"}</td>
                 <td>{productGroup.productGroupStatus}</td>
-                <td>{productGroup.products[0]?.name}</td>
+                <td>
+                  {productGroup.products.map(item=>(
+            <span class="badge color-main mr-1 text-white">{item.name}</span>
+                  ))}
+               
+                  
+                  </td>
                 <td>
                   <Link to={`/dashboard/productGroup/${productGroup.productGroupID}/edit`}>
                   <button className="btn btn-warning mr-1">

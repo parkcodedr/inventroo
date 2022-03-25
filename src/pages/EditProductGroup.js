@@ -18,8 +18,8 @@ import {getTaxes} from 'store/actions/tax';
 import {addProductGroup,addProductGroupComplete} from 'store/actions/productGroup';
 import {thumbsContainer,thumb,thumbInner,img} from 'components/styles/DropZoneStyle';
 import ImageThumbs from 'components/ImageThumbs';
-const AddProductGroup = ()=>{
-  useTitle('Inventroo | New Product Group');
+const EditProductGroup = ()=>{
+  useTitle('Inventroo | Edit Product Group');
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -511,4 +511,4 @@ if(addSuccess){
 
     )
 }
-export default AddProductGroup;
+export default EditProductGroup;

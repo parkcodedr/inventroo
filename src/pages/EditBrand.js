@@ -91,7 +91,7 @@ const submit = (e)=>{
                 >
             <option value="">Choose Manufacturer</option>
                 {manufacturers && manufacturers.map(manufacturer=>(
-                    <option value={manufacturer.id}>{manufacturer.name}</option>
+                    <option value={manufacturer.id} key={manufacturer.id}>{manufacturer.name}</option>
             ))}
 
         </select>
