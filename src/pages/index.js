@@ -33,6 +33,8 @@ import EditPriceList from './EditPriceList';
 import Form from './Form';
 import Tag from './Tag';
 import EditInventoryAdjustment from './EditInventoryAdjustment';
+import EditProductGroup from './EditProductGroup';
+
 const Login = React.lazy(() => import("./Login"));
 
 
@@ -71,5 +73,6 @@ EditPriceList,
 Form,
 Tag,
 EditInventoryAdjustment,
-ProductGroupList
+ProductGroupList,
+EditProductGroup
 }

@@ -348,7 +348,6 @@ if(addSuccess){
   </div>
   <p className="text-danger">Multiple Products?</p>
  
- {JSON.stringify(product)}
 
   {form.map((item,index)=>(
     <div className="form-row" key={`item-${index}`}>

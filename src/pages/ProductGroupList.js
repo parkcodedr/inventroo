@@ -76,7 +76,7 @@ const ProductGroupList = () => {
                   
                   </td>
                 <td>
-                  <Link to={`/dashboard/productGroup/${productGroup.productGroupID}/edit`}>
+                  <Link to={`/dashboard/product-group/${productGroup.productGroupID}/edit`}>
                   <button className="btn btn-warning mr-1">
               <i className="feather icon-edit"></i>
               </button>
