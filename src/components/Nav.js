@@ -38,6 +38,9 @@ const Nav = () => {
                         <li className="ml-2">
                             <NavLink to={'/dashboard/price-list/all'} activeClassName={"active-nav"}>Price List</NavLink>
                         </li>
+                        <li className="ml-2">
+                            <NavLink to={'/dashboard/product-category/all'} activeClassName={"active-nav"}>Product Category</NavLink>
+                        </li>
                     </ul>
                 </li>
                

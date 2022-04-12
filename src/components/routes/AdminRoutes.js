@@ -27,7 +27,9 @@ import {Warehouse,
   Dashboard,
   EditInventoryAdjustment,
   ProductGroupList,
-  EditProductGroup
+  EditProductGroup,
+  AddProductCategory,
+  ProductCategoryList
 } from '../../pages';
 
 
@@ -193,6 +195,16 @@ export const routes = [
       path: "/dashboard/packages",
       exact: true,
       main: () => <Form/>
+    },
+    {
+      path: "/dashboard/product-category/new",
+      exact: true,
+      main: () => <AddProductCategory/>
+    },
+    {
+      path: "/dashboard/product-category/all",
+      exact: true,
+      main: () => <ProductCategoryList/>
     },
 
   ];
