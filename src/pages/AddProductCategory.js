@@ -28,7 +28,7 @@ const AddProductCateogory = ()=>{
     }
 
     return(
-        <div className="content-body mt-5">
+        <div className="content-body">
             <h4 className="font-weight-bold">Add Product Category</h4>
             <div className="row mt-5">
                 <div className="col-md-10">

@@ -88,7 +88,7 @@ if(addProductSuccess){
 if(loading) return <p className="mt-3">Loading...</p>
 
     return(
-<div className="content-body mt-3">
+<div className="content-body">
 <div className="row mx-auto">
     <h4 className="font-weight-bold">New Product</h4>
 </div>

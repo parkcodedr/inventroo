@@ -36,6 +36,8 @@ import EditInventoryAdjustment from './EditInventoryAdjustment';
 import EditProductGroup from './EditProductGroup';
 import AddProductCategory from './AddProductCategory';
 import ProductCategoryList from './ProductCategoryList';
+import CustomerList from './CustomerList';
+import AddCustomer from './AddCustomer';
 
 const Login = React.lazy(() => import("./Login"));
 
@@ -78,5 +80,7 @@ EditInventoryAdjustment,
 ProductGroupList,
 EditProductGroup,
 AddProductCategory,
-ProductCategoryList
+ProductCategoryList,
+CustomerList,
+AddCustomer
 }
