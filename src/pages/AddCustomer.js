@@ -448,6 +448,13 @@ access only to the data of this customer <a href="#">Learn more</a></p>
     </div>
 </div>
      </section>
+     <div className="border-left-main pl-1">
+       <p><strong>Note:</strong></p>
+       <ul>
+         <li>You can add and manage additional address from contact detail section</li>
+         <li>View and edit the address format of your transaction under settings -> Preference -> Customers and Vendor</li>
+       </ul>
+     </div>
    </div>
 
   </div>

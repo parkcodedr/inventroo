@@ -389,3 +389,6 @@ svg circle {
 .bg-light-50{
   background:#f4f6f6;
 }
+.border-left-main{
+  border-left: 3px solid #4c27b3;
+}
