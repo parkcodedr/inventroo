@@ -452,16 +452,62 @@ access only to the data of this customer <a href="#">Learn more</a></p>
        <p><strong>Note:</strong></p>
        <ul>
          <li>You can add and manage additional address from contact detail section</li>
-         <li>View and edit the address format of your transaction under settings -> Preference -> Customers and Vendor</li>
+         <li>View and edit the address format of your transaction under settings <i className="feather icon-arrow-right"></i> Preference <i className="feather icon-arrow-right"></i> Customers and Vendor</li>
        </ul>
      </div>
    </div>
 
   </div>
-  <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="contact">Contact Person</div>
-  <div class="tab-pane fade" id="pills-custom" role="tabpanel" aria-labelledby="custom">Custom Fields</div>
-  <div class="tab-pane fade" id="pills-reporting" role="tabpanel" aria-labelledby="reporting">Reporting </div>
-  <div class="tab-pane fade" id="pills-remark" role="tabpanel" aria-labelledby="remark">Remarks</div>
+  <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="contact">
+    <div className="d-flex justify-content-between p-1">
+      <h5>BILLING ADDRESS</h5>
+      <h5>SHIPPING ADDRESS</h5>
+    </div>
+    <table class="table">
+  <thead className="bg-main text-white">
+    <tr>
+      <th scope="col">Salutation</th>
+      <th scope="col">Firstname</th>
+      <th scope="col">Lastname</th>
+      <th scope="col">Email</th>
+      <th scope="col">Workphone</th>
+      <th scope="col">Mobile</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Mr.</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+      <td>+987685668</td>
+      <td>+445657765</td>
+    </tr>
+    
+    
+  </tbody>
+</table>
+<p className="color-main"> <i className="feather icon-plus"></i> Add contact person</p>
+  </div>
+  
+
+  <div class="tab-pane fade" id="pills-custom" role="tabpanel" aria-labelledby="custom">
+    <p className="text-center mt-1">Start adding custom fields for your contact
+    by going to Settings <i className="feather icon-arrow-right"></i> Preferences <i className="feather icon-arrow-right"></i>Customers and Vendor.<br/> You can also
+    refine the address format of your customers from there
+    </p>
+  </div>
+  <div class="tab-pane fade" id="pills-reporting" role="tabpanel" aria-labelledby="reporting">
+  <p className="text-center mt-1">You have not created any Reporting Tags. <br/>
+    Start creating by going to More Settings <i className="feather icon-arrow-right"></i> Reporting Tags
+    </p>
+  </div>
+  <div class="tab-pane fade" id="pills-remark" role="tabpanel" aria-labelledby="remark">
+  <div class="form-group col-md-6 mt-1">
+    <label >Remarks <span className="text-muted">(For internal use)</span></label>
+    <textarea class="form-control" rows="5" cols="5" id="exampleFormControlTextarea1" rows="3"></textarea>
+  </div>
+  </div>
 </div>
   
                 <button type="submit" className="btn btn-main mr-1 float-right">
