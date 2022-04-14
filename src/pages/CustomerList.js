@@ -4,26 +4,26 @@ import { useSelector, useDispatch } from 'react-redux';
 import {ErrorMessage} from '../components/Message';
 import Loader from '../components/Loader';
 import { useTitle } from 'components/hooks/useTitle';
-import {getProductGroups,deleteProductGroup,deleteProductGroupComplete} from '../store/actions/productGroup';
+import {getManufacturers,deleteManufacturer,deleteManufacturerComplete} from '../store/actions/manufacturer';
 
-const ProductGroupList = () => {
-  useTitle("Inventroo | Product Groups")
+const CustomerList = () => {
+  useTitle("Inventroo | Customers ")
     const dispatch = useDispatch();
-    const {loading,error,productGroups} = useSelector((state) => state.productGroups);
-    const deleteState = useSelector((state) => state.deleteProductGroup);
+    const {loading,error,manufacturers} = useSelector((state) => state.manufacturers);
+    const deleteState = useSelector((state) => state.deleteManufacturer);
     const {loading:deleteLoading,error:deleteError,success:deleteSuccess} = deleteState;
     const { token} = useSelector((state) => state.auth);
 
     useEffect(()=>{
       if(deleteSuccess){
-      dispatch(deleteProductGroupComplete());
+      dispatch(deleteManufacturerComplete());
       }
-        dispatch(getProductGroups());
+        dispatch(getManufacturers(token));
     },[dispatch,deleteSuccess]);
 
-    const deleteHandler =(productGroup)=>{
+    const deleteHandler =(manufacturer)=>{
         if(window.confirm('Are You Sure to Delete?')){
-          dispatch(deleteProductGroup(productGroup.productGroupID,token));
+          dispatch(deleteManufacturer(manufacturer.id,token));
         }
     }
 
@@ -32,12 +32,12 @@ const ProductGroupList = () => {
           <div className="row d-flex justify-content-between ml-2 mr-5 ">
 <div className="">
   <h3 className="font-weight-bold">
-  All Product Groups
+  All Customers
   </h3>
 
 </div>
-<Link to={'/dashboard/product-group/new'}>
-<button className="btn btn-success">
+<Link to={'/dashboard/customer/new'}>
+    <button className="btn btn-success">
         <i className="feather icon-plus"></i>
         New
     </button>
@@ -54,40 +54,34 @@ const ProductGroupList = () => {
   <thead className="btn-main p-1">
     <tr>
       <th>NAME</th>
-      <th >TYPE</th>
-      <th >RETURNABLE</th>
-      <th >STATUS</th>
-      <th >PRODUCTS</th>
+      <th >COMPANY NAME</th>
+      <th >EMAIL</th>
+      <th >WORK PHONE</th>
+      <th >RECEIVABLES</th>
+      <th >UNUSED CREDIT</th>
       <th >ACTION</th>
     </tr>
   </thead>
   <tbody>
-      {productGroups && productGroups.map(productGroup=>(
- <tr key={productGroup.productGroupID}>
-                <td>{productGroup.name}</td>
-                <td>{productGroup.type}</td>
-                <td>{(productGroup.returnable)===1? "True":"False"}</td>
-                <td>{productGroup.productGroupStatus}</td>
+      {/* {manufacturers && manufacturers.map(manufacturer=>(
+ <tr key={manufacturer.id}>
+                <td>{manufacturer.name}</td>
+                <td>{manufacturer.contact_person}</td>
+                <td>{manufacturer.contact_phone}</td>
                 <td>
-                  {productGroup.products.map(item=>(
-            <span class="badge color-main mr-1 text-white">{item.name}</span>
-                  ))}
-               
-                  
-                  </td>
-                <td>
-                  <Link to={`/dashboard/product-group/${productGroup.productGroupID}/edit`}>
+                  <Link to={`/dashboard/manufacturer/${manufacturer.id}/edit`}>
                   <button className="btn btn-warning mr-1">
               <i className="feather icon-edit"></i>
               </button>
                   </Link>
 
-              <button className="btn btn-danger" onClick={()=>deleteHandler(productGroup)}>
+              <button className="btn btn-danger" onClick={()=>deleteHandler(manufacturer)}>
               <i className="feather icon-trash-2"></i>
               </button>
               </td>
                 </tr>
-      ))}
+      ))} */}
+      
 
 
   </tbody>
@@ -100,4 +94,4 @@ const ProductGroupList = () => {
      );
 }
 
-export default ProductGroupList;
+export default CustomerList;

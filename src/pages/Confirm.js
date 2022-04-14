@@ -4,7 +4,7 @@ import {ApiService} from '../store/constants/ApiService';
 import { useTitle } from '../components/hooks/useTitle'
 import {notify} from '../components/Toast';
 const Confirm = () => {
-    //useTitle('Inventroo | Email Confirmation');
+    useTitle('Inventroo | Email Confirmation');
     const history = useHistory();
     const [message,setMessage]=useState("");
     const search = useLocation().search;

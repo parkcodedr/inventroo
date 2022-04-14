@@ -138,7 +138,7 @@ const TopNav = () => {
                 <ul className="dropdown-menu dropdown-menu-media dropdown-menu-right color-light">
 
                       <li className="scrollable-container media-list ">
-                      <a href="javascript:void(0)">
+                      
                       <div className="media justify-content-center mt-0 mx-auto ">
 
                         <div className="d-flex justify-content-center flex-column ">
@@ -153,13 +153,13 @@ const TopNav = () => {
                             <p className="mt-2">
 
                               <Link to="/dashboard" >My Account</Link>|
-                              <Link className="text-danger" onClick={logoutUser}> Sign out</Link>
+                              <Link className="text-danger" to={'#'} onClick={logoutUser}> Sign out</Link>
                             </p>
                           </div>
 
                         </div>
                       </div>
-                      </a>
+                     
 
                       </li>
 
@@ -190,7 +190,7 @@ const TopNav = () => {
                   <section className="search-container p-1 " >
                   <p>Settings</p>
                   <fieldset className="form-group position-relative has-icon-left">
-                    <input type="text" class="form-control form-control-sm  round"
+                    <input type="text" className="form-control form-control-sm  round"
                         placeholder="search settings"/>
                     <div className="form-control-position">
                         <i className="feather icon-search pl-1 pt-1"></i>
@@ -202,25 +202,25 @@ const TopNav = () => {
                    </li>
 
                    <div className="settings-nav pb-5 bg-white">
-                   <ul class="nav flex-column ">
-                     <li class="nav-item">
-                       <Link class="nav-link ml-2" to={'/account/setup/org-profile'}>
+                   <ul className="nav flex-column ">
+                     <li className="nav-item">
+                       <Link className="nav-link ml-2" to={'/account/setup/org-profile'}>
                        <i className="feather icon-users"></i>
                        Organization Profile</Link>
                      </li>
-                     <li class="nav-item">
-                       <Link class="nav-link ml-2" to={'/account/setup/user-role'}>
+                     <li className="nav-item">
+                       <Link className="nav-link ml-2" to={'/account/setup/user-role'}>
                         <i className="feather icon-users"></i>
                        Users & Roles</Link>
                      </li>
-                     <li class="nav-item">
+                     <li className="nav-item">
 
-                       <Link class="nav-link ml-2" to={'/account/setup/warehouse'}>
+                       <Link className="nav-link ml-2" to={'/account/setup/warehouse'}>
                        <i className="feather icon-home"></i>
                        Warehouse</Link>
                      </li>
-                     <li class="nav-item">
-                       <Link class="nav-link ml-2" to={'/account/setup/branches'}>
+                     <li className="nav-item">
+                       <Link className="nav-link ml-2" to={'/account/setup/branches'}>
                        <i className="fa fa-building"></i>
                        Branches</Link>
                      </li>
@@ -238,7 +238,7 @@ const TopNav = () => {
                 <section className="search-container p-1 " >
                 <p>Settings</p>
                 <fieldset className="form-group position-relative has-icon-left">
-                  <input type="text" class="form-control form-control-sm  round"
+                  <input type="text" className="form-control form-control-sm  round"
                       placeholder="search settings"/>
                   <div className="form-control-position">
                       <i className="feather icon-search pl-1 pt-1"></i>
@@ -250,25 +250,25 @@ const TopNav = () => {
                  </li>
 
                  <div className="settings-nav pb-5 bg-white">
-                 <ul class="nav flex-column ">
-                   <li class="nav-item">
-                     <Link class="nav-link ml-2" to={'/account/setup/org-profile'}>
+                 <ul className="nav flex-column ">
+                   <li className="nav-item">
+                     <Link className="nav-link ml-2" to={'/account/setup/org-profile'}>
                      <i className="feather icon-users"></i>
                      Organization Profile</Link>
                    </li>
-                   <li class="nav-item">
-                     <Link class="nav-link ml-2" to={'/account/setup/user-role'}>
+                   <li className="nav-item">
+                     <Link className="nav-link ml-2" to={'/account/setup/user-role'}>
                       <i className="feather icon-users"></i>
                      Users & Roles</Link>
                    </li>
-                   <li class="nav-item">
+                   <li className="nav-item">
 
-                     <Link class="nav-link ml-2" to={'/account/setup/warehouse'}>
+                     <Link className="nav-link ml-2" to={'/account/setup/warehouse'}>
                      <i className="feather icon-home"></i>
                      Warehouse</Link>
                    </li>
-                   <li class="nav-item">
-                     <Link class="nav-link ml-2" to={'/account/setup/branches'}>
+                   <li className="nav-item">
+                     <Link className="nav-link ml-2" to={'/account/setup/branches'}>
                      <i className="fa fa-building"></i>
                      Branches</Link>
                    </li>
@@ -286,7 +286,7 @@ const TopNav = () => {
                 <section className="search-container p-1 " >
                 <p>Settings</p>
                 <fieldset className="form-group position-relative has-icon-left">
-                  <input type="text" class="form-control form-control-sm  round"
+                  <input type="text" className="form-control form-control-sm  round"
                       placeholder="search settings"/>
                   <div className="form-control-position">
                       <i className="feather icon-search pl-1 pt-1"></i>
@@ -298,25 +298,25 @@ const TopNav = () => {
                  </li>
 
                  <div className="settings-nav pb-5 bg-white">
-                 <ul class="nav flex-column ">
-                   <li class="nav-item">
-                     <Link class="nav-link ml-2" to={'/account/setup/org-profile'}>
+                 <ul className="nav flex-column ">
+                   <li className="nav-item">
+                     <Link className="nav-link ml-2" to={'/account/setup/org-profile'}>
                      <i className="feather icon-users"></i>
                      Organization Profile</Link>
                    </li>
-                   <li class="nav-item">
-                     <Link class="nav-link ml-2" to={'/account/setup/user-role'}>
+                   <li className="nav-item">
+                     <Link className="nav-link ml-2" to={'/account/setup/user-role'}>
                       <i className="feather icon-users"></i>
                      Users & Roles</Link>
                    </li>
-                   <li class="nav-item">
+                   <li className="nav-item">
 
-                     <Link class="nav-link ml-2" to={'/account/setup/warehouse'}>
+                     <Link className="nav-link ml-2" to={'/account/setup/warehouse'}>
                      <i className="feather icon-home"></i>
                      Warehouse</Link>
                    </li>
-                   <li class="nav-item">
-                     <Link class="nav-link ml-2" to={'/account/setup/branches'}>
+                   <li className="nav-item">
+                     <Link className="nav-link ml-2" to={'/account/setup/branches'}>
                      <i className="fa fa-building"></i>
                      Branches</Link>
                    </li>
@@ -333,7 +333,7 @@ const TopNav = () => {
                 <section className="search-container p-1 " >
                 <p>Settings</p>
                 <fieldset className="form-group position-relative has-icon-left">
-                  <input type="text" class="form-control form-control-sm  round"
+                  <input type="text" className="form-control form-control-sm  round"
                       placeholder="search settings"/>
                   <div className="form-control-position">
                       <i className="feather icon-search pl-1 pt-1"></i>
@@ -345,25 +345,25 @@ const TopNav = () => {
                  </li>
 
                  <div className="settings-nav pb-5 bg-white">
-                 <ul class="nav flex-column ">
-                   <li class="nav-item">
-                     <Link class="nav-link ml-2" to={'/account/setup/org-profile'}>
+                 <ul className="nav flex-column ">
+                   <li className="nav-item">
+                     <Link className="nav-link ml-2" to={'/account/setup/org-profile'}>
                      <i className="feather icon-users"></i>
                      Organization Profile</Link>
                    </li>
-                   <li class="nav-item">
-                     <Link class="nav-link ml-2" to={'/account/setup/user-role'}>
+                   <li className="nav-item">
+                     <Link className="nav-link ml-2" to={'/account/setup/user-role'}>
                       <i className="feather icon-users"></i>
                      Users & Roles</Link>
                    </li>
-                   <li class="nav-item">
+                   <li className="nav-item">
 
-                     <Link class="nav-link ml-2" to={'/account/setup/warehouse'}>
+                     <Link className="nav-link ml-2" to={'/account/setup/warehouse'}>
                      <i className="feather icon-home"></i>
                      Warehouse</Link>
                    </li>
-                   <li class="nav-item">
-                     <Link class="nav-link ml-2" to={'/account/setup/branches'}>
+                   <li className="nav-item">
+                     <Link className="nav-link ml-2" to={'/account/setup/branches'}>
                      <i className="fa fa-building"></i>
                      Branches</Link>
                    </li>

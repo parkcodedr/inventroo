@@ -3,12 +3,14 @@ import { useForm } from 'react-hook-form';
 import {ErrorMessage} from 'components/Message';
 import { useHistory,useParams} from 'react-router-dom';
 import {notify} from 'components/Toast';
+import { useTitle } from 'components/hooks/useTitle';
 import Loader from 'components/Loader';
 import { useSelector, useDispatch } from 'react-redux';
 import {updateInventoryAdjustment,getInventoryAdjustmentDetail,updateInventoryAdjustmentComplete} from '../store/actions/inventoryAdjustment';
 import ButtonProcessing from 'components/ButtonProcessing';
 
 const EditInventoryAdjustment = ()=>{
+  useTitle("Inventroo | Edit Adjustment");
     const dispatch = useDispatch();
     const history = useHistory();
     const params = useParams();

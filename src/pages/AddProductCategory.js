@@ -6,8 +6,8 @@ import { useTitle } from 'components/hooks/useTitle';
 import { useSelector, useDispatch } from 'react-redux';
 import {addManufacturer,addManufacturerComplete} from '../store/actions/manufacturer';
 
-const AddManufacturer = ()=>{
-  useTitle("Inventroo | New Manufacturer");
+const AddProductCateogory = ()=>{
+  useTitle("Inventroo | New Product Category");
     const dispatch = useDispatch();
   const history = useHistory();
 
@@ -18,8 +18,8 @@ const AddManufacturer = ()=>{
     if(success){
         
         dispatch(addManufacturerComplete());
-        history.push('/dashboard/manufacturer/all');
-        notify("success","Manufacturer Added Successfully");
+        history.push('/dashboard/product-category/all');
+        notify("success","Product Category Added Successfully");
       }
 
     const submit = (data)=>{
@@ -29,43 +29,33 @@ const AddManufacturer = ()=>{
 
     return(
         <div className="content-body">
-            <h4 className="font-weight-bold">Add Manufacturer</h4>
+            <h4 className="font-weight-bold">Add Product Category</h4>
             <div className="row mt-5">
                 <div className="col-md-10">
             <form onSubmit={handleSubmit(submit)}>
                 {error && <ErrorMessage message={error}/>}
                 <div className="form-group row">
     <label htmlFor="name" className="col-sm-3 col-form-label">
-        Manufacturer Name</label>
+        Category Name</label>
     <div className="col-sm-9">
-      <input type="text" className="form-control" name="name"
-      {...register("name", { required: "Manufacturer Name is required" })}
+      <input type="text" className="form-control" name="category_name"
+      {...register("category_name", { required: "Category Name is required" })}
        />
-        <span className="text-danger text-center">{errors.name?.message}</span>
+        <span className="text-danger text-center">{errors.category_name?.message}</span>
     </div>
   </div>
 
   <div className="form-group row">
     <label className="col-sm-3 col-form-label">
-        Contact Person's Name</label>
+        Description</label>
     <div className="col-sm-9">
-      <input type="text" className="form-control" name="contact_person"
-       {...register("contact_person", { required: "Contact Person's Name is required" })}
-       />
-        <span className="text-danger text-center">{errors.contact_person?.message}</span>
+      <textarea  className="form-control" name="description"
+       {...register("description", { required: "Category Description is required" })}
+       ></textarea>
+        <span className="text-danger text-center">{errors.description?.message}</span>
     </div>
   </div>
-  <div className="form-group row">
-    <label className="col-sm-3 col-form-label">
-        Phone</label>
-    <div className="col-sm-9">
-      <input type="phone" className="form-control" name="contact_phone" 
-       {...register("contact_phone", { required: "Manufacturer Name is required" })}
-      />
-       <span className="text-danger text-center">{errors.contact_phone?.message}</span>
-    </div>
-  </div>
-
+  
                 <button type="submit" className="btn btn-main mr-1 float-right">
 				<i className="fa fa-check-square-o"></i> Submit
 				</button>
@@ -77,4 +67,4 @@ const AddManufacturer = ()=>{
     )
 }
 
-export default AddManufacturer;
+export default AddProductCateogory;

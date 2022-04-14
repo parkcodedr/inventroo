@@ -184,6 +184,9 @@ a[data-toggle="collapse"] {
 #sidebar ul li a:hover {
   background: #792ddd;
 }
+.sub-menu:hover{
+  background: #792ddd;
+}
 
 .settings-nav ul li:hover {
  background: #792ddd;
@@ -271,13 +274,14 @@ padding:1px;
 .tags-input:focus-within {
 		border: 1px solid #0052cc;
 	}
-	input {
+	.input-tag {
 		flex: 1;
 		border: none;
 		height: 40px;
 		font-size: 14px;
 		padding: 4px 0 0 0;
   }
+
   input:focus {
 			outline: transparent;
 		}
@@ -378,4 +382,13 @@ svg circle {
 
 .color-light{
     background:#f2f4f5;
+}
+.btn-plus {
+  cursor:pointer;
+}
+.bg-light-50{
+  background:#f4f6f6;
+}
+.border-left-main{
+  border-left: 3px solid #4c27b3;
 }

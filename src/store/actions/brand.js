@@ -140,7 +140,6 @@ export const getBrandDetail = (id,token) => {
         try {
             ApiService.get(`/brand/find?brandID=${id}`,{headers})
                 .then(response => {
-                    console.log(response.data);
                     const {brand} = response.data;
                     dispatch(getBrandDetailSuccess(brand));
                 }).catch(error => {
@@ -150,7 +149,7 @@ export const getBrandDetail = (id,token) => {
                         dispatch(getBrandDetailFail(ResponseMessage));
     
                     } else if (error.request) {
-                        console.log(error);
+                       
                         dispatch(getBrandDetailFail("Connection failure! Try Again"));
                        
                     }
@@ -197,7 +196,7 @@ export const updateBrand = (params,token) => {
     return (dispatch) => {
         dispatch(updateBrandStart());
         try {
-            console.log({params});
+            
             ApiService.post("/brand/modify",{...params},{headers})
                 .then(response => {
                     //const {manufacturers} = response.data;
@@ -205,15 +204,15 @@ export const updateBrand = (params,token) => {
                 }).catch(error => {
                     if (error.response) {
                         const { ResponseMessage } = error.response.data;
-                        console.log(error.response.data);
+                        
                         dispatch(updateBrandFail(ResponseMessage));
     
                     } else if (error.request) {
-                        console.log(error);
+                    
                         dispatch(updateBrandFail("Connection failure! Try Again"));
                        
                     }
-                    console.log(error.response);
+                   
                 })
         } catch (e) {
             console.log(e);
@@ -262,18 +261,15 @@ export const deleteBrand = (id,token) => {
                 }).catch(error => {
                     if (error.response) {
                         const { ResponseMessage } = error.response.data;
-                        console.log(error.response.data);
                         dispatch(deleteBrandFail(ResponseMessage));
     
                     } else if (error.request) {
-                        console.log(error);
                         dispatch(deleteBrandFail("Connection failure! Try Again"));
                        
                     }
-                    console.log(error.response);
                 })
         } catch (e) {
-            console.log(e);
+            
         }
     }
 }

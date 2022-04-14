@@ -64,7 +64,6 @@ export const getProductGroupsReducer = (state = initialState, action) => {
 }
 
 export const getProductGroupDetailReducer = (state = {
-    productGroup:{},
     loading: false,
 }, action) => {
     switch (action.type) {
@@ -90,7 +89,7 @@ export const getProductGroupDetailReducer = (state = {
             }
         default:
             return {
-                state
+                ...state
             }
     }
 }

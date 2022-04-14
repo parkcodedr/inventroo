@@ -3,11 +3,12 @@ import { useForm } from 'react-hook-form';
 import {ErrorMessage} from '../components/Message';
 import { useHistory,useParams} from 'react-router-dom';
 import {notify} from '../components/Toast';
+import { useTitle } from 'components/hooks/useTitle';
 import { useSelector, useDispatch } from 'react-redux';
 import {updateUnit,updateUnitComplete,getUnitDetail} from '../store/actions/unit';
 
 const EditUnit = ()=>{
-
+useTitle("Inventroo | Edit Unit")
     const dispatch = useDispatch();
     const history = useHistory();
     const params = useParams();

@@ -1,8 +1,10 @@
 
 import {Link} from 'react-router-dom';
+import { useTitle } from 'components/hooks/useTitle';
 const ProductGroup = ()=>{
+    useTitle("Inventroo | Product Group");
+    
     return(
-
 <div className="content-body">
 <div className="row d-flex justify-content-between ml-2 mr-5">
 <div className="dropdown">
