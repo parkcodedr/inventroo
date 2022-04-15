@@ -3,27 +3,27 @@ import { actionTypes } from '../constants/ActionTypes';
 const initialState = {
     loading: false,
     success: false,
-    ProductCategorys:[],
+    Customers:[],
     error: ""
 }
-export const addProductCategoryReducer = (state = initialState, action) => {
+export const addCustomerReducer = (state = initialState, action) => {
     switch (action.type) {
-        case actionTypes.ADD_PRODUCT_CATEGORY_START:
+        case actionTypes.ADD_CUSTOMER_START:
             return {
                 ...state,
                 loading: true,
             }
-        case actionTypes.ADD_PRODUCT_CATEGORY_SUCCESS:
+        case actionTypes.ADD_CUSTOMER_SUCCESS:
             return {
                 loading: false,
                 success: true,
                 error: ""
             }
-        case actionTypes.ADD_PRODUCT_CATEGORY_COMPLETE:
+        case actionTypes.ADD_CUSTOMER_COMPLETE:
                 return {
                     success: false,
                 }
-        case actionTypes.ADD_PRODUCT_CATEGORY_FAIL:
+        case actionTypes.ADD_CUSTOMER_FAIL:
             return {
                 loading: false,
                 success: false,
@@ -37,7 +37,7 @@ export const addProductCategoryReducer = (state = initialState, action) => {
 }
 
 
-export const getProductCategoriesReducer = (state = initialState, action) => {
+export const getCustomersReducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.GET_PRODUCT_CATEGORIES_START:
             return {
@@ -63,16 +63,16 @@ export const getProductCategoriesReducer = (state = initialState, action) => {
     }
 }
 
-export const getProductCategoryDetailReducer = (state = {
+export const getCustomerDetailReducer = (state = {
     loading: false,
 }, action) => {
     switch (action.type) {
-        case actionTypes.GET_PRODUCT_CATEGORY_DETAIL_START:
+        case actionTypes.GET_CUSTOMER_DETAIL_START:
             return {
                 ...state,
                 loading: true,
             }
-        case actionTypes.GET_PRODUCT_CATEGORY_DETAIL_SUCCESS:
+        case actionTypes.GET_CUSTOMER_DETAIL_SUCCESS:
             return {
                 loading: false,
                 productCategory:action.productCategory,
@@ -80,7 +80,7 @@ export const getProductCategoryDetailReducer = (state = {
                 error: ""
             }
         
-        case actionTypes.GET_PRODUCT_CATEGORY_DETAIL_FAIL:
+        case actionTypes.GET_CUSTOMER_DETAIL_FAIL:
             return {
                 loading: false,
                 error: action.error
@@ -92,23 +92,23 @@ export const getProductCategoryDetailReducer = (state = {
     }
 }
 
-export const updateProductCategoryReducer = (state = {}, action) => {
+export const updateCustomerReducer = (state = {}, action) => {
     switch (action.type) {
-        case actionTypes.UPDATE_PRODUCT_CATEGORY_START:
+        case actionTypes.UPDATE_CUSTOMER_START:
             return {
                 loading: true,
             }
-        case actionTypes.UPDATE_PRODUCT_CATEGORY_SUCCESS:
+        case actionTypes.UPDATE_CUSTOMER_SUCCESS:
             return {
                 loading: false,
                 success:true,
                 error: ""
             }
-        case actionTypes.UPDATE_PRODUCT_CATEGORY_COMPLETE:
+        case actionTypes.UPDATE_CUSTOMER_COMPLETE:
             return {
             }
         
-        case actionTypes.UPDATE_PRODUCT_CATEGORY_FAIL:
+        case actionTypes.UPDATE_CUSTOMER_FAIL:
             return {
                 loading: false,
                 error: action.error
@@ -121,23 +121,23 @@ export const updateProductCategoryReducer = (state = {}, action) => {
     }
 }
 
-export const deleteProductCategoryReducer = (state = {}, action) => {
+export const deleteCustomerReducer = (state = {}, action) => {
     switch (action.type) {
-        case actionTypes.DELETE_PRODUCT_CATEGORY_START:
+        case actionTypes.DELETE_CUSTOMER_START:
             return {
                 loading: true,
             }
-        case actionTypes.DELETE_PRODUCT_CATEGORY_SUCCESS:
+        case actionTypes.DELETE_CUSTOMER_SUCCESS:
             return {
                 loading: false,
                 success:true,
                 error: ""
             }
-        case actionTypes.DELETE_PRODUCT_CATEGORY_COMPLETE:
+        case actionTypes.DELETE_CUSTOMER_COMPLETE:
             return {
             }
         
-        case actionTypes.DELETE_PRODUCT_CATEGORY_FAIL:
+        case actionTypes.DELETE_CUSTOMER_FAIL:
             return {
                 loading: false,
                 error: action.error
