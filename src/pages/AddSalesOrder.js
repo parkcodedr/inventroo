@@ -198,9 +198,12 @@ const AddSalesOrder = ()=>{
   {product.map((item,index)=>
     <tr key={`${item}-${index}`}>
       <td>
-        <textarea className="form-control" name="name" rows={1}
+        <select className="custom-select" name="product_id" rows={1}
         onChange={(e)=>handleProductChange(index,e)} 
-        value={item.product_id}></textarea>
+        value={item.product_id}>
+            <option>Select Item</option>
+            <option>1</option>
+        </select>
       </td>
       <td ><input type="text" className="form-control" name="quantity" onChange={(e)=>handleProductChange(index,e)} /></td>
       <td ><input type="text" className="form-control" name="rate" onChange={(e)=>handleProductChange(index,e)} /></td>
@@ -217,6 +220,34 @@ const AddSalesOrder = ()=>{
   <button className="btn btn-outline-main dotted" onClick={handleAddMore}>
   <span className="feather icon-plus color-main"></span> Add another line
   </button>
+  <section className="row">
+      <div className="col-md-5  align-self-end">
+      <label >Customer Notes </label>
+    <textarea class="form-control"  cols="5" id="exampleFormControlTextarea1" rows="3"></textarea>
+      <p>Will be displayed on the invoice</p>
+      </div>
+      <div className="col-md-7 mt-2 bg-light-50 p-2">
+          <div className="d-flex justify-content-between sub-total-container pr-1">
+              <h5 className="sub-total">Subtotal</h5>
+              <h5>786,574,086</h5>
+          </div>
+          <div className="d-flex justify-content-between shipping-charges pr-1">
+            <p className="col-md-4">Shipping Charges <br/><a href="#">Apply Tax on Shipping Charges</a></p>
+            <input type="text" className="form-control col-md-4" name="shipping_charge"/>
+            <p >0.00</p>
+          </div>
+
+          <div className="d-flex justify-content-between adjustment pr-1">
+            <p className="col-md-4">Adjustment</p>
+            <input type="text" className="form-control col-md-4" name="adjustment"/>
+            <p >0.00</p>
+          </div>
+          <div className="d-flex justify-content-between total  pr-1 mt-2">
+            <h4 className="font-weight-bold">Total</h4>
+            <h4 className="font-weight-bold">890,985,483</h4>
+          </div>
+      </div>
+  </section>
  
   <div className="float-right mb-5 mt-2">
 
