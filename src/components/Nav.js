@@ -78,7 +78,7 @@ const Nav = () => {
                     </ul>
                 </li>
 
-                <li className=" nav-item"><NavLink to="/dashboard/sales-order" activeClassName="active-nav"><i className="feather icon-file-text"></i><span className="menu-title " data-i18n="sales Order">Sales Order</span></NavLink>
+                <li className=" nav-item"><NavLink to="/dashboard/sales-order/all" activeClassName="active-nav"><i className="feather icon-file-text"></i><span className="menu-title " data-i18n="sales Order">Sales Order</span></NavLink>
                 </li>
           <li className="nav-item">
                     <a href="#returnsSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle">
