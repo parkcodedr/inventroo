@@ -181,7 +181,8 @@ const AddSalesOrder = ()=>{
     </div>
     </div>
     </div>
-    <table className="table table-responsive group-table mt-5">
+    <div className="row m-1">
+    <table className="table table-responsive group-table mt-5 mr-1">
   <thead>
     <tr className="bg-main text-white">
       <th scope="col">Item Detail</th>
@@ -216,11 +217,13 @@ const AddSalesOrder = ()=>{
   )}
   </tbody>
   </table>
-  
   <button className="btn btn-outline-main dotted" onClick={handleAddMore}>
   <span className="feather icon-plus color-main"></span> Add another line
   </button>
-  <section className="row">
+    </div>
+  
+  
+  <section className="row m-1">
       <div className="col-md-5  align-self-end">
       <label >Customer Notes </label>
     <textarea class="form-control"  cols="5" id="exampleFormControlTextarea1" rows="3"></textarea>

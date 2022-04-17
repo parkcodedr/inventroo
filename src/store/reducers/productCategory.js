@@ -3,7 +3,7 @@ import { actionTypes } from '../constants/ActionTypes';
 const initialState = {
     loading: false,
     success: false,
-    ProductCategorys:[],
+    categories:[],
     error: ""
 }
 export const addProductCategoryReducer = (state = initialState, action) => {
@@ -47,7 +47,7 @@ export const getProductCategoriesReducer = (state = initialState, action) => {
         case actionTypes.GET_PRODUCT_CATEGORIES_SUCCESS:
             return {
                 loading: false,
-                productCategories:action.productCategories,
+                categories:action.categories,
                 error: ""
             }
         
@@ -75,7 +75,7 @@ export const getProductCategoryDetailReducer = (state = {
         case actionTypes.GET_PRODUCT_CATEGORY_DETAIL_SUCCESS:
             return {
                 loading: false,
-                productCategory:action.productCategory,
+                category:action.category,
                 
                 error: ""
             }

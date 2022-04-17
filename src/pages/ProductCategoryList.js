@@ -4,26 +4,26 @@ import { useSelector, useDispatch } from 'react-redux';
 import {ErrorMessage} from '../components/Message';
 import Loader from '../components/Loader';
 import { useTitle } from 'components/hooks/useTitle';
-import {getManufacturers,deleteManufacturer,deleteManufacturerComplete} from '../store/actions/manufacturer';
+import {getProductCategories,deleteProductCategory,deleteProductCategoryComplete} from '../store/actions/productCategory';
 
 const ProductCategoryList = () => {
   useTitle("Inventroo | Product Category");
     const dispatch = useDispatch();
-    const {loading,error,manufacturers} = useSelector((state) => state.manufacturers);
-    const deleteState = useSelector((state) => state.deleteManufacturer);
+    const {loading,error,categories} = useSelector((state) => state.productCategories);
+    const deleteState = useSelector((state) => state.deleteProductCategory);
     const {loading:deleteLoading,error:deleteError,success:deleteSuccess} = deleteState;
     const { token} = useSelector((state) => state.auth);
 
     useEffect(()=>{
       if(deleteSuccess){
-      dispatch(deleteManufacturerComplete());
+      dispatch(deleteProductCategoryComplete());
       }
-        dispatch(getManufacturers(token));
+        dispatch(getProductCategories());
     },[dispatch,deleteSuccess]);
 
-    const deleteHandler =(manufacturer)=>{
+    const deleteHandler =(category)=>{
         if(window.confirm('Are You Sure to Delete?')){
-          dispatch(deleteManufacturer(manufacturer.id,token));
+          dispatch(deleteProductCategory(category.id));
         }
     }
 
@@ -60,19 +60,19 @@ const ProductCategoryList = () => {
     </tr>
   </thead>
   <tbody>
-      {manufacturers && manufacturers.map(manufacturer=>(
- <tr key={manufacturer.id}>
-                <td>{manufacturer.name}</td>
-                <td>{manufacturer.contact_person}</td>
-                <td>{manufacturer.contact_phone}</td>
+      {categories && categories.map(category=>(
+ <tr key={category.id}>
+                <td>{category.category_name}</td>
+                <td>{category.description}</td>
+                <td>{(category.created_at).substring(0,10)}</td>
                 <td>
-                  <Link to={`/dashboard/manufacturer/${manufacturer.id}/edit`}>
+                  <Link to={`/dashboard/product-category/${category.id}/edit`}>
                   <button className="btn btn-warning mr-1">
               <i className="feather icon-edit"></i>
               </button>
                   </Link>
 
-              <button className="btn btn-danger" onClick={()=>deleteHandler(manufacturer)}>
+              <button className="btn btn-danger" onClick={()=>deleteHandler(category)}>
               <i className="feather icon-trash-2"></i>
               </button>
               </td>
