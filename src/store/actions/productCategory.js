@@ -120,10 +120,10 @@ export const getProductCategoryDetailStart = () => {
     };
 };
 
-export const getProductCategoryDetailSuccess = (productCategory) => {
+export const getProductCategoryDetailSuccess = (category) => {
     return {
         type: actionTypes.GET_PRODUCT_CATEGORY_DETAIL_SUCCESS,
-        productCategory,
+        category,
         
     };
 };
@@ -148,8 +148,8 @@ export const getProductCategoryDetail = (id) => {
             ApiService.get(`/category/find?categoryID=${id}`,{headers})
                 .then(response => {
                     console.log(response.data);
-                    const {productCategory} = response.data;
-                    dispatch(getProductCategoryDetailSuccess(productCategory));
+                    const {category} = response.data;
+                    dispatch(getProductCategoryDetailSuccess(category));
                 }).catch(error => {
                     if (error.response) {
                         const { message } = error.response.data;

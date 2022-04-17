@@ -33,7 +33,8 @@ import {Warehouse,
   CustomerList,
 AddCustomer,
 AddSalesOrder,
-SalesOrderList
+SalesOrderList,
+EditProductCategory
 } from '../../pages';
 
 
@@ -210,6 +211,12 @@ export const routes = [
       exact: true,
       main: () => <ProductCategoryList/>
     },
+    {
+      path: "/dashboard/product-category/:productCategoryId/edit",
+      exact: true,
+      main: () => <EditProductCategory/>
+    },
+    //productCategoryId
     {
       path: "/dashboard/customer/new",
       exact: true,

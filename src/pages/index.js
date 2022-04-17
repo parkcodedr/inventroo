@@ -40,6 +40,8 @@ import CustomerList from './CustomerList';
 import AddCustomer from './AddCustomer';
 import AddSalesOrder from './AddSalesOrder';
 import SalesOrderList from './SalesOrderList';
+import EditProductCategory from './EditProductCategory';
+
 
 const Login = React.lazy(() => import("./Login"));
 
@@ -86,5 +88,6 @@ ProductCategoryList,
 CustomerList,
 AddCustomer,
 AddSalesOrder,
-SalesOrderList
+SalesOrderList,
+EditProductCategory
 }
