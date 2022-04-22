@@ -1,3 +1,4 @@
+import React,{useState} from 'react';
 import { useForm } from 'react-hook-form';
 import {ErrorMessage} from '../components/Message';
 import { useHistory} from 'react-router-dom';
@@ -10,10 +11,12 @@ const AddCustomer = ()=>{
   useTitle("Inventroo | New Customer");
     const dispatch = useDispatch();
   const history = useHistory();
+  const [customerType,setCustomerType] = useState("business");
 
     const { success, error, loading} = useSelector((state) => state.addManufacturer);
     const {register,formState: { errors },handleSubmit} = useForm();
     const { token} = useSelector((state) => state.auth);
+    
 
     if(success){
         
@@ -31,21 +34,24 @@ const AddCustomer = ()=>{
         <div className="content-body">
             <h4 className="font-weight-bold">Add Customer</h4>
             <div className="row mt-5">
-                <div className="col-md-12">
+                <div className="col-md-10">
             <form onSubmit={handleSubmit(submit)}>
                 {error && <ErrorMessage message={error}/>}
                 <div className="form-group row">
-<label htmlFor="type" className="col-sm-3 col-form-label">Customer Type</label>
+<label htmlFor="type" className="col-sm-2 col-form-label">Customer Type</label>
 <div className="col-sm-9">
     <div className="form-check form-check-inline">
-  <input className="form-check-input" checked type="radio" value="business" name="type"
+  <input className="form-check-input" type="radio" value="business" name="type"
+  checked={customerType==="business"}
   {...register("type", { required: "Customer Type is required" })}
-  />
+  onChange={(e)=>setCustomerType(e.target.value)} />
   <label className="form-check-label">Business</label>
     </div>
 <div className="form-check form-check-inline">
   <input className="form-check-input" type="radio" value="individual" name="type"
   {...register("type", { required: "Customer Type is required" })}
+  checked={customerType==="individual"}
+  onChange={(e)=>setCustomerType(e.target.value)}
   />
   <label className="form-check-label">Individual</label>
 </div>
@@ -69,19 +75,73 @@ const AddCustomer = ()=>{
     </div>
 
     <div className="col-sm-3">
-    <input className="form-control" name="firstname"
-    {...register("firstname", { required: "Firstname is required" })} placeholder="Firstname" />
+    <input className="form-control" name="first_name"
+    {...register("first_name", { required: "Firstname is required" })} placeholder="Firstname" />
        
-       <span className="text-danger">{errors.firstname?.message}</span>
+       <span className="text-danger">{errors.first_name?.message}</span>
     </div>
     <div className="col-sm-3">
-    <input className="form-control" name="lastname"
-    {...register("lastname", { required: "Lastname is required" })}  placeholder="Lastname"/>
+    <input className="form-control" name="last_name"
+    {...register("last_name", { required: "Lastname is required" })}  placeholder="Lastname"/>
        
-       <span className="text-danger">{errors.lastname?.message}</span>
+       <span className="text-danger">{errors.last_name?.message}</span>
     </div>
     </div>
-    <div className="form-group row">
+      {customerType==="individual"?(
+        <>
+        <div className="form-group row">
+    <label className="col-sm-2 col-form-label">
+    Date of Birth </label>
+    <div className="col-sm-3">
+    <input className="form-control" type="date" 
+    {...register("date_of_birth",{ required:"Date of Birth is required"})} name="date_of_birth" />
+       <span className="text-danger">{errors.date_of_birth?.message}</span>
+    </div>
+    <label className="col-sm-1 col-form-label">
+        Gender</label>
+    <div className="col-sm-3">
+     <select className="custom-select" 
+     {...register("gender",{ required:"Gender is required"})} name="gender">
+       <option>Select Gender</option>
+       <option value="Male">Male</option>
+       <option value="Female">Female</option>
+     </select>
+    </div>
+    <span className="text-danger">{errors.gender?.message}</span>
+  </div>
+
+  <div className="form-group row">
+    <label className="col-sm-2 col-form-label">
+    Address
+
+    <div class="form-check">
+  <input class="form-check-input" type="checkbox" />
+  <label class="form-check-label" for="flexCheckDefault">
+    use as delivery Address
+  </label>
+</div>
+    </label>
+    
+    <div className="col-sm-6">
+    <input className="form-control" name="address"
+    {...register("address", { required: "Address is required" })}  placeholder="Address"/>
+       
+       <span className="text-danger">{errors.address?.message}</span>
+    </div>
+</div>
+<div className="form-group row">
+    <label className="col-sm-2 col-form-label">
+    Delivery Address</label>
+    <div className="col-sm-6">
+    <input className="form-control" name="delivery_address"
+    {...register("delivery_address")}  placeholder="Deliver Address"/>
+       
+    </div>
+</div>
+        </>
+      ):(
+        <>
+        <div className="form-group row">
     <label className="col-sm-2 col-form-label">
     Company Name</label>
     <div className="col-sm-6">
@@ -102,6 +162,10 @@ const AddCustomer = ()=>{
     </div>
 </div>
 
+        </>
+      )}
+
+    
 <div className="form-group row">
     <label className="col-sm-2 col-form-label">
     Customer Email</label>
@@ -119,9 +183,9 @@ const AddCustomer = ()=>{
     
     <div className="col-sm-3">
     <input className="form-control" name="work_phone"
-    {...register("work_phone", { required: "Work Phone is required" })} placeholder="Work Phone" />
+    {...register("work_phone")} placeholder="Work Phone" />
        
-       <span className="text-danger">{errors.work_phone?.message}</span>
+    
     </div>
     <div className="col-sm-3">
     <input className="form-control" name="mobile"
@@ -130,7 +194,31 @@ const AddCustomer = ()=>{
        <span className="text-danger">{errors.mobile?.message}</span>
     </div>
     </div>
-    <div className="form-group row">
+    
+        {customerType==="individual"?(
+          <>
+          <div className="form-group row">
+    <label className="col-sm-2 col-form-label">
+    Website</label>
+    <div className="col-sm-3">
+    <input className="form-control" name="website"
+    {...register("website")}/>
+       
+       <span className="text-danger">{errors.email?.message}</span>
+    </div>
+
+    <label className="col-sm-2 col-form-label">
+    Loyalty ID</label>
+    <div className="col-sm-3">
+    <input className="form-control" name="loyalty_id"
+    {...register("loyalty_id")}/>
+       
+    </div>
+</div>
+          </>
+        ):(
+          <>
+          <div className="form-group row">
     <label className="col-sm-2 col-form-label">
     Website</label>
     <div className="col-sm-6">
@@ -140,6 +228,9 @@ const AddCustomer = ()=>{
        <span className="text-danger">{errors.email?.message}</span>
     </div>
 </div>
+
+
+
 <div className="p-1 bg-light-50 col-12">
 <ul class="nav nav-pills " id="pills-tab" role="tablist">
   <li class="nav-item" role="presentation">
@@ -509,9 +600,16 @@ access only to the data of this customer <a href="#">Learn more</a></p>
   </div>
   </div>
 </div>
+          </>
+        )}
+
   
-                <button type="submit" className="btn btn-main mr-1 float-right">
+          <button type="submit" className="btn btn-main mr-1">
 				<i className="fa fa-check-square-o"></i> Submit
+				</button>
+
+        <button type="reset" className="btn btn-outline-main mr-1">
+				<i className="feather icon-x"></i> Cancel
 				</button>
                 </form>
                 </div>
