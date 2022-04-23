@@ -372,7 +372,7 @@ padding:1px;
 
 svg circle {
   fill: none;
-  stroke: #b9b9c8;
+  stroke: #4c27b3;
   stroke-width: 14;
   stroke-linecap: round;
   transform: translate(5px, 5px);
@@ -381,7 +381,7 @@ svg circle {
 }
 
 .color-light{
-    background:#f2f4f5;
+    background:#fcfcfc;
 }
 .btn-plus {
   cursor:pointer;
@@ -391,4 +391,9 @@ svg circle {
 }
 .border-left-main{
   border-left: 3px solid #4c27b3;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+  color: #FFF;
+  background-color: rgb(83, 208, 96);
 }

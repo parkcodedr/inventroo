@@ -496,7 +496,7 @@ if(addSuccess){
             )}
 
 
-                                <button type="reset" className="btn btn-warning ">
+                  <button type="reset" className="btn btn-warning ">
 									<i className="feather icon-x"></i> Cancel
 								</button>
 							</div>

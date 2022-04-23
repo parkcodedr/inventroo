@@ -31,7 +31,11 @@ import {Warehouse,
   AddProductCategory,
   ProductCategoryList,
   CustomerList,
-AddCustomer
+AddCustomer,
+EditCustomer,
+AddSalesOrder,
+SalesOrderList,
+EditProductCategory
 } from '../../pages';
 
 
@@ -209,6 +213,12 @@ export const routes = [
       main: () => <ProductCategoryList/>
     },
     {
+      path: "/dashboard/product-category/:productCategoryId/edit",
+      exact: true,
+      main: () => <EditProductCategory/>
+    },
+    //productCategoryId
+    {
       path: "/dashboard/customer/new",
       exact: true,
       main: () => <AddCustomer/>
@@ -217,6 +227,22 @@ export const routes = [
       path: "/dashboard/customer/all",
       exact: true,
       main: () => <CustomerList/>
+    },
+    ,
+    {
+      path: "/dashboard/customer/:customerId/edit",
+      exact: true,
+      main: () => <EditCustomer/>
+    },
+    {
+      path: "/dashboard/sales-order/all",
+      exact: true,
+      main: () => <SalesOrderList/>
+    },
+    {
+      path: "/dashboard/sales-order/new",
+      exact: true,
+      main: () => <AddSalesOrder/>
     },
 
   ];

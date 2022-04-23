@@ -37,7 +37,7 @@ export const addProductCategory = (productCategory) => {
                 'Content-Type': 'application/json',
                 'Authorization':`Bearer ${token}`
             }
-            ApiService.post("/productCategory/add", productCategory,{headers})
+            ApiService.post("/category/add", productCategory,{headers})
                 .then(response => {
                     dispatch(addProductCategorySuccess());
                 }).catch(error => {
@@ -66,10 +66,10 @@ export const getProductCategoriesStart = () => {
     };
 };
 
-export const getProductCategoriesSuccess = (productCategories) => {
+export const getProductCategoriesSuccess = (categories) => {
     return {
         type: actionTypes.GET_PRODUCT_CATEGORIES_SUCCESS,
-        productCategories
+        categories
     };
 };
 
@@ -89,10 +89,11 @@ export const getProductCategories = () => {
                 'Content-Type': 'application/json',
                 'Authorization':`Bearer ${token}`
             }
-            ApiService.get("/productCategory/all",{headers})
+            ApiService.get("/category/all",{headers})
                 .then(response => {
-                    const {productCategories} = response.data;
-                    dispatch(getProductCategoriesSuccess(productCategories));
+                    const {categories} = response.data;
+                    console.log(response.data);
+                    dispatch(getProductCategoriesSuccess(categories));
                 }).catch(error => {
                     if (error.response) {
                         const { message } = error.response.data;
@@ -119,10 +120,10 @@ export const getProductCategoryDetailStart = () => {
     };
 };
 
-export const getProductCategoryDetailSuccess = (productCategory) => {
+export const getProductCategoryDetailSuccess = (category) => {
     return {
         type: actionTypes.GET_PRODUCT_CATEGORY_DETAIL_SUCCESS,
-        productCategory,
+        category,
         
     };
 };
@@ -144,11 +145,11 @@ export const getProductCategoryDetail = (id) => {
                 'Content-Type': 'application/json',
                 'Authorization':`Bearer ${token}`
             }
-            ApiService.get(`/productCategory/find?productCategoryID=${id}`,{headers})
+            ApiService.get(`/category/find?categoryID=${id}`,{headers})
                 .then(response => {
                     console.log(response.data);
-                    const {productCategory} = response.data;
-                    dispatch(getProductCategoryDetailSuccess(productCategory));
+                    const {category} = response.data;
+                    dispatch(getProductCategoryDetailSuccess(category));
                 }).catch(error => {
                     if (error.response) {
                         const { message } = error.response.data;
@@ -204,7 +205,7 @@ export const updateProductCategory = (productCategory) => {
                 'Content-Type': 'application/json',
                 'Authorization':`Bearer ${token}`
             }
-            ApiService.post("/ProductCategory/modify",productCategory,{headers})
+            ApiService.post("/category/modify",productCategory,{headers})
                 .then(response => {
                     //const {manufacturers} = response.data;
                     dispatch(updateProductCategorySuccess());
@@ -262,7 +263,7 @@ export const deleteProductCategory = (id) => {
                 'Content-Type': 'application/json',
                 'Authorization':`Bearer ${token}`
             }
-            ApiService.get(`/productCategory/remove?productCategoryID=${id}`,{headers})
+            ApiService.get(`/category/remove?categoryID=${id}`,{headers})
                 .then(response => {
                     //const {manufacturers} = response.data;
                     dispatch(deleteProductCategorySuccess());

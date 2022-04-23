@@ -70,7 +70,7 @@ const Dashboard = ()=>{
                   <circle cx="38" cy="38" r="36"></circle>
                 </svg>
                 <div class="number">
-                  <p>0%</p>
+                  <p>80%</p>
 
                 </div>
               </div>

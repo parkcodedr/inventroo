@@ -2,29 +2,30 @@ import { useForm } from 'react-hook-form';
 import {ErrorMessage} from '../components/Message';
 import { useHistory} from 'react-router-dom';
 import {notify} from '../components/Toast';
+import LoadingButton from 'components/LoadingButton';
 import { useTitle } from 'components/hooks/useTitle';
 import { useSelector, useDispatch } from 'react-redux';
-import {addManufacturer,addManufacturerComplete} from '../store/actions/manufacturer';
+import {addProductCategory,addProductCategoryComplete} from '../store/actions/productCategory';
 
 const AddProductCateogory = ()=>{
   useTitle("Inventroo | New Product Category");
     const dispatch = useDispatch();
   const history = useHistory();
 
-    const { success, error, loading} = useSelector((state) => state.addManufacturer);
+    const { success, error, loading} = useSelector((state) => state.addProductCategory);
     const {register,formState: { errors },handleSubmit} = useForm();
     const { token} = useSelector((state) => state.auth);
 
     if(success){
         
-        dispatch(addManufacturerComplete());
+        dispatch(addProductCategoryComplete());
         history.push('/dashboard/product-category/all');
         notify("success","Product Category Added Successfully");
       }
 
     const submit = (data)=>{
         console.log(data);
-        dispatch(addManufacturer(data,token));
+        dispatch(addProductCategory(data));
     }
 
     return(
@@ -56,9 +57,16 @@ const AddProductCateogory = ()=>{
     </div>
   </div>
   
-                <button type="submit" className="btn btn-main mr-1 float-right">
-				<i className="fa fa-check-square-o"></i> Submit
-				</button>
+  {loading? (
+                  <div className="float-right">
+                    <LoadingButton/>
+                  </div>
+                ):(
+                  <button type="submit" className="btn btn-main mr-1 float-right">
+									<i className="fa fa-check-square-o"></i> Save and Continue
+								</button>
+                )}
+
                 </form>
                 </div>
          </div>

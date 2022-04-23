@@ -76,7 +76,6 @@ export const getPriceListDetailReducer = (state = {
             return {
                 loading: false,
                 priceList:action.priceList,
-                
                 error: ""
             }
         

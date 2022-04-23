@@ -42,9 +42,9 @@ export const addCustomer = (customer) => {
                     dispatch(addCustomerSuccess());
                 }).catch(error => {
                     if (error.response) {
-                        const { message } = error.response.data;
+                        const { ResponseMessage } = error.response.data;
                         console.log(error.response.data);
-                        dispatch(addCustomerFail(message));
+                        dispatch(addCustomerFail(ResponseMessage));
 
                     } else if (error.request) {
                         console.log(error);
