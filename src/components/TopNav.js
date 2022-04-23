@@ -153,7 +153,7 @@ const TopNav = () => {
                             <p className="mt-2">
 
                               <Link to="/dashboard" >My Account</Link>|
-                              <Link className="text-danger" onClick={logoutUser}> Sign out</Link>
+                              <Link className="text-danger" to={"#"} onClick={logoutUser}> Sign out</Link>
                             </p>
                           </div>
 
