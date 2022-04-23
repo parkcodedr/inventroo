@@ -4,26 +4,26 @@ import { useSelector, useDispatch } from 'react-redux';
 import {ErrorMessage} from '../components/Message';
 import Loader from '../components/Loader';
 import { useTitle } from 'components/hooks/useTitle';
-import {getManufacturers,deleteManufacturer,deleteManufacturerComplete} from '../store/actions/manufacturer';
+import {getCustomers,deleteCustomer,deleteCustomerComplete} from '../store/actions/customers';
 
 const CustomerList = () => {
   useTitle("Inventroo | Customers ")
     const dispatch = useDispatch();
-    const {loading,error,manufacturers} = useSelector((state) => state.manufacturers);
-    const deleteState = useSelector((state) => state.deleteManufacturer);
+    const {loading,error,customers} = useSelector((state) => state.customers);
+    const deleteState = useSelector((state) => state.deleteCustomer);
     const {loading:deleteLoading,error:deleteError,success:deleteSuccess} = deleteState;
     const { token} = useSelector((state) => state.auth);
 
     useEffect(()=>{
       if(deleteSuccess){
-      dispatch(deleteManufacturerComplete());
+      dispatch(deleteCustomerComplete());
       }
-        dispatch(getManufacturers(token));
+        dispatch(getCustomers());
     },[dispatch,deleteSuccess]);
 
-    const deleteHandler =(manufacturer)=>{
+    const deleteHandler =(customer)=>{
         if(window.confirm('Are You Sure to Delete?')){
-          dispatch(deleteManufacturer(manufacturer.id,token));
+          dispatch(deleteCustomer(customer.customerID));
         }
     }
 
@@ -53,34 +53,37 @@ const CustomerList = () => {
         <table className="table table-responsive-sm">
   <thead className="btn-main p-1">
     <tr>
-      <th>NAME</th>
-      <th >COMPANY NAME</th>
-      <th >EMAIL</th>
-      <th >WORK PHONE</th>
-      <th >RECEIVABLES</th>
-      <th >UNUSED CREDIT</th>
-      <th >ACTION</th>
+      <th scope="col">NAME</th>
+      <th scope="col">COMPANY NAME</th>
+      <th scope="col">EMAIL</th>
+      <th scope="col">WORK PHONE</th>
+      <th scope="col">RECEIVABLES</th>
+      <th scope="col">UNUSED CREDIT</th>
+      <th scope="col">ACTION</th>
     </tr>
   </thead>
   <tbody>
-      {/* {manufacturers && manufacturers.map(manufacturer=>(
- <tr key={manufacturer.id}>
-                <td>{manufacturer.name}</td>
-                <td>{manufacturer.contact_person}</td>
-                <td>{manufacturer.contact_phone}</td>
+      {customers && customers.map(customer=>(
+ <tr key={customer.customerID}>
+                <td>{customer.name}</td>
+                <td>{customer.company_name}</td>
+                <td>{customer.customer_email}</td>
+                <td>{customer.work_phone}</td>
+                <td>{'0.00'}</td>
+                <td>{'0.00'}</td>
                 <td>
-                  <Link to={`/dashboard/manufacturer/${manufacturer.id}/edit`}>
+                  <Link to={`/dashboard/customer/${customer.customerID}/edit`}>
                   <button className="btn btn-warning mr-1">
               <i className="feather icon-edit"></i>
               </button>
                   </Link>
 
-              <button className="btn btn-danger" onClick={()=>deleteHandler(manufacturer)}>
+              <button className="btn btn-danger" onClick={()=>deleteHandler(customer)}>
               <i className="feather icon-trash-2"></i>
               </button>
               </td>
                 </tr>
-      ))} */}
+      ))}
       
 
 

@@ -32,6 +32,7 @@ import {Warehouse,
   ProductCategoryList,
   CustomerList,
 AddCustomer,
+EditCustomer,
 AddSalesOrder,
 SalesOrderList,
 EditProductCategory
@@ -226,6 +227,12 @@ export const routes = [
       path: "/dashboard/customer/all",
       exact: true,
       main: () => <CustomerList/>
+    },
+    ,
+    {
+      path: "/dashboard/customer/:customerId/edit",
+      exact: true,
+      main: () => <EditCustomer/>
     },
     {
       path: "/dashboard/sales-order/all",

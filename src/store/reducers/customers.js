@@ -3,7 +3,7 @@ import { actionTypes } from '../constants/ActionTypes';
 const initialState = {
     loading: false,
     success: false,
-    Customers:[],
+    customers:[],
     error: ""
 }
 export const addCustomerReducer = (state = initialState, action) => {
@@ -39,19 +39,19 @@ export const addCustomerReducer = (state = initialState, action) => {
 
 export const getCustomersReducer = (state = initialState, action) => {
     switch (action.type) {
-        case actionTypes.GET_PRODUCT_CATEGORIES_START:
+        case actionTypes.GET_CUSTOMERS_START:
             return {
                 ...state,
                 loading: true,
             }
-        case actionTypes.GET_PRODUCT_CATEGORIES_SUCCESS:
+        case actionTypes.GET_CUSTOMERS_SUCCESS:
             return {
                 loading: false,
-                productCategories:action.productCategories,
+                customers:action.customers,
                 error: ""
             }
         
-        case actionTypes.GET_PRODUCT_CATEGORIES_FAIL:
+        case actionTypes.GET_CUSTOMERS_FAIL:
             return {
                 loading: false,
                 error: action.error
@@ -75,8 +75,7 @@ export const getCustomerDetailReducer = (state = {
         case actionTypes.GET_CUSTOMER_DETAIL_SUCCESS:
             return {
                 loading: false,
-                productCategory:action.productCategory,
-                
+                customer:action.customer,
                 error: ""
             }
         
