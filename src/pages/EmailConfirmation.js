@@ -1,8 +1,9 @@
 import React,{useEffect} from 'react';
 import {useDispatch } from 'react-redux';
 import {registrationComplete} from '../store/actions/register';
-import {getModules} from '../store/actions/modules';
+import { useTitle } from 'components/hooks/useTitle';
 const EmailConfirmation = () => {
+    useTitle("Inventroo | Confirmation Email Sent")
     const dispatch = useDispatch();
 
     useEffect(()=>{

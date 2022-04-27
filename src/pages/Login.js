@@ -4,6 +4,7 @@ import { useTitle } from 'components/hooks/useTitle';
 import {loginUser} from 'store/actions/auth';
 import {ErrorMessage} from '../components/Message';
 import {useDispatch,useSelector} from 'react-redux';
+import LoadingButton from 'components/LoadingButton';
 
 const Login = ()=>{
    useTitle('Inventroo | Login');
@@ -94,15 +95,12 @@ return(
                           </fieldset>
                           <div className="form-group row">
 
-                              <div className="col-sm-12 col-12 float-sm-left"><a
-                                      href="#" className="card-link color-main text-decoration-underline">Forgot Password?</a></div>
+                              <div className="col-sm-12 col-12 float-sm-left"><Link
+                                      to={"/forgot-password"} className="card-link color-main text-decoration-underline">Forgot Password?</Link></div>
                           </div>
                           <div className="d-flex justify-content-center align-items-center">
                           {loading === true ? (
-                                    <button className="btn btn-main" type="button" disabled>
-                                        <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                                            Please wait...
-                                            </button>
+                                    <LoadingButton/>
                                         ) :(
                                             <button type="submit" className="btn btn-main pl-4 pr-4">
                                   Continue</button>

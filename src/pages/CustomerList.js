@@ -4,26 +4,26 @@ import { useSelector, useDispatch } from 'react-redux';
 import {ErrorMessage} from '../components/Message';
 import Loader from '../components/Loader';
 import { useTitle } from 'components/hooks/useTitle';
-import {getProductGroups,deleteProductGroup,deleteProductGroupComplete} from '../store/actions/productGroup';
+import {getCustomers,deleteCustomer,deleteCustomerComplete} from '../store/actions/customers';
 
-const ProductGroupList = () => {
-  useTitle("Inventroo | Product Groups")
+const CustomerList = () => {
+  useTitle("Inventroo | Customers ")
     const dispatch = useDispatch();
-    const {loading,error,productGroups} = useSelector((state) => state.productGroups);
-    const deleteState = useSelector((state) => state.deleteProductGroup);
+    const {loading,error,customers} = useSelector((state) => state.customers);
+    const deleteState = useSelector((state) => state.deleteCustomer);
     const {loading:deleteLoading,error:deleteError,success:deleteSuccess} = deleteState;
     const { token} = useSelector((state) => state.auth);
 
     useEffect(()=>{
       if(deleteSuccess){
-      dispatch(deleteProductGroupComplete());
+      dispatch(deleteCustomerComplete());
       }
-        dispatch(getProductGroups());
+        dispatch(getCustomers());
     },[dispatch,deleteSuccess]);
 
-    const deleteHandler =(productGroup)=>{
+    const deleteHandler =(customer)=>{
         if(window.confirm('Are You Sure to Delete?')){
-          dispatch(deleteProductGroup(productGroup.productGroupID,token));
+          dispatch(deleteCustomer(customer.customerID));
         }
     }
 
@@ -32,12 +32,12 @@ const ProductGroupList = () => {
           <div className="row d-flex justify-content-between ml-2 mr-5 ">
 <div className="">
   <h3 className="font-weight-bold">
-  All Product Groups
+  All Customers
   </h3>
 
 </div>
-<Link to={'/dashboard/product-group/new'}>
-<button className="btn btn-success">
+<Link to={'/dashboard/customer/new'}>
+    <button className="btn btn-success">
         <i className="feather icon-plus"></i>
         New
     </button>
@@ -53,41 +53,38 @@ const ProductGroupList = () => {
         <table className="table table-responsive-sm">
   <thead className="btn-main p-1">
     <tr>
-      <th>NAME</th>
-      <th >TYPE</th>
-      <th >RETURNABLE</th>
-      <th >STATUS</th>
-      <th >PRODUCTS</th>
-      <th >ACTION</th>
+      <th scope="col">NAME</th>
+      <th scope="col">COMPANY NAME</th>
+      <th scope="col">EMAIL</th>
+      <th scope="col">WORK PHONE</th>
+      <th scope="col">RECEIVABLES</th>
+      <th scope="col">UNUSED CREDIT</th>
+      <th scope="col">ACTION</th>
     </tr>
   </thead>
   <tbody>
-      {productGroups && productGroups.map(productGroup=>(
- <tr key={productGroup.productGroupID}>
-                <td>{productGroup.name}</td>
-                <td>{productGroup.type}</td>
-                <td>{(productGroup.returnable)===1? "True":"False"}</td>
-                <td>{productGroup.productGroupStatus}</td>
+      {customers && customers.map(customer=>(
+ <tr key={customer.customerID}>
+                <td>{customer.name}</td>
+                <td>{customer.company_name}</td>
+                <td>{customer.customer_email}</td>
+                <td>{customer.work_phone}</td>
+                <td>{'0.00'}</td>
+                <td>{'0.00'}</td>
                 <td>
-                  {productGroup.products.map(item=>(
-            <span class="badge color-main mr-1 text-white">{item.name}</span>
-                  ))}
-               
-                  
-                  </td>
-                <td>
-                  <Link to={`/dashboard/product-group/${productGroup.productGroupID}/edit`}>
+                  <Link to={`/dashboard/customer/${customer.customerID}/edit`}>
                   <button className="btn btn-warning mr-1">
               <i className="feather icon-edit"></i>
               </button>
                   </Link>
 
-              <button className="btn btn-danger" onClick={()=>deleteHandler(productGroup)}>
+              <button className="btn btn-danger" onClick={()=>deleteHandler(customer)}>
               <i className="feather icon-trash-2"></i>
               </button>
               </td>
                 </tr>
       ))}
+      
 
 
   </tbody>
@@ -100,4 +97,4 @@ const ProductGroupList = () => {
      );
 }
 
-export default ProductGroupList;
+export default CustomerList;

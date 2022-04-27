@@ -7,7 +7,7 @@ import { useTitle } from 'components/hooks/useTitle';
 import { useForm } from 'react-hook-form';
 import {ErrorMessage} from 'components/Message';
 import LoadingButton from 'components/LoadingButton';
-import { useHistory} from 'react-router-dom';
+import { useHistory,useParams} from 'react-router-dom';
 import {notify} from 'components/Toast';
 import Loader from 'components/Loader';
 import { useSelector, useDispatch } from 'react-redux';
@@ -15,14 +15,16 @@ import {getManufacturers} from 'store/actions/manufacturer';
 import {getBrands} from 'store/actions/brand';
 import {getUnits} from 'store/actions/unit';
 import {getTaxes} from 'store/actions/tax';
-import {addProductGroup,addProductGroupComplete} from 'store/actions/productGroup';
+import {updateProductGroup,updateProductGroupComplete,getProductGroupDetail} from 'store/actions/productGroup';
 import {thumbsContainer,thumb,thumbInner,img} from 'components/styles/DropZoneStyle';
 import ImageThumbs from 'components/ImageThumbs';
-const AddProductGroup = ()=>{
-  useTitle('Inventroo | New Product Group');
-
+const EditProductGroup = ()=>{
+  useTitle('Inventroo | Edit Product Group');
+  const params = useParams();
+  
   const dispatch = useDispatch();
   const history = useHistory();
+  const productGroupID=params.productGroupId;
   const [tags,setTags] = useState([]);
   const [productName,setProductName] = useState("");
   const [product,setProduct] = useState([]);
@@ -39,17 +41,17 @@ const AddProductGroup = ()=>{
     }
     ]);
 
-    const { success:addSuccess, error:addError, loading:addLoading} = useSelector((state) => state.addProductGroup);
+    const { success:updateSuccess, error:updateError, loading:updateLoading} = useSelector((state) => state.updateProductGroup);
   const { units} = useSelector((state) => state.units);
   const { taxes} = useSelector((state) => state.taxes);
   const { brands} = useSelector((state) => state.brands);
-  const { loading,success,error,manufacturers} = useSelector((state) => state.manufacturers);
+  const { manufacturers} = useSelector((state) => state.manufacturers);
+  const { loading,success,error,productGroup} = useSelector((state) => state.productGroupDetail);
   const {register,formState: { errors },handleSubmit} = useForm();
   const { token} = useSelector((state) => state.auth);
 
   const {
     acceptedFiles,
-    fileRejections,
     getRootProps,
     getInputProps
   } = useDropzone({
@@ -167,11 +169,18 @@ const handleProductChange = (index,event)=>{
 
 
   useEffect(()=>{
-    dispatch(getManufacturers(token));
-    dispatch(getBrands(token));
-    dispatch(getUnits(token));
-    dispatch(getTaxes());
-  },[]);
+    if(!productGroup || productGroup.productID!=productGroupID){
+      dispatch(getProductGroupDetail(productGroupID));
+    }else{
+
+    }
+    
+
+    // dispatch(getManufacturers(token));
+    // dispatch(getBrands(token));
+    // dispatch(getUnits(token));
+    // dispatch(getTaxes());
+  },[productGroup,productGroupID]);
 
   if(loading) return <Loader/>
 
@@ -210,12 +219,12 @@ const submit = (data)=>{
   productData.append("attributes",JSON.stringify(attributes));
   productData.append("products",JSON.stringify(adjustedProducts));
 
-  dispatch(addProductGroup(productData));
+  dispatch(updateProductGroup(productData));
  
 }
 
-if(addSuccess){
-  dispatch(addProductGroupComplete());
+if(updateSuccess){
+  dispatch(updateProductGroupComplete());
   history.push('/dashboard/product-group/all');
   notify("success","Product Group Added Successfully");
 }
@@ -223,9 +232,9 @@ if(addSuccess){
     return(
 <div className="content-body">
 <div className="row mx-auto">
-    <h3 className="font-weight-bold">New Product Group</h3>
+    <h3 className="font-weight-bold">Edit Product Group</h3>
 </div>
-{addError && <ErrorMessage message={addError}/>}
+{updateError && <ErrorMessage message={updateError}/>}
     <form onSubmit={handleSubmit(submit)}>
    
     <div className="row mt-2 row mx-auto">
@@ -348,6 +357,7 @@ if(addSuccess){
   </div>
   <p className="text-danger">Multiple Products?</p>
  
+ {JSON.stringify(product)}
 
   {form.map((item,index)=>(
     <div className="form-row" key={`item-${index}`}>
@@ -487,7 +497,7 @@ if(addSuccess){
 </div>
 <div className="float-right mb-1 mt-1">
 
-            {addLoading? (
+            {updateLoading? (
               <LoadingButton message={"Save and Continue"}/>
             ):(
 <button type="submit" className="btn btn-main mr-1">
@@ -496,7 +506,7 @@ if(addSuccess){
             )}
 
 
-                  <button type="reset" className="btn btn-warning ">
+                                <button type="reset" className="btn btn-warning ">
 									<i className="feather icon-x"></i> Cancel
 								</button>
 							</div>
@@ -510,4 +520,4 @@ if(addSuccess){
 
     )
 }
-export default AddProductGroup;
+export default EditProductGroup;

@@ -1,12 +1,12 @@
 
 import React,{useState,useEffect} from 'react';
-import {Link} from 'react-router-dom';
 import {useDropzone} from 'react-dropzone';
 import { useForm } from 'react-hook-form';
 import {ErrorMessage} from 'components/Message';
 import LoadingButton from 'components/LoadingButton';
 import { useHistory} from 'react-router-dom';
 import {notify} from 'components/Toast';
+import { useTitle } from 'components/hooks/useTitle';
 import { useSelector, useDispatch } from 'react-redux';
 import {getManufacturers} from 'store/actions/manufacturer';
 import {getBrands} from 'store/actions/brand';
@@ -15,6 +15,7 @@ import {getTaxes} from 'store/actions/tax';
 import {addProduct,addProductComplete} from 'store/actions/product';
 
 const AddProductGroup = ()=>{
+  useTitle("Inventroo | New Product");
     const dispatch = useDispatch();
     const history = useHistory();
     const [imageError,setImageError] = useState("");
@@ -87,7 +88,7 @@ if(addProductSuccess){
 if(loading) return <p className="mt-3">Loading...</p>
 
     return(
-<div className="content-body mt-3">
+<div className="content-body">
 <div className="row mx-auto">
     <h4 className="font-weight-bold">New Product</h4>
 </div>

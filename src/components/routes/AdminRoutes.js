@@ -25,7 +25,17 @@ import {Warehouse,
   Tag,
   EditPriceList,
   Dashboard,
-  EditInventoryAdjustment
+  EditInventoryAdjustment,
+  ProductGroupList,
+  EditProductGroup,
+  AddProductCategory,
+  ProductCategoryList,
+  CustomerList,
+AddCustomer,
+EditCustomer,
+AddSalesOrder,
+SalesOrderList,
+EditProductCategory
 } from '../../pages';
 
 
@@ -65,9 +75,21 @@ export const routes = [
     }
     ,
     {
+      path: "/dashboard/product-group/all",
+      exact: true,
+      main: () => <ProductGroupList/>
+    }
+    ,
+    {
       path: "/dashboard/product-group/new",
       exact: true,
       main: () => <AddProductGroup/>
+    },
+    ,
+    {
+      path: "/dashboard/product-group/:productGroupId/edit",
+      exact: true,
+      main: () => <EditProductGroup/>
     },
     {
       path: "/dashboard/product/all",
@@ -179,6 +201,48 @@ export const routes = [
       path: "/dashboard/packages",
       exact: true,
       main: () => <Form/>
+    },
+    {
+      path: "/dashboard/product-category/new",
+      exact: true,
+      main: () => <AddProductCategory/>
+    },
+    {
+      path: "/dashboard/product-category/all",
+      exact: true,
+      main: () => <ProductCategoryList/>
+    },
+    {
+      path: "/dashboard/product-category/:productCategoryId/edit",
+      exact: true,
+      main: () => <EditProductCategory/>
+    },
+    //productCategoryId
+    {
+      path: "/dashboard/customer/new",
+      exact: true,
+      main: () => <AddCustomer/>
+    },
+    {
+      path: "/dashboard/customer/all",
+      exact: true,
+      main: () => <CustomerList/>
+    },
+    ,
+    {
+      path: "/dashboard/customer/:customerId/edit",
+      exact: true,
+      main: () => <EditCustomer/>
+    },
+    {
+      path: "/dashboard/sales-order/all",
+      exact: true,
+      main: () => <SalesOrderList/>
+    },
+    {
+      path: "/dashboard/sales-order/new",
+      exact: true,
+      main: () => <AddSalesOrder/>
     },
 
   ];

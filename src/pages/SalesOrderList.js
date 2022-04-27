@@ -7,8 +7,8 @@ import Loader from '../components/Loader';
 import { useTitle } from 'components/hooks/useTitle';
 import {getPriceLists,deletePriceList,deletePriceListComplete} from '../store/actions/priceList';
 
-const PriceList = ()=>{
-useTitle("Inventroo | Price List")
+const SalesOrderList = ()=>{
+useTitle("Inventroo |  Sales Order")
     const dispatch = useDispatch();
     const {loading,error,priceLists} = useSelector((state) => state.priceLists);
     const deleteState = useSelector((state) => state.deletePriceList);
@@ -16,7 +16,7 @@ useTitle("Inventroo | Price List")
 
     useEffect(()=>{
       if(deleteSuccess){
-          notify("success","PriceList Deleted Successfully");
+          notify("success","Sales Order Deleted Successfully");
           dispatch(deletePriceListComplete())
       }
       dispatch(getPriceLists());
@@ -34,7 +34,7 @@ useTitle("Inventroo | Price List")
             <div className="row d-flex justify-content-between ml-2 mr-5 ">
             <div className="dropdown">
   <Link className="dropdown-toggle color-main h5 font-weight-bold" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
-  All Price List
+  All Sales Order
   </Link>
 
   <ul className="dropdown-menu mt-2">
@@ -52,10 +52,10 @@ useTitle("Inventroo | Price List")
 
   </ul>
 </div>
-  <Link to={'/dashboard/price-list/new'}>
+  <Link to={'/dashboard/sales-order/new'}>
   <button className="btn btn-success btm-sm-small">
           <i className="feather icon-plus"></i>
-          New Price List
+          New 
       </button>
   </Link>
       </div>
@@ -70,21 +70,30 @@ useTitle("Inventroo | Price List")
           <table className="table table-responsive-sm">
     <thead className="btn-main p-1">
       <tr>
-        <th>Name and Description</th>
-        <th>Type</th>
-        <th>Mark Type</th>
-        <th>Percentage</th>
-        <th>Rounding</th>
+        <th>Date</th>
+        <th>Sales Order</th>
+        <th>Reference</th>
+        <th>Customer Name</th>
+        <th>Order Status</th>
+        <th>Invoiced</th>
+        <th>Payment</th>
+        <th>Packed</th>
+        <th>Shipped</th>
+        <th>Amount</th>
         <th >Action</th>
       </tr>
     </thead>
     <tbody>
         {priceLists && priceLists.map(priceList=>(
-   <tr key={priceList.priceListID}>
+        <tr key={priceList.priceListID}>
+                 <td>{priceList.date_created}</td>
                   <td>{priceList.name}</td>
                   <td>{priceList.type}</td>
                   <td>{priceList.mark_type}</td>
                   <td>{priceList.percentage}</td>
+                  <td>{priceList.roundoff}</td>
+                  <td>{priceList.percentage}</td>
+                  <td>{priceList.roundoff}</td>
                   <td>{priceList.roundoff}</td>
 
                   <td>
@@ -111,4 +120,4 @@ useTitle("Inventroo | Price List")
           </div>
        );
 }
-export default PriceList;
+export default SalesOrderList;

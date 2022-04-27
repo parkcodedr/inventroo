@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import {ErrorMessage} from '../components/Message';
 import { useHistory} from 'react-router-dom';
 import {notify} from 'components/Toast';
+import { useTitle } from 'components/hooks/useTitle';
 import Loader from 'components/Loader';
 import { useSelector, useDispatch } from 'react-redux';
 import {addInventoryAdjustment,addInventoryAdjustmentComplete} from '../store/actions/inventoryAdjustment';
@@ -10,6 +11,7 @@ import {getProducts} from '../store/actions/product';
 import ButtonProcessing from 'components/ButtonProcessing';
 
 const AddInventoryAdjustment = ()=>{
+  useTitle("Inventroo | New Adjustment");
     const dispatch = useDispatch();
     const history = useHistory();
     const [adjustmentMode,setAdjustmentMode] = useState("quantity");

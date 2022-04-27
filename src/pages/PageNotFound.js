@@ -1,5 +1,7 @@
 import {Link} from 'react-router-dom';
+import { useTitle } from 'components/hooks/useTitle';
 const PageNotFound = () => {
+    useTitle("Inventroo | 404");
     return ( 
         <div className="content-body">
         <section className="flexbox-container">

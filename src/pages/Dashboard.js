@@ -1,4 +1,6 @@
+import { useTitle } from 'components/hooks/useTitle';
 const Dashboard = ()=>{
+  useTitle("Inventroo | Dashboard");
   return(
     <div className="content-body">
       <h2 className="font-weight-bold">Dashboard</h2>
@@ -68,7 +70,7 @@ const Dashboard = ()=>{
                   <circle cx="38" cy="38" r="36"></circle>
                 </svg>
                 <div class="number">
-                  <p>0%</p>
+                  <p>80%</p>
 
                 </div>
               </div>

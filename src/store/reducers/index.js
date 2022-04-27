@@ -18,6 +18,8 @@ import { addProductReducer, deleteProductReducer, getProductDetailReducer, getPr
 import {addProductGroupReducer,getProductGroupsReducer,updateProductGroupReducer,deleteProductGroupReducer,getProductGroupDetailReducer} from './productGroup';
 import { addPriceListReducer,getPriceListsReducer, getPriceListDetailReducer,updatePriceListReducer,deletePriceListReducer } from "./priceList";
 import { addInventoryAdjustmentReducer,getInventoryAdjustmentsReducer,getInventoryAdjustmentDetailReducer,updateInventoryAdjustmentReducer,deleteInventoryAdjustmentReducer } from "./inventoryAdjustment";
+import {addCustomerReducer,getCustomersReducer,getCustomerDetailReducer,updateCustomerReducer,deleteCustomerReducer} from './customers';
+import {addProductCategoryReducer,getProductCategoriesReducer,getProductCategoryDetailReducer,updateProductCategoryReducer,deleteProductCategoryReducer} from './productCategory';
 
 const rootReducer = combineReducers({
     auth: authReducer,
@@ -68,6 +70,16 @@ const rootReducer = combineReducers({
     inventoryAdjustmentDetail:getInventoryAdjustmentDetailReducer,
     updateInventoryAdjustment:updateInventoryAdjustmentReducer,
     deleteInventoryAdjustment:deleteInventoryAdjustmentReducer,
+    addProductCategory:addProductCategoryReducer,
+    productCategories:getProductCategoriesReducer,
+    productCategoryDetail:getProductCategoryDetailReducer,
+    updateProductCategory:updateProductCategoryReducer,
+    deleteProductCategory:deleteProductCategoryReducer,
+    addCustomer:addCustomerReducer,
+    customers:getCustomersReducer,
+    customerDetail:getCustomerDetailReducer,
+    updateCustomer:updateCustomerReducer,
+    deleteCustomer:deleteCustomerReducer,
 });
 
 export default rootReducer;

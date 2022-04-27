@@ -11,6 +11,7 @@ import ManufacturerList from "./ManufacturerList";
 import OrganizationProfile from "./OrganizationProfile";
 import UserRoles from "./UserRoles";
 import ProductGroup from "./ProductGroup";
+import ProductGroupList from "./ProductGroupList";
 import AddProductGroup from "./AddProductGroup";
 import { Register } from './Register';
 import Dashboard from './Dashboard';
@@ -32,6 +33,17 @@ import EditPriceList from './EditPriceList';
 import Form from './Form';
 import Tag from './Tag';
 import EditInventoryAdjustment from './EditInventoryAdjustment';
+import EditProductGroup from './EditProductGroup';
+import AddProductCategory from './AddProductCategory';
+import ProductCategoryList from './ProductCategoryList';
+import CustomerList from './CustomerList';
+import AddCustomer from './AddCustomer';
+import EditCustomer from './EditCustomer';
+import AddSalesOrder from './AddSalesOrder';
+import SalesOrderList from './SalesOrderList';
+import EditProductCategory from './EditProductCategory';
+
+
 const Login = React.lazy(() => import("./Login"));
 
 
@@ -69,5 +81,15 @@ AddInventoryAdjustment,
 EditPriceList,
 Form,
 Tag,
-EditInventoryAdjustment
+EditInventoryAdjustment,
+ProductGroupList,
+EditProductGroup,
+AddProductCategory,
+ProductCategoryList,
+CustomerList,
+AddCustomer,
+EditCustomer,
+AddSalesOrder,
+SalesOrderList,
+EditProductCategory
 }

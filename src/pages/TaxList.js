@@ -8,8 +8,10 @@ import {notify} from '../components/Toast';
 import Spinner from '../components/Spinner';
 import {ErrorMessage} from '../components/Message';
 import Loader from '../components/Loader';
+import { useTitle } from 'components/hooks/useTitle';
 
 const TaxList = () => {
+  useTitle("Inventroo | Taxs");
     const dispatch = useDispatch();
     const history = useHistory();
     const {loading,error,taxes,success} = useSelector((state) => state.taxes);

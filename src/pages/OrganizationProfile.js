@@ -1,5 +1,4 @@
 import React,{useEffect,useState} from 'react'
-import { useTitle } from '../components/hooks/useTitle'
 import { useSelector, useDispatch } from 'react-redux';
 import {updateOrganizationProfile,updateOrganizationProfileComplete} from '../store/actions/organizationProfile';
 import { useHistory} from 'react-router-dom';
@@ -8,9 +7,11 @@ import LoadingButton from '../components/LoadingButton';
 import { useForm } from 'react-hook-form';
 import TopNav from '../components/TopNav';
 import SideBar from '../components/SideBar';
+import { useTitle } from 'components/hooks/useTitle';
 
 
 const OrganizationProfile = () => {
+  useTitle("Inventroo | Organization Profile")
   const dispatch = useDispatch();
   const history = useHistory();
   const { success, error, loading } = useSelector((state) => state.updateorganization);

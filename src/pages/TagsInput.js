@@ -27,10 +27,13 @@ const TagsInput = props => {
 				))}
 			</ul>
 			<input
-				type="text"
+				type="text" className="input-tag"
 				onBlur={event => {
 					addTags(event);
 				}}
+				// onChange={event => {
+				// 	props.onChangege(event);
+				// }}
 				
 				
 			/>

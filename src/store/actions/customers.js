@@ -2,53 +2,53 @@ import { actionTypes } from '../constants/ActionTypes';
 import {ApiService} from '../constants/ApiService';
 
 
-export const addProductGroupStart = () => {
+export const addCustomerStart = () => {
     return {
-        type: actionTypes.ADD_PRODUCT_GROUP_START
+        type: actionTypes.ADD_CUSTOMER_START
     };
 };
 
-export const addProductGroupSuccess = () => {
+export const addCustomerSuccess = () => {
     return {
-        type: actionTypes.ADD_PRODUCT_GROUP_SUCCESS,
+        type: actionTypes.ADD_CUSTOMER_SUCCESS,
     };
 };
 
-export const addProductGroupFail = (error) => {
+export const addCustomerFail = (error) => {
     return {
-        type: actionTypes.ADD_PRODUCT_GROUP_FAIL,
+        type: actionTypes.ADD_CUSTOMER_FAIL,
         error: error
     };
 };
-export const addProductGroupComplete = () => {
+export const addCustomerComplete = () => {
     return {
-        type: actionTypes.ADD_PRODUCT_GROUP_COMPLETE,
+        type: actionTypes.ADD_CUSTOMER_COMPLETE,
     };
 };
 
 
-export const addProductGroup = (ProductGroup) => {
+export const addCustomer = (customer) => {
 
     return (dispatch,getState) => {
         const {auth:{token}} = getState();
-        dispatch(addProductGroupStart());
+        dispatch(addCustomerStart());
         try {
             const headers = {
                 'Content-Type': 'application/json',
                 'Authorization':`Bearer ${token}`
             }
-            ApiService.post("/productGroup/add", ProductGroup,{headers})
+            ApiService.post("/customer/add", customer,{headers})
                 .then(response => {
-                    dispatch(addProductGroupSuccess());
+                    dispatch(addCustomerSuccess());
                 }).catch(error => {
                     if (error.response) {
                         const { ResponseMessage } = error.response.data;
                         console.log(error.response.data);
-                        dispatch(addProductGroupFail(ResponseMessage));
+                        dispatch(addCustomerFail(ResponseMessage));
 
                     } else if (error.request) {
                         console.log(error);
-                        dispatch(addProductGroupFail("Connection failure! Try Again"));
+                        dispatch(addCustomerFail("Connection failure! Try Again"));
 
                     }
                     console.log(error.response);
@@ -60,49 +60,48 @@ export const addProductGroup = (ProductGroup) => {
 }
 
 
-export const getProductGroupsStart = () => {
+export const getCustomersStart = () => {
     return {
-        type: actionTypes.GET_PRODUCT_GROUPS_START
+        type: actionTypes.GET_CUSTOMERS_START
     };
 };
 
-export const getProductGroupsSuccess = (productGroups) => {
+export const getCustomersSuccess = (customers) => {
     return {
-        type: actionTypes.GET_PRODUCT_GROUPS_SUCCESS,
-        productGroups
+        type: actionTypes.GET_CUSTOMERS_SUCCESS,
+        customers
     };
 };
 
-export const getProductGroupsFail = (error) => {
+export const getCustomersFail = (error) => {
     return {
-        type: actionTypes.GET_PRODUCT_GROUPS_FAIL,
+        type: actionTypes.GET_CUSTOMERS_FAIL,
         error: error
     };
 };
 
-export const getProductGroups = () => {
+export const getCustomers = () => {
     return (dispatch,getState) => {
         const {auth:{token}} = getState();
-        dispatch(getProductGroupsStart());
+        dispatch(getCustomersStart());
         try {
             const headers = {
                 'Content-Type': 'application/json',
                 'Authorization':`Bearer ${token}`
             }
-            ApiService.get("/productGroup/all",{headers})
+            ApiService.get("/customer/all",{headers})
                 .then(response => {
-                    console.log(response.data);
-                    const {productGroups} = response.data;
-                    dispatch(getProductGroupsSuccess(productGroups));
+                    const {customers} = response.data;
+                    dispatch(getCustomersSuccess(customers));
                 }).catch(error => {
                     if (error.response) {
                         const { message } = error.response.data;
                         console.log(error.response.data);
-                        dispatch(getProductGroupsFail(message));
+                        dispatch(getCustomersFail(message));
 
                     } else if (error.request) {
                         console.log(error);
-                        dispatch(getProductGroupsFail("Connection failure! Try Again"));
+                        dispatch(getCustomersFail("Connection to Server fail! Try Again"));
 
                     }
                     console.log(error.response);
@@ -114,54 +113,51 @@ export const getProductGroups = () => {
 }
 
 
-export const getProductGroupDetailStart = () => {
+export const getCustomerDetailStart = () => {
     return {
-        type: actionTypes.GET_PRODUCT_GROUP_DETAIL_START
+        type: actionTypes.GET_CUSTOMER_DETAIL_START
     };
 };
 
-export const getProductGroupDetailSuccess = (productGroup,taxes,manufacturers,brands,units) => {
+export const getCustomerDetailSuccess = (customer) => {
     return {
-        type: actionTypes.GET_PRODUCT_GROUP_DETAIL_SUCCESS,
-        productGroup,
-        taxes,
-        manufacturers,
-        brands,
-        units
+        type: actionTypes.GET_CUSTOMER_DETAIL_SUCCESS,
+        customer,
+        
     };
 };
 
-export const getProductGroupDetailFail = (error) => {
+export const getCustomerDetailFail = (error) => {
     return {
-        type: actionTypes.GET_PRODUCT_GROUP_DETAIL_FAIL,
+        type: actionTypes.GET_CUSTOMER_DETAIL_FAIL,
         error: error
     };
 };
 
-export const getProductGroupDetail = (id) => {
+export const getCustomerDetail = (id) => {
 
     return (dispatch,getState) => {
         const {auth:{token}} = getState();
-        dispatch(getProductGroupDetailStart());
+        dispatch(getCustomerDetailStart());
         try {
             const headers = {
                 'Content-Type': 'application/json',
                 'Authorization':`Bearer ${token}`
             }
-            ApiService.get(`/productGroup/find?productGroupID=${id}`,{headers})
+            ApiService.get(`/customer/find?customerID=${id}`,{headers})
                 .then(response => {
                     console.log(response.data);
-                    const {productGroup,taxes,manufacturers,brands,units} = response.data;
-                    dispatch(getProductGroupDetailSuccess(productGroup,taxes,manufacturers,brands,units));
+                    const {customer} = response.data;
+                    dispatch(getCustomerDetailSuccess(customer));
                 }).catch(error => {
                     if (error.response) {
                         const { message } = error.response.data;
                         console.log(error.response.data);
-                        dispatch(getProductGroupDetailFail(message));
+                        dispatch(getCustomerDetailFail(message));
 
                     } else if (error.request) {
                         console.log(error);
-                        dispatch(getProductGroupDetailFail("Connection failure! Try Again"));
+                        dispatch(getCustomerDetailFail("Connection failure! Try Again"));
 
                     }
                     console.log(error.response);
@@ -173,54 +169,54 @@ export const getProductGroupDetail = (id) => {
 }
 
 
-export const updateProductGroupStart = () => {
+export const updateCustomerStart = () => {
     return {
-        type: actionTypes.UPDATE_PRODUCT_GROUP_START
+        type: actionTypes.UPDATE_CUSTOMER_START
     };
 };
 
-export const updateProductGroupSuccess = () => {
+export const updateCustomerSuccess = () => {
     return {
-        type: actionTypes.UPDATE_PRODUCT_GROUP_SUCCESS,
+        type: actionTypes.UPDATE_CUSTOMER_SUCCESS,
     };
 };
 
-export const updateProductGroupFail = (error) => {
+export const updateCustomerFail = (error) => {
     return {
-        type: actionTypes.UPDATE_PRODUCT_GROUP_FAIL,
+        type: actionTypes.UPDATE_CUSTOMER_FAIL,
         error: error
     };
 };
 
-export const updateProductGroupComplete = () => {
+export const updateCustomerComplete = () => {
     return {
-        type: actionTypes.UPDATE_PRODUCT_GROUP_COMPLETE,
+        type: actionTypes.UPDATE_CUSTOMER_COMPLETE,
     };
 };
 
 
-export const updateProductGroup = (productGroup) => {
+export const updateCustomer = (customer) => {
     return (dispatch,getState) => {
         const {auth:{token}} = getState();
-        dispatch(updateProductGroupStart());
+        dispatch(updateCustomerStart());
         try {
             const headers = {
                 'Content-Type': 'application/json',
                 'Authorization':`Bearer ${token}`
             }
-            ApiService.post("/productGroup/modify",productGroup,{headers})
+            ApiService.post("/customer/modify",customer,{headers})
                 .then(response => {
                     //const {manufacturers} = response.data;
-                    dispatch(updateProductGroupSuccess());
+                    dispatch(updateCustomerSuccess());
                 }).catch(error => {
                     if (error.response) {
                         const { ResponseMessage } = error.response.data;
                         console.log(error.response.data);
-                        dispatch(updateProductGroupFail(ResponseMessage));
+                        dispatch(updateCustomerFail(ResponseMessage));
 
                     } else if (error.request) {
                         console.log(error);
-                        dispatch(updateProductGroupFail("Connection failure! Try Again"));
+                        dispatch(updateCustomerFail("Connection failure! Try Again"));
 
                     }
                     console.log(error.response);
@@ -231,54 +227,54 @@ export const updateProductGroup = (productGroup) => {
     }
 }
 
-export const deleteProductGroupStart = () => {
+export const deleteCustomerStart = () => {
     return {
-        type: actionTypes.DELETE_PRODUCT_GROUP_START
+        type: actionTypes.DELETE_CUSTOMER_START
     };
 };
 
-export const deleteProductGroupSuccess = () => {
+export const deleteCustomerSuccess = () => {
     return {
-        type: actionTypes.DELETE_PRODUCT_GROUP_SUCCESS,
+        type: actionTypes.DELETE_CUSTOMER_SUCCESS,
     };
 };
 
-export const deleteProductGroupFail = (error) => {
+export const deleteCustomerFail = (error) => {
     return {
-        type: actionTypes.DELETE_PRODUCT_GROUP_FAIL,
+        type: actionTypes.DELETE_CUSTOMER_FAIL,
         error: error
     };
 };
 
-export const deleteProductGroupComplete = () => {
+export const deleteCustomerComplete = () => {
     return {
-        type: actionTypes.DELETE_PRODUCT_GROUP_COMPLETE,
+        type: actionTypes.DELETE_CUSTOMER_COMPLETE,
     };
 };
 
 
-export const deleteProductGroup = (id) => {
+export const deleteCustomer = (id) => {
     return (dispatch,getState) => {
         const {auth:{token}} = getState();
-        dispatch(deleteProductGroupStart());
+        dispatch(deleteCustomerStart());
         try {
             const headers = {
                 'Content-Type': 'application/json',
                 'Authorization':`Bearer ${token}`
             }
-            ApiService.get(`/productGroup/remove?productGroupID=${id}`,{headers})
+            ApiService.get(`/customer/remove?customerID=${id}`,{headers})
                 .then(response => {
                     //const {manufacturers} = response.data;
-                    dispatch(deleteProductGroupSuccess());
+                    dispatch(deleteCustomerSuccess());
                 }).catch(error => {
                     if (error.response) {
                         const { ResponseMessage } = error.response.data;
                         console.log(error.response.data);
-                        dispatch(deleteProductGroupFail(ResponseMessage));
+                        dispatch(deleteCustomerFail(ResponseMessage));
 
                     } else if (error.request) {
                         console.log(error);
-                        dispatch(deleteProductGroupFail("Connection failure! Try Again"));
+                        dispatch(deleteCustomerFail("Connection failure! Try Again"));
 
                     }
                     console.log(error.response);

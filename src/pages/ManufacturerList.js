@@ -3,9 +3,11 @@ import {Link} from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import {ErrorMessage} from '../components/Message';
 import Loader from '../components/Loader';
+import { useTitle } from 'components/hooks/useTitle';
 import {getManufacturers,deleteManufacturer,deleteManufacturerComplete} from '../store/actions/manufacturer';
 
 const ManufacturerList = () => {
+  useTitle("Inventroo | Manufacturers ")
     const dispatch = useDispatch();
     const {loading,error,manufacturers} = useSelector((state) => state.manufacturers);
     const deleteState = useSelector((state) => state.deleteManufacturer);

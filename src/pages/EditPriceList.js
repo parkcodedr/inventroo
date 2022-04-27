@@ -9,11 +9,12 @@ import ButtonProcessing from '../components/ButtonProcessing';
 import {useHistory,useParams} from 'react-router-dom';
 import {notify} from '../components/Toast';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTitle } from 'components/hooks/useTitle';
 
 import {updatePriceList,updatePriceListComplete,getPriceListDetail} from '../store/actions/priceList';
 
 const EditPriceList= ()=>{
-
+useTitle("Inventroo | Edit Price List");
     const dispatch = useDispatch();
     const history = useHistory();
     const params = useParams();

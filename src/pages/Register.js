@@ -1,14 +1,14 @@
 import React,{useEffect,useState} from 'react'
-import { useTitle } from '../components/hooks/useTitle'
 import { useSelector, useDispatch } from 'react-redux';
 import {registerUser} from '../store/actions/register';
 import { useHistory} from 'react-router-dom';
 import {notify} from '../components/Toast';
 import { Link } from 'react-router-dom';
+import { useTitle } from 'components/hooks/useTitle';
 
 
 export const Register = () => {
-
+useTitle("Inventroo | Register")
     const history = useHistory();
     const dispatch = useDispatch();
     const { success, error, loading } = useSelector((state) => state.register);
