@@ -363,7 +363,7 @@ access only to the data of this customer <a href="#">Learn more</a></p>
     Attention</label>
     <div className="col-sm-9">
     <input className="form-control" name="attention"
-    {...register("attention")} />
+    {...register("billing_attention")} />
        
     </div>
 </div>
