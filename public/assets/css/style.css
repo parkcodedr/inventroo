@@ -397,3 +397,8 @@ svg circle {
   color: #FFF;
   background-color: rgb(83, 208, 96);
 }
+
+.logo-image{
+  height: 60%;
+  width:60%;
+}

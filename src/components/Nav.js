@@ -67,12 +67,14 @@ const Nav = () => {
                     <a href="#tillSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle">
                     <i className="feather icon-archive"></i> Till</a>
                     <ul className="collapse" id="tillSubmenu">
-                        
-                        <li className="ml-2">
-                            <NavLink to={'/dashboard/till/resturant'}>Restaurant Till</NavLink>
+                    <li className="ml-2">
+                            <NavLink to={'/dashboard/till/preview'} activeClassName="active-nav">Till Preview</NavLink>
                         </li>
                         <li className="ml-2">
-                            <NavLink to={'/dashboard/till/grocery'}>Grocery Till</NavLink>
+                            <NavLink to={'/dashboard/till/resturant'} activeClassName="active-nav">Restaurant Till</NavLink>
+                        </li>
+                        <li className="ml-2">
+                            <NavLink to={'/dashboard/till/grocery'} activeClassName="active-nav">Grocery Till</NavLink>
                         </li>
                         
                     </ul>

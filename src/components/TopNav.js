@@ -153,11 +153,7 @@ const TopNav = () => {
                             <p className="mt-2">
 
                               <Link to="/dashboard" >My Account</Link>|
-<<<<<<< HEAD
                               <Link className="text-danger" to={"#"} onClick={logoutUser}> Sign out</Link>
-=======
-                              <Link className="text-danger" to={'#'} onClick={logoutUser}> Sign out</Link>
->>>>>>> 29e443bd37eabe35bbd0939113733749824c3d52
                             </p>
                           </div>
 

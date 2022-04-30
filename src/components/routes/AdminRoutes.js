@@ -35,7 +35,8 @@ AddCustomer,
 EditCustomer,
 AddSalesOrder,
 SalesOrderList,
-EditProductCategory
+EditProductCategory,
+Till
 } from '../../pages';
 
 
@@ -243,6 +244,11 @@ export const routes = [
       path: "/dashboard/sales-order/new",
       exact: true,
       main: () => <AddSalesOrder/>
+    },
+    {
+      path: "/dashboard/till/preview",
+      exact: true,
+      main: () => <Till/>
     },
 
   ];

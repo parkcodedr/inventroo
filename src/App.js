@@ -17,6 +17,7 @@ import {
   UserRoles,
   OrganizationProfile,
   PageNotFound} from './pages'
+import TillA from 'pages/TillA';
 
 export default function App() {
 
@@ -52,6 +53,9 @@ export default function App() {
           </Route>
           <Route path="/account/setup/org-profile">
            <OrganizationProfile/>
+          </Route>
+          <Route path="/till/resturant-till">
+           <TillA />
           </Route>
 
       <Route path="*">
