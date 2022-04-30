@@ -249,6 +249,6 @@ export const routes = [
       path: "/dashboard/till/preview",
       exact: true,
       main: () => <Till/>
-    },
+    }
 
   ];

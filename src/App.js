@@ -53,8 +53,9 @@ export default function App() {
           </Route>
           <Route path="/account/setup/org-profile">
            <OrganizationProfile/>
+          
           </Route>
-          <Route path="/till/resturant-till">
+          <Route path="/till/restaurant">
            <TillA />
           </Route>
 

@@ -402,3 +402,6 @@ svg circle {
   height: 60%;
   width:60%;
 }
+.till-image {
+  cursor:pointer;
+}
