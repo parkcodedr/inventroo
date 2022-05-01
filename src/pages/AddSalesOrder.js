@@ -7,6 +7,7 @@ import { useTitle } from 'components/hooks/useTitle';
 import LoadingButton from '../components/LoadingButton';
 import { useSelector, useDispatch } from 'react-redux';
 import {addPriceList,addPriceListComplete} from '../store/actions/priceList';
+import {getCustomers} from '../store/actions/customers';
 
 const AddSalesOrder = ()=>{
   useTitle("Inventroo | New Sales Order");
@@ -15,7 +16,7 @@ const AddSalesOrder = ()=>{
 
     const { success, error, loading} = useSelector((state) => state.addPriceList);
     const {register,formState: { errors },handleSubmit} = useForm();
-    const { token} = useSelector((state) => state.auth);
+
     const [product,setProduct] = useState([
         {
             product_id:"",

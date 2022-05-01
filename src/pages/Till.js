@@ -21,7 +21,7 @@ const Till = ()=>{
             <form onSubmit={()=>loadTill(`/till/${selectedTill}`)}>
          <p className="font-weight-bold">TYPE A: Suitable for heavy inventory type operations. e.g grocery, store, supermarket, e.t.c</p>
          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="restaurant"  name="till-type" onChange={(e)=>setSelectedTill(e.target.value)} />
+            <input class="form-check-input" type="radio" value="restaurant"  name="till-type" onChange={(e)=>setSelectedTill(e.target.value)} />
             <label class="form-check-label ml-4">
                 <img src="/app-assets/images/tillA.png" alt="till A" data-toggle="modal" data-target="#retaurantTillModal" className="till-image" />
                 
@@ -35,7 +35,7 @@ const Till = ()=>{
 
 <p className="font-weight-bold mt-4">TYPE B: Suitable for picture rich inventory type operation. e.g restaurant, foodmart, bistrols,cafe, fashion store e.t.c</p>
          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="glocery" name="till-type"
+            <input class="form-check-input" type="radio" value="glocery" name="till-type"
             onChange={(e)=>setSelectedTill(e.target.value)}
             />
             <label class="form-check-label ml-4">
