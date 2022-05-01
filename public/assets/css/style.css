@@ -381,7 +381,7 @@ svg circle {
 }
 
 .color-light{
-    background:#fcfcfc;
+    background:#e9e5f6;
 }
 .btn-plus {
   cursor:pointer;
@@ -397,6 +397,16 @@ svg circle {
   color: #FFF;
   background-color: rgb(83, 208, 96);
 }
+.pill-active{
+  background:#5462b0;
+}
+.food-menu .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+  color: #FFF;
+  background-color: #5462b0;
+  padding-left:22px;
+  padding-right:22px;
+}
+
 
 .logo-image{
   height: 60%;

@@ -5,7 +5,7 @@ const TillA = ()=>{
     usePageSetup();
 return(
     <div className="">
-      <div className="content-wrapper bg-main text-white">
+      <div className="content-wrapper bg-main">
         <section className="d-flex justify-content-between pt-1">
         
             <div className="nav-menu">
@@ -40,17 +40,17 @@ return(
         </section>
         <hr/>
       <div className="d-flex">
-        <div className="col-md-7">
-        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+        <div className="col-md-7 food-menu">
+        <ul class="nav nav-pills mb-2" id="pills-tab" role="tablist">
         {tillMenu.map((item,index)=>(
-            <li class="nav-item" role="presentation" key={`${index}-${item}`}>
+            <li class="nav-item " role="presentation" key={`${index}-${item}`}>
             <a class={index===0?`nav-link text-white active`:`nav-link text-white`} id={`pills-${item}-tab`} data-toggle="pill" href={`#pills-${item}`} role="tab" aria-controls={`pills-${item}`} aria-selected={index===0?`true`:``}>{item}</a>
         </li>
         ))}
   
         </ul>
 <div class="tab-content" id="pills-tabContent">
-  <div class="tab-pane fade show active" id="pills-Rice" role="tabpanel" aria-labelledby="pills-Rice-tab">Rice</div>
+  <div class="tab-pane fade show active text-white" id="pills-Rice" role="tabpanel" aria-labelledby="pills-Rice-tab">Rice</div>
   <div class="tab-pane fade" id="pills-Pasta" role="tabpanel" aria-labelledby="pills-Pasta-tab">Pasta</div>
   <div class="tab-pane fade" id="pills-Swallow" role="tabpanel" aria-labelledby="pills-Swallow-tab">Swallow</div>
 </div>
@@ -63,13 +63,13 @@ return(
                 <label for="switch">Toggle</label>
             </div>
             <div>
-              <h4><i className="fa fa-user mr-1"> </i>John Doe</h4>
+              <h4 className="text-white"><i className="fa fa-user mr-1 "> </i>John Doe</h4>
             </div>
 
             </div>
 
-            <section className="table-wrapper mt-3 bg-white">
-              <div className="table-select d-flex justify-content-between bg-light pr-2 pl-2 pt-1">
+            <section className="table-wrapper mt-2 bg-white">
+              <div className="table-select d-flex justify-content-between color-light pr-2 pl-2 pt-1">
                 <h4 className="font-weight-bold">Select Table</h4>
                 <h4 className="font-weight-bold">Table #1</h4>
               </div>
@@ -95,19 +95,56 @@ return(
       <td>500</td>
       <td>1000</td>
     </tr>
-    <div style={{ "margin-top":'90px' }}></div>
+    <div style={{ "margin-top":'70px' }}></div>
     
   </tbody>
   
 </table>
 
-          <div className="bg-light p-1">
-            <div className="d-flex ">
+          <div className="color-light">
+          <div className="p-1">
+            <div className="d-flex justify-content-between">
               <button className="btn btn-success col-md-2 mr-1">Discount</button>
               <button className="btn btn-success col-md-2 mr-1">Cancel</button>
               <button className="btn btn-success col-md-2 mr-1">Hold</button>
               <button className="btn btn-success col-md-2 mr-1">Comment</button>
             </div>
+          </div>
+          <div className="row">
+            <div className="col-md-6">
+            <div className="d-flex justify-content-between pr-1 pl-1 pt-1">
+              <p>Credit</p><p>0.00</p>
+            </div>
+            <div className="d-flex justify-content-between pr-1 pl-1 ">
+              <p>Discount</p><p>0.00</p>
+            </div>
+            <div className="d-flex justify-content-between pr-1 pl-1">
+              <p>Tips</p><p>0.00</p>
+            </div>
+            </div>
+            
+            <div className="col-md-6">
+            <div className="d-flex justify-content-between pr-1 pl-1 pt-1">
+              <p>Subtotal</p><p>0.00</p>
+            </div>
+            <div className="d-flex justify-content-between pr-1 pl-1 ">
+              <p>Tax</p><p>0.00</p>
+            </div>
+            <div className="d-flex justify-content-between pr-1 pl-1">
+              <p>Balance Due</p><p>0.00</p>
+            </div>
+            </div>
+            
+          </div>
+          <div className="p-1">
+            <div className="d-flex justify-content-between">
+             
+              <button className="btn btn-success col-md-3 mr-1">Cancel</button>
+              <button className="btn btn-success col-md-3 mr-1">Hold</button>
+              <button className="btn btn-success col-md-3 mr-1">Comment</button>
+            </div>
+          </div>
+
           </div>
             </section>
         </div>
