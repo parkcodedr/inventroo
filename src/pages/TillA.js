@@ -49,8 +49,67 @@ return(
         ))}
   
         </ul>
-<div class="tab-content" id="pills-tabContent">
-  <div class="tab-pane fade show active text-white" id="pills-Rice" role="tabpanel" aria-labelledby="pills-Rice-tab">Rice</div>
+<div class="tab-content mt-2" id="pills-tabContent">
+  <div class="tab-pane fade show active" id="pills-Rice" role="tabpanel" aria-labelledby="pills-Rice-tab">
+          
+          <div id="accordionWrap1" role="tablist" aria-multiselectable="true">
+          <section className="row ">
+            <div className="col-md-4">
+            <div class="card accordion collapse-icon accordion-icon-rotate">
+					<div id="jollofRice" class="card-header primary" data-toggle="collapse" href="#jollofRice" aria-expanded="false"
+					aria-controls="jollofRice">
+						<a class="collapsed" href="#">Jollof Rice</a>
+					</div>
+					<div id="jollofRice" role="tabpanel" data-parent="#accordionWrap1" aria-labelledby="jollofRice" class="collapse ">
+						<div class="card-content">
+							<div class="card-body">
+								Caramels dessert chocolate cake pastry jujubes bonbon. Jelly wafer jelly beans. Caramels
+								chocolate cake liquorice cake wafer jelly beans croissant apple pie. Oat cake brownie
+								
+							</div>
+						</div>
+					</div>
+				</div>
+            </div>
+            <div className="col-md-4 ">
+            <div class="card accordion collapse-icon accordion-icon-rotate">
+					<div id="riceStew" class="card-header primary" data-toggle="collapse" href="#riceStew" 
+					aria-controls="riceStew" aria-expanded="false">
+						<a class="collapsed" href="#"> Rice & Stew</a>
+					</div>
+					<div id="riceStew" role="tabpanel" data-parent="#accordionWrap1" aria-labelledby="riceStew" class="collapse ">
+						<div class="card-content">
+							<div class="card-body">
+								Caramels dessert chocolate cake pastry jujubes bonbon. Jelly wafer jelly beans. Caramels
+								chocolate cake liquorice cake wafer jelly beans croissant apple pie. Oat cake brownie
+								
+							</div>
+						</div>
+					</div>
+				</div>
+            </div>
+            <div className="col-md-4 ">
+            <div class="card accordion collapse-icon accordion-icon-rotate">
+					<div id="coconutRice" class="card-header primary" data-toggle="collapse" href="#coconutRice" 
+					aria-controls="coconutRice" aria-expanded="false">
+						<a class="collapsed" href="#">Coconut Rice</a>
+					</div>
+					<div id="coconutRice" role="tabpanel" data-parent="#accordionWrap1" aria-labelledby="coconutRice" class="collapse">
+						<div class="card-content">
+							<div class="card-body">
+								Caramels dessert chocolate cake pastry jujubes bonbon. Jelly wafer jelly beans. Caramels
+								chocolate cake liquorice cake wafer jelly beans croissant apple pie. Oat cake brownie
+								
+							</div>
+						</div>
+					</div>
+				</div>
+            </div>
+          </section>
+            </div>
+           
+
+  </div>
   <div class="tab-pane fade" id="pills-Pasta" role="tabpanel" aria-labelledby="pills-Pasta-tab">Pasta</div>
   <div class="tab-pane fade" id="pills-Swallow" role="tabpanel" aria-labelledby="pills-Swallow-tab">Swallow</div>
 </div>

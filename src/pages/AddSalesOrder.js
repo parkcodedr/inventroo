@@ -4,8 +4,9 @@ import {ErrorMessage} from 'components/Message';
 import { useHistory} from 'react-router-dom';
 import {notify} from 'components/Toast';
 import { useTitle } from 'components/hooks/useTitle';
-import LoadingButton from '../components/LoadingButton';
+import LoadingButton from 'components/LoadingButton';
 import { useSelector, useDispatch } from 'react-redux';
+import Loader from 'components/Loader';
 import {addPriceList,addPriceListComplete} from '../store/actions/priceList';
 import {getCustomers} from '../store/actions/customers';
 
@@ -14,7 +15,8 @@ const AddSalesOrder = ()=>{
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const { success, error, loading} = useSelector((state) => state.addPriceList);
+    //const { success:addSuccess, error:addError, loading:addLoading} = useSelector((state) => state.addSalesOrder);
+    const { customers, error, loading} = useSelector((state) => state.customers);
     const {register,formState: { errors },handleSubmit} = useForm();
 
     const [product,setProduct] = useState([
@@ -28,11 +30,12 @@ const AddSalesOrder = ()=>{
         }
     ])
 
-    if(success){
-        dispatch(addPriceListComplete());
-        history.push('/dashboard/sales-order/all');
-        notify("success","Sales Order Added Successfully");
-      }
+    // if(addSuccess){
+    //     dispatch(addPriceListComplete());
+    //     history.push('/dashboard/sales-order/all');
+    //     notify("success","Sales Order Added Successfully");
+    //   }
+
 
       const handleProductChange = (index,event)=>{
         event.preventDefault();
@@ -75,6 +78,10 @@ const AddSalesOrder = ()=>{
         dispatch(addPriceList(data));
     }
 
+    useEffect(()=>{
+      dispatch(getCustomers());
+    },[])
+    if(loading) return <Loader/>
     return(
         <div className="content-body">
             <h4 className="font-weight-bold">New Sales Order</h4>
@@ -92,9 +99,12 @@ const AddSalesOrder = ()=>{
     <div className="input-group">
   <select className="custom-select" {...register("customer_name", { required: "Customer's Name is required" })}>
     <option selected>Select Customer</option>
-    <option value="1">One</option>
-    <option value="2">Two</option>
-    <option value="3">Three</option>
+    {
+      customers.map(customer=>(
+        <option value={customer.customerID}>{customer.name}</option>
+      ))
+    }
+    
   </select>
   <div className="input-group-append">
   <label className="input-group-text bg-main text-white" >
@@ -132,10 +142,10 @@ const AddSalesOrder = ()=>{
     <label  className="col-sm-3 col-form-label text-danger">
         Sales Order Date</label>
     <div className="col-sm-5">
-      <input type="date" className="form-control" name="sales_order_date"
-      {...register("sales_order_date", { required: "Sales Order Date is required" })}
+      <input type="date" className="form-control" name="sales_date"
+      {...register("sales_date", { required: "Sales Order Date is required" })}
        />
-        <span className="text-danger text-center">{errors.sales_order_date?.message}</span>
+        <span className="text-danger text-center">{errors.sales_date?.message}</span>
     </div>
   </div>
 
@@ -143,8 +153,8 @@ const AddSalesOrder = ()=>{
     <label className="col-sm-3 col-form-label">
     Expected Shipment Date </label>
     <div className="col-sm-4">
-    <input type="date" className="form-control" name="shipment_date"
-      {...register("shipment_date")}
+    <input type="date" className="form-control" name="expected_shipment_date"
+      {...register("expected_shipment_date")}
        />
        
     </div>
@@ -164,8 +174,8 @@ const AddSalesOrder = ()=>{
     <div className="col-sm-4">
     <select className="custom-select" name="delivery_method" {...register("delivery_method")}>
        <option>Select Delivery Method</option>
-       <option value="1">1</option>
-       <option value="2">2</option>
+       <option value="Pickup">Pickup</option>
+       <option value="Home Deliver">Home Deliver</option>
      </select>
     </div>
     </div>
@@ -176,8 +186,8 @@ const AddSalesOrder = ()=>{
     <div className="col-sm-4">
     <select className="custom-select" name="sales_person" {...register("sales_person")}>
        <option selected>Select Sales Person</option>
-       <option value="1">1</option>
-       <option value="2">2</option>
+       <option value="John Joe">John Joe</option>
+       <option value="Jude Wellington">Jude Wellington</option>
      </select>
     </div>
     </div>
