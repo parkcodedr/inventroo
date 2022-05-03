@@ -18,6 +18,7 @@ import {
   OrganizationProfile,
   PageNotFound} from './pages'
 import TillA from 'pages/TillA';
+import TillB from 'pages/TillB';
 
 export default function App() {
 
@@ -57,6 +58,9 @@ export default function App() {
           </Route>
           <Route path="/till/restaurant">
            <TillA />
+          </Route>
+          <Route path="/till/glocery">
+           <TillB/>
           </Route>
 
       <Route path="*">

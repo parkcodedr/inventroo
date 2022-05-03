@@ -1,30 +1,34 @@
 import { usePageSetup } from "components/hooks/usePageSetup";
 import {tillMenu} from 'components/utils'
 import {Accordian} from 'components/Accordian'
-import { Link } from "react-router-dom";
-import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
+import { NavLink,Link } from "react-router-dom";
 import { AccordianItem } from "components/AccordianItem";
 
-const TillA = ()=>{
+const TillB = ()=>{
     usePageSetup();
 return(
     <div className="">
       <div className="content-wrapper bg-main">
         <section className="d-flex justify-content-between pt-1">
-        
-            <div className="nav-menu">
-                    <ul className="nav">
-                    <li className="nav-item">
-                            <a className="nav-link active" href="#">
+        <div className="logo">
+        <Link className="nav-link active" to={'/dashboard'}>
                             <img src="/app-assets/images/logo/troo-logo-white.png"
                   alt="branding logo" className="logo-image"/>
-                            </a>
+        </Link>
+        </div>
+            <div className="nav-menu">
+                    <ul className="nav">
+                    <li className="nav-item pl-3">
+                            <NavLink activeClassName={'till-nav-active'}  to={"/till/register"} className="nav-link text-white" >Register</NavLink>
                         </li>
                         <li className="nav-item pl-3">
-                            <NavLink to={"/dashboard/till/preview"} activeClassName={'till-nav-active'} className="nav-link active text-white" href="#">Till</NavLink>
+                            <NavLink to={"/till"} activeClassName={'till-nav-active'} className="nav-link active text-white">
+                                <i className="feather icon-refresh-cw"></i></NavLink>
                         </li>
                         <li className="nav-item pl-3">
-                            <NavLink activeClassName={'till-nav-active'}  to={"/kid"} className="nav-link text-white" href="#">KDS</NavLink>
+                            <NavLink activeClassName={'till-nav-active'}  to={"/till/kid"} className="nav-link text-white" >
+                            <i className="feather icon-settings"></i>
+                            </NavLink>
                         </li>
                     </ul>
 
@@ -32,12 +36,9 @@ return(
       
         <nav>
           <ul className="nav">
-              
               <li className="nav-item">
-                <a className="nav-link text-white" href="#">Logout</a>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link text-white" to={'/settings'}><i className="feather icon-settings"></i> Settings</Link>
+                <Link className="nav-link text-white h5" to={'/settings'}>
+                <i className="fa fa-user mr-1 "> </i>John Doe</Link>
               </li>
             </ul>
         </nav>
@@ -45,14 +46,23 @@ return(
        
       <div className="d-flex">
         <div className="col-md-7 food-menu">
-        <ul className="nav nav-pills mb-2" id="pills-tab" role="tablist">
-        {tillMenu.map((item,index)=>(
-            <li className="nav-item " role="presentation" key={`${index}-${item}`}>
-            <Link className={index===0?`nav-link text-white active`:`nav-link text-white`} id={`pills-${item}-tab`} data-toggle="pill" href={`#pills-${item}`} role="tab" aria-controls={`pills-${item}`} aria-selected={index===0?`true`:``}>{item}</Link>
-        </li>
-        ))}
-  
-        </ul>
+        <div className="d-flex justify-content-between">
+        <div className="col-md-9">
+        <div class="input-group">
+  <input type="text" class="form-control" placeholder="Write to search" />
+  <div class="input-group-append">
+    <button class="btn btn-success" type="button" >Enter</button>
+  </div>
+</div>
+        </div>
+
+            <div className="switchToggle">
+                <input type="checkbox" id="switch"/>
+                <label for="switch">Toggle</label>
+            </div>
+            
+
+            </div>
 <div className="tab-content mt-2" id="pills-tabContent">
   <div className="tab-pane fade show active" id="pills-Rice" role="tabpanel" aria-labelledby="pills-Rice-tab">
           <Accordian id={"accordionTill"}>
@@ -145,17 +155,6 @@ return(
 
         </div>
         <div className="col-md-5 pr-2 pl-2">
-        <div className="d-flex justify-content-between">
-            <div className="switchToggle">
-                <input type="checkbox" id="switch"/>
-                <label for="switch">Toggle</label>
-            </div>
-            <div>
-              <h4 className="text-white"><i className="fa fa-user mr-1 "> </i>John Doe</h4>
-            </div>
-
-            </div>
-
             <section className="table-wrapper mt-1 bg-white">
               <div className="table-select d-flex justify-content-between color-light pr-2 pl-2 pt-1">
                 <h4 className="font-weight-bold">Select Table</h4>
@@ -249,4 +248,4 @@ return(
 )
 }
 
-export default TillA;
+export default TillB;
