@@ -427,3 +427,13 @@ svg circle {
 .switchToggle input:checked + label:after, .switchToggle input:checked + input + label:after {left: calc(100% - 2px); transform: translateX(-100%); }
 .switchToggle label:active:after {width: 60px; } 
 .toggle-switchArea { margin: 10px 0 10px 0; }
+
+
+.card-image{
+  width:100%;
+  height:100%;
+}
+
+.till-nav-active{
+border-bottom: 2px solid rgb(83, 208, 96);
+}

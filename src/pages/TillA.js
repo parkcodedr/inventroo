@@ -1,5 +1,9 @@
 import { usePageSetup } from "components/hooks/usePageSetup";
 import {tillMenu} from 'components/utils'
+import {Accordian} from 'components/Accordian'
+import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
+import { AccordianItem } from "components/AccordianItem";
 
 const TillA = ()=>{
     usePageSetup();
@@ -9,115 +13,140 @@ return(
         <section className="d-flex justify-content-between pt-1">
         
             <div className="nav-menu">
-                    <ul class="nav">
-                    <li class="nav-item">
-                            <a class="nav-link active" href="#">
+                    <ul className="nav">
+                    <li className="nav-item">
+                            <a className="nav-link active" href="#">
                             <img src="/app-assets/images/logo/troo-logo-white.png"
                   alt="branding logo" className="logo-image"/>
                             </a>
                         </li>
-                        <li class="nav-item pl-3">
-                            <a class="nav-link active text-white" href="#">Till</a>
+                        <li className="nav-item pl-3">
+                            <NavLink to={"/till"} activeClassName={'till-nav-active'} className="nav-link active text-white" href="#">Till</NavLink>
                         </li>
-                        <li class="nav-item pl-3">
-                            <a class="nav-link text-white" href="#">KDS</a>
+                        <li className="nav-item pl-3">
+                            <NavLink activeClassName={'till-nav-active'}  to={"/kid"} className="nav-link text-white" href="#">KDS</NavLink>
                         </li>
                     </ul>
 
             </div>
       
         <nav>
-          <ul class="nav">
+          <ul className="nav">
               
-              <li class="nav-item">
-                <a class="nav-link text-white" href="#">Logout</a>
+              <li className="nav-item">
+                <a className="nav-link text-white" href="#">Logout</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link text-white" href="#"><i className="feather icon-settings"></i> Settings</a>
+              <li className="nav-item">
+                <a className="nav-link text-white" href="#"><i className="feather icon-settings"></i> Settings</a>
               </li>
             </ul>
         </nav>
         </section>
-        <hr/>
+       
       <div className="d-flex">
         <div className="col-md-7 food-menu">
-        <ul class="nav nav-pills mb-2" id="pills-tab" role="tablist">
+        <ul className="nav nav-pills mb-2" id="pills-tab" role="tablist">
         {tillMenu.map((item,index)=>(
-            <li class="nav-item " role="presentation" key={`${index}-${item}`}>
-            <a class={index===0?`nav-link text-white active`:`nav-link text-white`} id={`pills-${item}-tab`} data-toggle="pill" href={`#pills-${item}`} role="tab" aria-controls={`pills-${item}`} aria-selected={index===0?`true`:``}>{item}</a>
+            <li className="nav-item " role="presentation" key={`${index}-${item}`}>
+            <a className={index===0?`nav-link text-white active`:`nav-link text-white`} id={`pills-${item}-tab`} data-toggle="pill" href={`#pills-${item}`} role="tab" aria-controls={`pills-${item}`} aria-selected={index===0?`true`:``}>{item}</a>
         </li>
         ))}
   
         </ul>
-<div class="tab-content mt-2" id="pills-tabContent">
-  <div class="tab-pane fade show active" id="pills-Rice" role="tabpanel" aria-labelledby="pills-Rice-tab">
-          
-          <div id="accordionWrap1" role="tablist" aria-multiselectable="true">
+<div className="tab-content mt-2" id="pills-tabContent">
+  <div className="tab-pane fade show active" id="pills-Rice" role="tabpanel" aria-labelledby="pills-Rice-tab">
+          <Accordian id={"accordionTill"}>
           <section className="row ">
             <div className="col-md-4">
-            <div class="card accordion collapse-icon accordion-icon-rotate">
-					<div id="jollofRice" class="card-header primary" data-toggle="collapse" href="#jollofRice" aria-expanded="false"
-					aria-controls="jollofRice">
-						<a class="collapsed" href="#">Jollof Rice</a>
-					</div>
-					<div id="jollofRice" role="tabpanel" data-parent="#accordionWrap1" aria-labelledby="jollofRice" class="collapse ">
-						<div class="card-content">
-							<div class="card-body">
-								Caramels dessert chocolate cake pastry jujubes bonbon. Jelly wafer jelly beans. Caramels
-								chocolate cake liquorice cake wafer jelly beans croissant apple pie. Oat cake brownie
-								
-							</div>
-						</div>
-					</div>
-				</div>
+            <AccordianItem 
+            title="Jollof Rice"
+            id="jollofRice"
+            show="false"
+            parent="accordionTill"
+            headerId="jollofRiceHeader"
+             >
+              <>
+              <img src={"/app-assets/images/jollof_rice.jpg"} alt={"Jollof Rice"} className="card-image" />
+                <button  className="btn btn-float btn-round btn-success float-right m-1"><i class="fa fa-plus"></i></button>
+              </>
+             </AccordianItem>
             </div>
             <div className="col-md-4 ">
-            <div class="card accordion collapse-icon accordion-icon-rotate">
-					<div id="riceStew" class="card-header primary" data-toggle="collapse" href="#riceStew" 
-					aria-controls="riceStew" aria-expanded="false">
-						<a class="collapsed" href="#"> Rice & Stew</a>
-					</div>
-					<div id="riceStew" role="tabpanel" data-parent="#accordionWrap1" aria-labelledby="riceStew" class="collapse ">
-						<div class="card-content">
-							<div class="card-body">
-								Caramels dessert chocolate cake pastry jujubes bonbon. Jelly wafer jelly beans. Caramels
-								chocolate cake liquorice cake wafer jelly beans croissant apple pie. Oat cake brownie
-								
-							</div>
-						</div>
-					</div>
-				</div>
+            <AccordianItem 
+            title="Rice & Stew"
+            id="riceStew"
+            imgSource="/app-assets/images/rice_stew.png"
+            show="false"
+            parent="accordionTill"
+            headerId="riceStewHeader"
+             >
+                <img src={"/app-assets/images/rice_stew.png"} alt={"Rice and Stew"} className="card-image" />
+                <button  className="btn btn-float btn-round btn-success float-right m-1"><i class="fa fa-plus"></i></button>
+             </AccordianItem>
             </div>
             <div className="col-md-4 ">
-            <div class="card accordion collapse-icon accordion-icon-rotate">
-					<div id="coconutRice" class="card-header primary" data-toggle="collapse" href="#coconutRice" 
-					aria-controls="coconutRice" aria-expanded="false">
-						<a class="collapsed" href="#">Coconut Rice</a>
-					</div>
-					<div id="coconutRice" role="tabpanel" data-parent="#accordionWrap1" aria-labelledby="coconutRice" class="collapse">
-						<div class="card-content">
-							<div class="card-body">
-								Caramels dessert chocolate cake pastry jujubes bonbon. Jelly wafer jelly beans. Caramels
-								chocolate cake liquorice cake wafer jelly beans croissant apple pie. Oat cake brownie
-								
-							</div>
-						</div>
-					</div>
-				</div>
+            <AccordianItem 
+            title="Coconut Rice"
+            id="coconutRice"
+            show={false}
+            parent="accordionTill"
+            headerId="coconutRiceHeader"
+             >
+               <img src={"/app-assets/images/coconut_rice.jpg"} alt={"coconut Rice"} className="card-image" />
+                <button  className="btn btn-float btn-round btn-success float-right m-1"><i class="fa fa-plus"></i></button>
+             </AccordianItem>
+            </div>
+
+            <div className="col-md-4">
+            <AccordianItem 
+            title="Fried Rice"
+            id="friedRice"
+            show="false"
+            parent="accordionTill"
+            headerId="friedRiceHeader"
+             >
+              <>
+              <img src={"/app-assets/images/jollof_rice.jpg"} alt={"Fried Rice"} className="card-image" />
+                <button  className="btn btn-float btn-round btn-success float-right m-1"><i class="fa fa-plus"></i></button>
+              </>
+             </AccordianItem>
+            </div>
+            <div className="col-md-4 ">
+            <AccordianItem 
+            title="Special Fried Rice"
+            id="specialFriedRice"
+            imgSource="/app-assets/images/rice_stew.png"
+            show="false"
+            parent="accordionTill"
+            headerId="specialFriedRiceHeader"
+             >
+                <img src={"/app-assets/images/rice_stew.png"} alt={"special Fried Rice"} className="card-image" />
+                <button  className="btn btn-float btn-round btn-success float-right m-1"><i class="fa fa-plus"></i></button>
+             </AccordianItem>
+            </div>
+            <div className="col-md-4 ">
+            <AccordianItem 
+            title="Ofada Rice"
+            id="ofadaRice"
+            show={false}
+            parent="accordionTill"
+            headerId="ofadaRiceHeader"
+             >
+               <img src={"/app-assets/images/coconut_rice.jpg"} alt={"Ofada Rice"} className="card-image" />
+                <button  className="btn btn-float btn-round btn-success float-right m-1"><i class="fa fa-plus"></i></button>
+             </AccordianItem>
             </div>
           </section>
-            </div>
-           
-
+          </Accordian>
   </div>
-  <div class="tab-pane fade" id="pills-Pasta" role="tabpanel" aria-labelledby="pills-Pasta-tab">Pasta</div>
-  <div class="tab-pane fade" id="pills-Swallow" role="tabpanel" aria-labelledby="pills-Swallow-tab">Swallow</div>
+  <div className="tab-pane fade" id="pills-Pasta" role="tabpanel" aria-labelledby="pills-Pasta-tab">Pasta</div>
+  <div className="tab-pane fade" id="pills-Swallow" role="tabpanel" aria-labelledby="pills-Swallow-tab">Swallow</div>
 </div>
 
         </div>
         <div className="col-md-5 pr-2 pl-2">
-        <div class="d-flex justify-content-between">
-            <div class="switchToggle">
+        <div className="d-flex justify-content-between">
+            <div className="switchToggle">
                 <input type="checkbox" id="switch"/>
                 <label for="switch">Toggle</label>
             </div>
@@ -127,12 +156,12 @@ return(
 
             </div>
 
-            <section className="table-wrapper mt-2 bg-white">
+            <section className="table-wrapper mt-1 bg-white">
               <div className="table-select d-flex justify-content-between color-light pr-2 pl-2 pt-1">
                 <h4 className="font-weight-bold">Select Table</h4>
                 <h4 className="font-weight-bold">Table #1</h4>
               </div>
-    <table class="table">
+    <table className="table">
   <thead>
     <tr>
       <th scope="col">Description</th>
