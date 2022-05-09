@@ -131,6 +131,7 @@ export const deleteSalesOrderReducer = (state = {}, action) => {
             return {
                 loading: false,
                 success:true,
+                message:action.message,
                 error: ""
             }
         case actionTypes.DELETE_SALES_ORDER_COMPLETE:

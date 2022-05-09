@@ -66,10 +66,10 @@ export const getSalesOrderStart = () => {
     };
 };
 
-export const getSalesOrderSuccess = (saleOrders) => {
+export const getSalesOrderSuccess = (salesOrders) => {
     return {
         type: actionTypes.GET_SALES_ORDER_SUCCESS,
-        saleOrders
+        salesOrders
     };
 };
 
@@ -234,9 +234,10 @@ export const deleteSalesOrderStart = () => {
     };
 };
 
-export const deleteSalesOrderSuccess = () => {
+export const deleteSalesOrderSuccess = (message) => {
     return {
         type: actionTypes.DELETE_SALES_ORDER_SUCCESS,
+        message
     };
 };
 
@@ -263,10 +264,10 @@ export const deleteSalesOrder = (id) => {
                 'Content-Type': 'application/json',
                 'Authorization':`Bearer ${token}`
             }
-            ApiService.get(`/salesOrder/remove?customerID=${id}`,{headers})
+            ApiService.get(`/salesOrder/remove?salesOrderID=${id}`,{headers})
                 .then(response => {
-            
-                    dispatch(deleteSalesOrderSuccess());
+                    const {ResponseMessage} = response.data;
+                    dispatch(deleteSalesOrderSuccess(ResponseMessage));
                 }).catch(error => {
                     if (error.response) {
                         const { ResponseMessage } = error.response.data;

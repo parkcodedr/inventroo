@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Loader from 'components/Loader';
 import {getCustomers} from 'store/actions/customers';
 import {getProducts} from 'store/actions/product';
-import {addSalesOrder} from 'store/actions/salesOrder';
+import {addSalesOrder,addSalesOrderComplete} from 'store/actions/salesOrder';
 import {getTaxes} from 'store/actions/tax';
 
 const AddSalesOrder = ()=>{
@@ -36,11 +36,11 @@ const AddSalesOrder = ()=>{
         }
     ])
 
-    // if(addSuccess){
-    //     dispatch(addPriceListComplete());
-    //     history.push('/dashboard/sales-order/all');
-    //     notify("success","Sales Order Added Successfully");
-    //   }
+    if(addSuccess){
+        dispatch(addSalesOrderComplete());
+        history.push('/dashboard/sales-order/all');
+        notify("success","Sales Order Added Successfully");
+      }
 
     const generateOrderNumber = ()=>{
       const code = Math.floor(100000 + Math.random() * 900000);
@@ -139,8 +139,8 @@ const AddSalesOrder = ()=>{
               
             <form onSubmit={handleSubmit(submit)}>
             <div className="col-md-10">
-                {error && <ErrorMessage message={addError}/>}
-
+                {addError && <ErrorMessage message={addError}/>}
+                
 
     <div className="form-group row">
     <label htmlFor="name" className="col-sm-3 col-form-label text-danger">
@@ -248,7 +248,6 @@ const AddSalesOrder = ()=>{
     </div>
     </div>
     <div className="row m-1">
-      {JSON.stringify(product)}
     <table className="table table-responsive group-table mt-5 mr-1">
   <thead>
     <tr className="bg-main text-white">
