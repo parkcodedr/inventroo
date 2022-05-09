@@ -148,7 +148,7 @@ return(
         <div className="d-flex justify-content-between">
             <div className="switchToggle">
                 <input type="checkbox" id="switch"/>
-                <label for="switch">Toggle</label>
+                <label for="switch" className="table-label">Toggle</label>
             </div>
             <div>
               <h4 className="text-white"><i className="fa fa-user mr-1 "> </i>John Doe</h4>

@@ -64,10 +64,6 @@ const AddProductGroup = ()=>{
     const selectedTags = tags => {
       setTags(tags)
       handleAddProduct(tags)
-     
-      // const prevTags = [...tags];
-      // const newTags = [...prevTags,...tags];
-      // setTags([...new Set(newTags)]);
       
     };
 
@@ -90,7 +86,6 @@ const AddProductGroup = ()=>{
   const handleChange = (index,event)=>{
     event.preventDefault();
     event.persist();
-    console.log('call');
     setForm((prev)=>{
         return prev.map((item,i)=>{
             if(i!==index){

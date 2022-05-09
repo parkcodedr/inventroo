@@ -1,3 +1,4 @@
+import React,{useState} from 'react';
 import { usePageSetup } from "components/hooks/usePageSetup";
 import {tillMenu} from 'components/utils'
 import {Accordian} from 'components/Accordian'
@@ -6,9 +7,12 @@ import { AccordianItem } from "components/AccordianItem";
 
 const TillB = ()=>{
     usePageSetup();
+    const [show,setShow] = useState(false);
+    console.log(show);
+
 return(
-    <div className="">
-      <div className="content-wrapper bg-main">
+    <div className="content-body">
+      <div className="bg-main">
         <section className="d-flex justify-content-between pt-1">
         <div className="logo">
         <Link className="nav-link active" to={'/dashboard'}>
@@ -38,16 +42,18 @@ return(
           <ul className="nav">
               <li className="nav-item">
                 <Link className="nav-link text-white h5" to={'/settings'}>
-                <i className="fa fa-user mr-1 "> </i>John Doe</Link>
+                <i className="fa fa-user-circle mr-1 "> </i>John Doe</Link>
               </li>
             </ul>
         </nav>
         </section>
        
-      <div className="d-flex">
+      <div className="row m-1">
         <div className="col-md-7 food-menu">
         <div className="d-flex justify-content-between">
-        <div className="col-md-9">
+       {show==false?(
+         <>
+          <div className="col-md-9">
         <div class="input-group">
   <input type="text" class="form-control" placeholder="Write to search" />
   <div class="input-group-append">
@@ -55,10 +61,20 @@ return(
   </div>
 </div>
         </div>
+         </>
+       ):(
+         <>
+         <div className="col-md-9">
+         <input type="text" class="form-control" placeholder="Scan product barcode" />
+         </div>
+         </>
+       )}
 
             <div className="switchToggle">
-                <input type="checkbox" id="switch"/>
-                <label for="switch">Toggle</label>
+                <input type="checkbox" id="switch"
+                onChange={(e)=>setShow(!show)}
+                 />
+                <label htmlFor="switch" className="label-switch">Search</label>
             </div>
             
 
@@ -155,7 +171,7 @@ return(
 
         </div>
         <div className="col-md-5 pr-2 pl-2">
-            <section className="table-wrapper mt-1 bg-white">
+            <section className="table-wrapper bg-white">
               <div className="table-select d-flex justify-content-between color-light pr-2 pl-2 pt-1">
                 <h4 className="font-weight-bold">Select Table</h4>
                 <h4 className="font-weight-bold">Table #1</h4>
@@ -182,7 +198,7 @@ return(
       <td>500</td>
       <td>1000</td>
     </tr>
-    <div style={{ "margin-top":'70px' }}></div>
+    <div style={{'margin-top':'90px'}}></div>
     
   </tbody>
   

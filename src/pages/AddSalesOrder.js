@@ -7,8 +7,10 @@ import { useTitle } from 'components/hooks/useTitle';
 import LoadingButton from 'components/LoadingButton';
 import { useSelector, useDispatch } from 'react-redux';
 import Loader from 'components/Loader';
-import {addPriceList,addPriceListComplete} from '../store/actions/priceList';
-import {getCustomers} from '../store/actions/customers';
+import {addPriceList,addPriceListComplete} from 'store/actions/priceList';
+import {getCustomers} from 'store/actions/customers';
+import {getProducts} from 'store/actions/product';
+import {getTaxes} from 'store/actions/tax';
 
 const AddSalesOrder = ()=>{
   useTitle("Inventroo | New Sales Order");
@@ -17,12 +19,14 @@ const AddSalesOrder = ()=>{
 
     //const { success:addSuccess, error:addError, loading:addLoading} = useSelector((state) => state.addSalesOrder);
     const { customers, error, loading} = useSelector((state) => state.customers);
-    const {register,formState: { errors },handleSubmit} = useForm();
+    const { products,} = useSelector((state) => state.products);
+    const { taxes,} = useSelector((state) => state.taxes);
+    const {register,reset,formState: { errors },handleSubmit} = useForm();
 
     const [product,setProduct] = useState([
         {
             product_id:"",
-            quantity:"",
+            quantity:1.0,
             rate:0,
             discount:0,
             tax:0,
@@ -36,10 +40,27 @@ const AddSalesOrder = ()=>{
     //     notify("success","Sales Order Added Successfully");
     //   }
 
+    const generateOrderNumber = ()=>{
+      const code = Math.floor(100000 + Math.random() * 900000);
+      return code;
+  }
+
+   
+
+    const updateAmount = (index)=>{
+        let data = [...product];
+        const subTotal =(data[index].rate*data[index].quantity);
+        const discount = ((data[index].discount * data[index].rate )/100)*data[index].quantity;
+        console.log({discount,"disc":data[index].discount,subTotal});
+        data[index].amount = (data[index].rate*data[index].quantity)- discount;
+        setProduct(data);
+    }
+
 
       const handleProductChange = (index,event)=>{
         event.preventDefault();
         event.persist();
+       
         setProduct((prev)=>{
             return prev.map((item,i)=>{
                 if(i!==index){
@@ -52,6 +73,7 @@ const AddSalesOrder = ()=>{
                 }
             })
         })
+        
       }
 
       const handleRemove = (e,index)=>{
@@ -77,9 +99,17 @@ const AddSalesOrder = ()=>{
         console.log(data);
         dispatch(addPriceList(data));
     }
+    const subTotal = product.reduce((accumulator, current) => accumulator + current.amount, 0);
+    const tax = product.reduce((accumulator, current) => (accumulator +(current.tax * current.amount)/100), 0);
+    const total = subTotal+tax;
 
     useEffect(()=>{
       dispatch(getCustomers());
+      dispatch(getProducts());
+      dispatch(getTaxes());
+      reset({
+        sales_order:"SO-"+generateOrderNumber()
+      })
     },[])
     if(loading) return <Loader/>
     return(
@@ -100,8 +130,8 @@ const AddSalesOrder = ()=>{
   <select className="custom-select" {...register("customer_name", { required: "Customer's Name is required" })}>
     <option selected>Select Customer</option>
     {
-      customers.map(customer=>(
-        <option value={customer.customerID}>{customer.name}</option>
+      customers && customers.map(customer=>(
+        <option value={customer.customerID} key={customer.customerID}>{customer.name}</option>
       ))
     }
     
@@ -193,6 +223,7 @@ const AddSalesOrder = ()=>{
     </div>
     </div>
     <div className="row m-1">
+      {JSON.stringify(product)}
     <table className="table table-responsive group-table mt-5 mr-1">
   <thead>
     <tr className="bg-main text-white">
@@ -201,7 +232,7 @@ const AddSalesOrder = ()=>{
       <th scope="col">Rate</th>
       <th scope="col">Discount</th>
       <th scope="col">Tax</th>
-      <th scope="col">Ampunt</th>
+      <th scope="col">Amount</th>
     </tr>
 
   </thead>
@@ -209,20 +240,28 @@ const AddSalesOrder = ()=>{
   <tbody>
   {product.map((item,index)=>
     <tr key={`${item}-${index}`}>
-      <td>
+      <td className="col-md-3">
         <select className="custom-select" name="product_id" rows={1}
         onChange={(e)=>handleProductChange(index,e)} 
         value={item.product_id}>
             <option>Select Item</option>
-            <option>1</option>
+            {products && products.map(product=>(
+              <option value={product.productID} key={product.productID}>{product.name}</option>
+            ))}
         </select>
       </td>
-      <td ><input type="text" className="form-control" name="quantity" onChange={(e)=>handleProductChange(index,e)} /></td>
-      <td ><input type="text" className="form-control" name="rate" onChange={(e)=>handleProductChange(index,e)} /></td>
-      <td><input type="text" className="form-control" name="discount"  onChange={(e)=>handleProductChange(index,e)}  /></td>
-      <td><input type="text" className="form-control" name="tax" onChange={(e)=>handleProductChange(index,e)}  /></td>
-      <td><input type="text" className="form-control" name="amount" onChange={(e)=>handleProductChange(index,e)}  /></td>
-      <td><i className="feather icon-trash btn btn-danger" onClick={(e)=>handleRemove(e,index)}></i></td>
+      <td scope="col"><input type="text" value={item.quantity} className="form-control" name="quantity" onChange={(e)=>handleProductChange(index,e)} onBlur={(e)=>updateAmount(index)} /></td>
+      <td scope="col"><input type="text" value={item.rate} className="form-control" name="rate" onChange={(e)=>handleProductChange(index,e)} onBlur={(e)=>updateAmount(index)}/></td>
+      <td scope="col"><input type="text" value={item.discount} className="form-control" name="discount"  onChange={(e)=>handleProductChange(index,e)} onBlur={(e)=>updateAmount(index)} /></td>
+      <td scope="col" className="col-md-2">
+        <select className="custom-select" value={item.tax} name="tax" onChange={(e)=>handleProductChange(index,e)} >
+          <option value="">Select Tax</option>
+          {taxes && taxes.map(tax=>(
+            <option value={tax.percentage} key={tax.id}>{`${tax.name} [${tax.percentage} %]`}</option>
+          ))}
+          </select></td>
+      <td scope="col"><input type="text" className="form-control" value={item.amount} name="amount" onChange={(e)=>handleProductChange(index,e)}  /></td>
+      <td ><i className="feather icon-trash btn btn-danger" onClick={(e)=>handleRemove(e,index)}></i></td>
     </tr>
 
   )}
@@ -237,13 +276,15 @@ const AddSalesOrder = ()=>{
   <section className="row m-1">
       <div className="col-md-5  align-self-end">
       <label >Customer Notes </label>
-    <textarea class="form-control"  cols="5" id="exampleFormControlTextarea1" rows="3"></textarea>
+    <textarea className="form-control"  cols="5" name="customer_note"
+    {...register("customer_note")}
+      rows="3"></textarea>
       <p>Will be displayed on the invoice</p>
       </div>
       <div className="col-md-7 mt-2 bg-light-50 p-2">
           <div className="d-flex justify-content-between sub-total-container pr-1">
               <h5 className="sub-total">Subtotal</h5>
-              <h5>786,574,086</h5>
+              <h5>{subTotal}</h5>
           </div>
           <div className="d-flex justify-content-between shipping-charges pr-1">
             <p className="col-md-4">Shipping Charges <br/><a href="#">Apply Tax on Shipping Charges</a></p>
@@ -254,11 +295,11 @@ const AddSalesOrder = ()=>{
           <div className="d-flex justify-content-between adjustment pr-1">
             <p className="col-md-4">Adjustment</p>
             <input type="text" className="form-control col-md-4" name="adjustment"/>
-            <p >0.00</p>
+            <p >{tax}</p>
           </div>
           <div className="d-flex justify-content-between total  pr-1 mt-2">
-            <h4 className="font-weight-bold">Total</h4>
-            <h4 className="font-weight-bold">890,985,483</h4>
+            <h4 className="font-weight-bold">Total (NGN)</h4>
+            <h4 className="font-weight-bold">{total}</h4>
           </div>
       </div>
   </section>

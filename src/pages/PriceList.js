@@ -19,7 +19,8 @@ useTitle("Inventroo | Price List")
           notify("success","PriceList Deleted Successfully");
           dispatch(deletePriceListComplete())
       }
-      dispatch(getPriceLists());
+        dispatch(getPriceLists());
+      
   },[dispatch,deleteSuccess])
 
   

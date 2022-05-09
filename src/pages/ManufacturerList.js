@@ -18,7 +18,9 @@ const ManufacturerList = () => {
       if(deleteSuccess){
       dispatch(deleteManufacturerComplete());
       }
-        dispatch(getManufacturers(token));
+       
+          dispatch(getManufacturers(token));
+        
     },[dispatch,deleteSuccess]);
 
     const deleteHandler =(manufacturer)=>{
