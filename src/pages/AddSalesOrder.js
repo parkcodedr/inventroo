@@ -7,17 +7,18 @@ import { useTitle } from 'components/hooks/useTitle';
 import LoadingButton from 'components/LoadingButton';
 import { useSelector, useDispatch } from 'react-redux';
 import Loader from 'components/Loader';
-import {addPriceList,addPriceListComplete} from 'store/actions/priceList';
 import {getCustomers} from 'store/actions/customers';
 import {getProducts} from 'store/actions/product';
+import {addSalesOrder} from 'store/actions/salesOrder';
 import {getTaxes} from 'store/actions/tax';
 
 const AddSalesOrder = ()=>{
   useTitle("Inventroo | New Sales Order");
     const dispatch = useDispatch();
     const history = useHistory();
+    const [customerName,setCustomerName]= useState("");
 
-    //const { success:addSuccess, error:addError, loading:addLoading} = useSelector((state) => state.addSalesOrder);
+    const { success:addSuccess, error:addError, loading:addLoading} = useSelector((state) => state.addSalesOrder);
     const { customers, error, loading} = useSelector((state) => state.customers);
     const { products,} = useSelector((state) => state.products);
     const { taxes,} = useSelector((state) => state.taxes);
@@ -31,6 +32,7 @@ const AddSalesOrder = ()=>{
             discount:0,
             tax:0,
             amount:0,
+           
         }
     ])
 
@@ -49,9 +51,7 @@ const AddSalesOrder = ()=>{
 
     const updateAmount = (index)=>{
         let data = [...product];
-        const subTotal =(data[index].rate*data[index].quantity);
         const discount = ((data[index].discount * data[index].rate )/100)*data[index].quantity;
-        console.log({discount,"disc":data[index].discount,subTotal});
         data[index].amount = (data[index].rate*data[index].quantity)- discount;
         setProduct(data);
     }
@@ -60,13 +60,17 @@ const AddSalesOrder = ()=>{
       const handleProductChange = (index,event)=>{
         event.preventDefault();
         event.persist();
+       if(event.target.name=="product_id"){
+         const productName = products.find(item=>item.productID==event.target.value);
+         product[index].product_name=productName.name;
+       }
        
         setProduct((prev)=>{
             return prev.map((item,i)=>{
                 if(i!==index){
                     return item;
                 }
-      
+             
                 return {
                     ...item,
                     [event.target.name]:event.target.value,
@@ -94,14 +98,30 @@ const AddSalesOrder = ()=>{
   
             setProduct(prev=>[...prev,inputState]);
     }
-
-    const submit = (data)=>{
-        console.log(data);
-        dispatch(addPriceList(data));
-    }
     const subTotal = product.reduce((accumulator, current) => accumulator + current.amount, 0);
     const tax = product.reduce((accumulator, current) => (accumulator +(current.tax * current.amount)/100), 0);
     const total = subTotal+tax;
+
+    const submit = (data)=>{
+      const productData = new FormData();
+      productData.append("customer_name",customerName.name);
+      productData.append("customer_id",data.customer_id);
+      productData.append("sales_order",data.sales_order);
+      productData.append("reference",data.reference);
+      productData.append("sales_date",data.sales_date);
+      productData.append("expected_shipment_date",data.expected_shipment_date);
+      productData.append("payment_term",data.payment_term);
+      productData.append("customer_note",data.customer_note);
+      productData.append("payment_term",data.payment_term);
+      productData.append("payment_method",data.payment_method);
+      productData.append("sales_person",data.sales_person);
+      productData.append("items",JSON.stringify(product));
+      
+        dispatch(addSalesOrder(productData));
+    }
+
+
+    console.log({customerName});
 
     useEffect(()=>{
       dispatch(getCustomers());
@@ -119,7 +139,7 @@ const AddSalesOrder = ()=>{
               
             <form onSubmit={handleSubmit(submit)}>
             <div className="col-md-10">
-                {error && <ErrorMessage message={error}/>}
+                {error && <ErrorMessage message={addError}/>}
 
 
     <div className="form-group row">
@@ -127,8 +147,9 @@ const AddSalesOrder = ()=>{
        Customer's Name</label>
     <div className="col-sm-9">
     <div className="input-group">
-  <select className="custom-select" {...register("customer_name", { required: "Customer's Name is required" })}>
-    <option selected>Select Customer</option>
+  <select className="custom-select" name="customer_id"
+  {...register("customer_id",  { required: "Customer's Name is required" })} onChange={(e)=>setCustomerName(customers.find(customer=>customer.customerID==e.target.value))}>
+    <option value="">Select Customer</option>
     {
       customers && customers.map(customer=>(
         <option value={customer.customerID} key={customer.customerID}>{customer.name}</option>
@@ -191,9 +212,13 @@ const AddSalesOrder = ()=>{
     <label className="col-sm-1 col-form-label">
         Payment Term</label>
     <div className="col-sm-4">
-    <input type="text" className="form-control" name="payment_term"
+    <select  className="custom-select" name="payment_term"
       {...register("payment_term")}
-       />
+       >
+         <option value="Due on Receipt">Due on Receipt</option>
+         <option value="Due end of month">Due end of month</option>
+         <option value="Due end of next month">Due end of next month</option>
+       </select>
        
     </div>
   </div>
@@ -306,7 +331,7 @@ const AddSalesOrder = ()=>{
  
   <div className="float-right mb-5 mt-2">
 
-            {loading? (
+            {addLoading? (
               <LoadingButton message={"Save and Continue"}/>
             ):(
       <button type="submit" className="btn btn-main mr-1">
