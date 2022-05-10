@@ -4,6 +4,8 @@ import {tillMenu} from 'components/utils'
 import {Accordian} from 'components/Accordian'
 import { NavLink,Link } from "react-router-dom";
 import { AccordianItem } from "components/AccordianItem";
+import ListGroup from 'components/ListGroup';
+import ListGroupItem from 'components/ListGroupItem';
 
 const TillB = ()=>{
     usePageSetup();
@@ -54,10 +56,10 @@ return(
        {show==false?(
          <>
           <div className="col-md-9">
-        <div class="input-group">
-  <input type="text" class="form-control" placeholder="Write to search" />
-  <div class="input-group-append">
-    <button class="btn btn-success" type="button" >Enter</button>
+        <div className="input-group">
+  <input type="text" className="form-control" placeholder="Write to search" />
+  <div className="input-group-append">
+    <button className="btn btn-success" type="button" >Enter</button>
   </div>
 </div>
         </div>
@@ -65,7 +67,7 @@ return(
        ):(
          <>
          <div className="col-md-9">
-         <input type="text" class="form-control" placeholder="Scan product barcode" />
+         <input type="text" className="form-control" placeholder="Scan product barcode" />
          </div>
          </>
        )}
@@ -85,83 +87,116 @@ return(
           <section className="row ">
             <div className="col-md-4">
             <AccordianItem 
-            title="Jollof Rice"
-            id="jollofRice"
+            title="Fruits"
+            id="fruits"
             show="false"
             parent="accordionTill"
-            headerId="jollofRiceHeader"
+            headerId="fruitHeader"
+            bg="bg-main"
              >
-              <>
-              <img src={"/app-assets/images/jollof_rice.jpg"} alt={"Jollof Rice"} className="card-image" />
-                <button  className="btn btn-float btn-round btn-success float-right m-1"><i class="fa fa-plus"></i></button>
-              </>
+              <div className="bg-main">
+              <ListGroup>
+              <ListGroupItem title="Apple" link="/apple" />
+                <ListGroupItem title="Orange" link="/orange" />
+                <ListGroupItem title="Mango" link="/mango" />
+              </ListGroup>
+              </div>
+          
+             </AccordianItem>
+
+             <AccordianItem 
+            title="Soda"
+            id="soda"
+            show="false"
+            parent="accordionTill"
+            headerId="sodaHeader"
+            bg="bg-main"
+             >
+              <div className="bg-main">
+              <ListGroup>
+              <ListGroupItem title="Coca Cola" link="/apple" />
+                <ListGroupItem title="Pepsi" link="/orange" />
+                <ListGroupItem title="Fanta" link="/mango" />
+              </ListGroup>
+              </div>
+          
+             </AccordianItem>
+            </div>
+            <div className="col-md-4 ">
+           
+             <AccordianItem 
+            title="Condiments"
+            id="condiments"
+            show="false"
+            parent="accordionTill"
+            headerId="condimentHeader"
+            bg="bg-main"
+             >
+              <div className="bg-main">
+              <ListGroup>
+              <ListGroupItem title="Maggi" link="/apple" />
+                <ListGroupItem title="Curry" link="/orange" />
+                <ListGroupItem title="Onga" link="/mango" />
+              </ListGroup>
+              </div>
+          
+             </AccordianItem>
+             <AccordianItem 
+            title="Wines"
+            id="wines"
+            show="false"
+            parent="accordionTill"
+            headerId="winesHeader"
+            bg="bg-main"
+             >
+              <div className="bg-main">
+              <ListGroup>
+              <ListGroupItem title="Voldka" link="/apple" />
+                <ListGroupItem title="Spirit" link="/orange" />
+                <ListGroupItem title="Fruit Wine" link="/mango" />
+              </ListGroup>
+              </div>
+          
              </AccordianItem>
             </div>
             <div className="col-md-4 ">
             <AccordianItem 
-            title="Rice & Stew"
-            id="riceStew"
-            imgSource="/app-assets/images/rice_stew.png"
+            title="Vegetable"
+            id="vegetable"
             show="false"
             parent="accordionTill"
-            headerId="riceStewHeader"
+            headerId="vegetableHeader"
+            bg="bg-main"
              >
-                <img src={"/app-assets/images/rice_stew.png"} alt={"Rice and Stew"} className="card-image" />
-                <button  className="btn btn-float btn-round btn-success float-right m-1"><i class="fa fa-plus"></i></button>
+              <div className="bg-main">
+              <ListGroup>
+              <ListGroupItem title="Carrot" link="/apple" />
+                <ListGroupItem title="Okra" link="/orange" />
+                <ListGroupItem title="Carrot" link="/mango" />
+              </ListGroup>
+              </div>
+          
              </AccordianItem>
-            </div>
-            <div className="col-md-4 ">
-            <AccordianItem 
-            title="Coconut Rice"
-            id="coconutRice"
-            show={false}
+             <AccordianItem 
+            title="Beverages"
+            id="beverages"
+            show="false"
             parent="accordionTill"
-            headerId="coconutRiceHeader"
+            headerId="beveragesHeader"
+            bg="bg-main"
              >
-               <img src={"/app-assets/images/coconut_rice.jpg"} alt={"coconut Rice"} className="card-image" />
-                <button  className="btn btn-float btn-round btn-success float-right m-1"><i class="fa fa-plus"></i></button>
+              <div className="bg-main">
+              <ListGroup>
+              <ListGroupItem title="Milo" link="/apple" />
+                <ListGroupItem title="Cocoa" link="/orange" />
+                <ListGroupItem title="Bournvita" link="/mango" />
+              </ListGroup>
+              </div>
+          
              </AccordianItem>
             </div>
 
-            <div className="col-md-4">
-            <AccordianItem 
-            title="Fried Rice"
-            id="friedRice"
-            show="false"
-            parent="accordionTill"
-            headerId="friedRiceHeader"
-             >
-              <>
-              <img src={"/app-assets/images/jollof_rice.jpg"} alt={"Fried Rice"} className="card-image" />
-                <button  className="btn btn-float btn-round btn-success float-right m-1"><i class="fa fa-plus"></i></button>
-              </>
-             </AccordianItem>
-            </div>
-            <div className="col-md-4 ">
-            <AccordianItem 
-            title="Special Fried Rice"
-            id="specialFriedRice"
-            imgSource="/app-assets/images/rice_stew.png"
-            show="false"
-            parent="accordionTill"
-            headerId="specialFriedRiceHeader"
-             >
-                <img src={"/app-assets/images/rice_stew.png"} alt={"special Fried Rice"} className="card-image" />
-                <button  className="btn btn-float btn-round btn-success float-right m-1"><i class="fa fa-plus"></i></button>
-             </AccordianItem>
-            </div>
-            <div className="col-md-4 ">
-            <AccordianItem 
-            title="Ofada Rice"
-            id="ofadaRice"
-            show={false}
-            parent="accordionTill"
-            headerId="ofadaRiceHeader"
-             >
-               <img src={"/app-assets/images/coconut_rice.jpg"} alt={"Ofada Rice"} className="card-image" />
-                <button  className="btn btn-float btn-round btn-success float-right m-1"><i class="fa fa-plus"></i></button>
-             </AccordianItem>
-            </div>
+            
           </section>
           </Accordian>
   </div>

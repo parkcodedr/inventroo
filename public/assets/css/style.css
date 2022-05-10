@@ -449,3 +449,6 @@ svg circle {
 .till-nav-active{
 border-bottom: 2px solid rgb(83, 208, 96);
 }
+.list-menu-item:hover{
+background:#5462b0;
+}
