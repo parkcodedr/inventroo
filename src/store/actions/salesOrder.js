@@ -145,16 +145,16 @@ export const getSalesOrderDetail = (id) => {
                 'Content-Type': 'application/json',
                 'Authorization':`Bearer ${token}`
             }
-            ApiService.get(`/salesOrder/find?customerID=${id}`,{headers})
+            ApiService.get(`/salesOrder/find?salesOrderID=${id}`,{headers})
                 .then(response => {
                     console.log(response.data);
                     const {salesOrder} = response.data;
                     dispatch(getSalesOrderDetailSuccess(salesOrder));
                 }).catch(error => {
                     if (error.response) {
-                        const { message } = error.response.data;
+                        const { ResponseMessage } = error.response.data;
                         console.log(error.response.data);
-                        dispatch(getSalesOrderDetailFail(message));
+                        dispatch(getSalesOrderDetailFail(ResponseMessage));
 
                     } else if (error.request) {
                         console.log(error);
