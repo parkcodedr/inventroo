@@ -208,32 +208,31 @@ return(
         <div className="col-md-5 pr-2 pl-2">
             <section className="table-wrapper bg-white">
               <div className="table-select d-flex justify-content-between color-light pr-2 pl-2 pt-1">
-                <h4 className="font-weight-bold">Select Table</h4>
-                <h4 className="font-weight-bold">Table #1</h4>
+                <h5 className="font-weight-bold">Around-the-corner-Gloceries</h5>
+                <h5 className="font-weight-bold"><i className="feather icon-printer"></i> Print</h5>
               </div>
     <table className="table">
   <thead>
     <tr>
       <th scope="col">Description</th>
       <th scope="col">Quantity</th>
-      <th scope="col">Eact</th>
       <th scope="col">Total</th>
     </tr>
   </thead>
   <tbody >
     <tr>
       <th scope="row">Jollof Rice</th>
-      <td>1</td>
-      <td>500</td>
-      <td>500</td>
+      <td>x1</td>
+      <td>3500</td>
+     
     </tr>
     <tr >
-      <th scope="row">Coca cola</th>
-      <td>2</td>
+      <th scope="row">Coca Cola</th>
+      <td>x2</td>
       <td>500</td>
-      <td>1000</td>
+      
     </tr>
-    <div style={{'margin-top':'90px'}}></div>
+    <div style={{'margin-top':'100px'}}></div>
     
   </tbody>
   
