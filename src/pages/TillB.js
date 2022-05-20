@@ -14,7 +14,7 @@ const TillB = ()=>{
 
 return(
     <div className="content-body">
-      <div className="bg-main">
+      <div className="bg-main" style={{ height:'100vh' }}>
         <section className="d-flex justify-content-between pt-1">
         <div className="logo">
         <Link className="nav-link active" to={'/dashboard'}>

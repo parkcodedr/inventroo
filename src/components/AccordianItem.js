@@ -6,7 +6,7 @@ export const AccordianItem = ({title,id,parent,show,headerId,bg,children})=>{
 						<a className="collapsed font-weight-bold" href="#">{title}</a>
 					</div>
 					<div id={id}  role="tabpanel" data-parent={`#${parent}`} aria-labelledby={title} className={`collapse ${show}`}>
-						<div className={`card-content ${bg}`}>
+						<div className={`card-content p-1 ${bg}`}>
 							<div className="">
                             {
                             children
