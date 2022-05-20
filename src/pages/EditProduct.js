@@ -8,37 +8,41 @@ import {useHistory,useParams} from 'react-router-dom';
 import {notify} from '../components/Toast';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTitle } from 'components/hooks/useTitle';
+import {thumbsContainer,thumb,thumbInner,img} from 'components/styles/DropZoneStyle';
+import ImageThumbs from 'components/ImageThumbs';
 
 import {updateProduct,updateProductComplete,getProductDetail} from '../store/actions/product';
 
 const EditProduct= ()=>{
 useTitle("Inventroo | Edit Product");
-    const {
-        acceptedFiles,
-        getRootProps,
-        getInputProps
-      } = useDropzone({
-        accept: 'image/jpeg,image/png'
-      });
+const {
+  acceptedFiles,
+  getRootProps,
+  getInputProps
+} = useDropzone({
+  accept: 'image/jpeg,image/png',
+  onDrop: acceptedFiles => {
+    setFiles(acceptedFiles.map(file => Object.assign(file, {
+      preview: URL.createObjectURL(file)
+    })));
+  }
+});
 
-      const files = acceptedFiles.map(file => (
-        <li key={file.path}>
-          {file.path} - {file.size} bytes
-        </li>
-      ));
+      
 
     const dispatch = useDispatch();
     const history = useHistory();
     const params = useParams();
     const id = params.productId;
     const [imageError,setImageError] = useState("");
+    const [files, setFiles] = useState([]);
     const {register,reset,formState: { errors },handleSubmit} = useForm();
 
     const productDetail = useSelector((state) => state.productDetail);
     const { product,units,taxes,manufacturers,brands, error, loading} = productDetail;
     const updateState = useSelector((state) => state.updateProduct);
     const { success:updateSuccess, error:updateError, loading:updateLoading} = updateState;
-    const { token} = useSelector((state) => state.auth);
+    const { categories} = useSelector((state) => state.productCategories);
 
     if(updateSuccess){
         history.push('/dashboard/product/all');
@@ -52,6 +56,7 @@ useTitle("Inventroo | Edit Product");
         }else{
             reset({
               name:product.name,sku:product.sku,
+              category_id:product.categoy.id,
               unit:product.unit.id,
               type:product.type,
               dimension:product.dimension,
@@ -82,6 +87,7 @@ useTitle("Inventroo | Edit Product");
     const submitProduct = (data)=>{
       const productData = new FormData();
       productData.append("productID",id);
+      productData.append("category_id",data.category_id);
       productData.append("name",data.name);
       productData.append("type",data.type);
       productData.append("dimension",data.dimension);
@@ -187,6 +193,26 @@ useTitle("Inventroo | Edit Product");
     </div>
 
   </div>
+
+  
+  <div className="form-group row">
+    <label className="col-sm-3 col-form-label">
+    <span className="text-danger">Product Category</span> </label>
+
+    <div className="col-sm-9">
+    <select className="custom-select" name="category_id"
+    {...register("category_id", { required: "Product Category is required" })}>
+       <option>Select Product Category</option>
+      {categories && categories.map(category=>(
+         <option value={category.id} key={category.id}>{category.category_name}</option>
+       ))}
+     </select>
+
+     
+
+    </div>
+
+  </div>
     </div>
     <div className="d-flex flex-column col-md-3 align-items-center">
     <section className="container  drop-zone-new" >
@@ -200,10 +226,11 @@ useTitle("Inventroo | Edit Product");
           </div>
 
         </section>
-        <aside className="text-center">
-            <ul>{files.length} File Selected</ul>
-            <p>{imageError && imageError}</p>
-          </aside>
+        <aside style={thumbsContainer}>
+       <ImageThumbs files={files} 
+       thumb={thumb} img={img}
+       thumbInner={thumbInner} />
+      </aside>
         </div>
 
     </div>

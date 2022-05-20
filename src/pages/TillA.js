@@ -8,8 +8,8 @@ import { AccordianItem } from "components/AccordianItem";
 const TillA = ()=>{
     usePageSetup();
 return(
-    <div className="">
-      <div className="content-wrapper bg-main">
+    <div className="" >
+      <div className="content-wrapper bg-main" style={{ height:'100vh' }}>
         <section className="d-flex justify-content-between pt-1">
         
             <div className="nav-menu">
