@@ -125,10 +125,14 @@ return(
         </div>
         <div className="col-md-5 pr-2 pl-2">
         <div className="d-flex justify-content-between">
-            <div className="switchToggle">
-                <input type="checkbox" id="switch"/>
-                <label for="switch" className="table-label">Toggle</label>
-            </div>
+        <div class="btn-container">
+    
+      <label class="switch btn-color-mode-switch">
+            <input type="checkbox" name="color_mode" id="color_mode" value="1"/>
+            <label for="color_mode" data-on="Takeout" data-off="Eat-in" class="btn-color-mode-switch-inner"></label>
+        </label>
+     
+  </div>
             <div>
               <h4 className="text-white"><i className="fa fa-user mr-1 "> </i>John Doe</h4>
             </div>
