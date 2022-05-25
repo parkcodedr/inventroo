@@ -148,7 +148,6 @@ const updateInput = (index,product)=>{
 const handleQuantityonHande = (index,event)=>{
  
     let data = [...form];
-    console.log({index});
     data[index].new_stock_in_hand =(Number(data[index].opening_stock) + Number(data[index].quantity_adjusted));
     setForm(data);
 }

@@ -14,7 +14,7 @@ const ProductList = ()=>{
     const {loading,error,products} = useSelector((state) => state.products);
     const deleteState = useSelector((state) => state.deleteProduct);
     const {loading:deleteLoading,error:deleteError,success:deleteSuccess} = deleteState;
-    const { token} = useSelector((state) => state.auth);
+
 
     useEffect(()=>{
         if(deleteSuccess){

@@ -1,7 +1,7 @@
 import React,{useEffect,useState} from 'react';
 import { useForm } from 'react-hook-form';
 import {ErrorMessage} from 'components/Message';
-import { useHistory} from 'react-router-dom';
+import { useHistory,useParams} from 'react-router-dom';
 import {notify} from 'components/Toast';
 import { useTitle } from 'components/hooks/useTitle';
 import LoadingButton from 'components/LoadingButton';
@@ -9,18 +9,21 @@ import { useSelector, useDispatch } from 'react-redux';
 import Loader from 'components/Loader';
 import {getCustomers} from 'store/actions/customers';
 import {getProducts} from 'store/actions/product';
-import {addSalesOrder,addSalesOrderComplete} from 'store/actions/salesOrder';
+import {updateSalesOrder,updateSalesOrderComplete,getSalesOrderDetail} from 'store/actions/salesOrder';
 import {getTaxes} from 'store/actions/tax';
 
-const AddSalesOrder = ()=>{
-  useTitle("Inventroo | New Sales Order");
+const EditSalesOrder = ()=>{
+  useTitle("Inventroo | Edit Sales Order");
     const dispatch = useDispatch();
     const history = useHistory();
+    const params = useParams();
     const [customerName,setCustomerName]= useState("");
+    const salesOrderId=params.salesOrderId;
 
-    const { success:addSuccess, error:addError, loading:addLoading} = useSelector((state) => state.addSalesOrder);
-    const { customers, error, loading} = useSelector((state) => state.customers);
+    const { success:updateSuccess, error:updateError, loading:updateLoading} = useSelector((state) => state.updateSalesOrder);
+    const { salesOrder, error, loading} = useSelector((state) => state.salesOrderDetail);
     const { products,} = useSelector((state) => state.products);
+    const { customers,} = useSelector((state) => state.customers);
     const { taxes,} = useSelector((state) => state.taxes);
     const {register,reset,formState: { errors },handleSubmit} = useForm();
 
@@ -36,18 +39,11 @@ const AddSalesOrder = ()=>{
         }
     ])
 
-    if(addSuccess){
-        dispatch(addSalesOrderComplete());
+    if(updateSuccess){
+        dispatch(updateSalesOrderComplete());
         history.push('/dashboard/sales-order/all');
-        notify("success","Sales Order Added Successfully");
+        notify("success","Sales Order Updated Successfully");
       }
-
-    const generateOrderNumber = ()=>{
-      const code = Math.floor(100000 + Math.random() * 900000);
-      return code;
-  }
-
-   
 
     const updateAmount = (index)=>{
         let data = [...product];
@@ -104,7 +100,8 @@ const AddSalesOrder = ()=>{
 
     const submit = (data)=>{
       const productData = new FormData();
-      productData.append("customer_name",customerName.name);
+      productData.append("salesOrderID",salesOrderId);
+      productData.append("customer_name",customerName?customerName.name:salesOrder.customer_name);
       productData.append("customer_id",data.customer_id);
       productData.append("sales_order",data.sales_order);
       productData.append("reference",data.reference);
@@ -113,33 +110,41 @@ const AddSalesOrder = ()=>{
       productData.append("payment_term",data.payment_term);
       productData.append("customer_note",data.customer_note);
       productData.append("payment_term",data.payment_term);
-      productData.append("payment_method",data.payment_method);
+      productData.append("delivery_method",data.delivery_method);
       productData.append("sales_person",data.sales_person);
       productData.append("items",JSON.stringify(product));
       
-        dispatch(addSalesOrder(productData));
+        dispatch(updateSalesOrder(productData));
     }
 
 
     console.log({customerName});
 
     useEffect(()=>{
-      dispatch(getCustomers());
-      dispatch(getProducts());
-      dispatch(getTaxes());
-      reset({
-        sales_order:"SO-"+generateOrderNumber()
-      })
-    },[])
+     if(!salesOrder || salesOrder.salesOrderID!=salesOrderId){
+        dispatch(getCustomers());
+        dispatch(getProducts());
+        dispatch(getTaxes());
+        dispatch(getSalesOrderDetail(salesOrderId));
+        
+        
+     }else{
+         reset(salesOrder);
+         setProduct(salesOrder.items);
+         setCustomerName(customers.find(customer=>customer.customerID==salesOrder.customer_name))
+     }
+      
+    },[salesOrder,salesOrderId])
+
     if(loading) return <Loader/>
     return(
         <div className="content-body">
-            <h4 className="font-weight-bold">New Sales Order</h4>
+            <h4 className="font-weight-bold">Edit Sales Order</h4>
             <div className="row mt-3">
               
             <form onSubmit={handleSubmit(submit)}>
             <div className="col-md-10">
-                {addError && <ErrorMessage message={addError}/>}
+                {updateError && <ErrorMessage message={updateError}/>}
                 
 
     <div className="form-group row">
@@ -173,7 +178,7 @@ const AddSalesOrder = ()=>{
     <label htmlFor="name" className="col-sm-3 col-form-label text-danger">
         Sales Order</label>
     <div className="col-sm-5">
-      <input type="text" className="form-control" name="sales_order"
+      <input type="text" className="form-control" name="sales_order" disabled
       {...register("sales_order", { required: "Sales Order is required" })}
        />
         <span className="text-danger text-center">{errors.sales_order?.message}</span>
@@ -228,7 +233,7 @@ const AddSalesOrder = ()=>{
     Delivery Method </label>
     <div className="col-sm-4">
     <select className="custom-select" name="delivery_method" {...register("delivery_method")}>
-       <option>Select Delivery Method</option>
+       <option value="">Select Delivery Method</option>
        <option value="Pickup">Pickup</option>
        <option value="Home Deliver">Home Deliver</option>
      </select>
@@ -330,7 +335,7 @@ const AddSalesOrder = ()=>{
  
   <div className="float-right mb-5 mt-2">
 
-            {addLoading? (
+            {updateLoading? (
               <LoadingButton message={"Save and Continue"}/>
             ):(
       <button type="submit" className="btn btn-main mr-1">
@@ -350,4 +355,4 @@ const AddSalesOrder = ()=>{
     )
 }
 
-export default AddSalesOrder;
+export default EditSalesOrder;

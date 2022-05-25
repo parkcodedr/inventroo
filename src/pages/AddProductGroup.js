@@ -15,6 +15,7 @@ import {getManufacturers} from 'store/actions/manufacturer';
 import {getBrands} from 'store/actions/brand';
 import {getUnits} from 'store/actions/unit';
 import {getTaxes} from 'store/actions/tax';
+import {getProductCategories} from 'store/actions/productCategory';
 import {addProductGroup,addProductGroupComplete} from 'store/actions/productGroup';
 import {thumbsContainer,thumb,thumbInner,img} from 'components/styles/DropZoneStyle';
 import ImageThumbs from 'components/ImageThumbs';
@@ -43,6 +44,7 @@ const AddProductGroup = ()=>{
   const { units} = useSelector((state) => state.units);
   const { taxes} = useSelector((state) => state.taxes);
   const { brands} = useSelector((state) => state.brands);
+  const { categories} = useSelector((state) => state.productCategories);
   const { loading,success,error,manufacturers} = useSelector((state) => state.manufacturers);
   const {register,formState: { errors },handleSubmit} = useForm();
   const { token} = useSelector((state) => state.auth);
@@ -64,10 +66,6 @@ const AddProductGroup = ()=>{
     const selectedTags = tags => {
       setTags(tags)
       handleAddProduct(tags)
-     
-      // const prevTags = [...tags];
-      // const newTags = [...prevTags,...tags];
-      // setTags([...new Set(newTags)]);
       
     };
 
@@ -90,7 +88,6 @@ const AddProductGroup = ()=>{
   const handleChange = (index,event)=>{
     event.preventDefault();
     event.persist();
-    console.log('call');
     setForm((prev)=>{
         return prev.map((item,i)=>{
             if(i!==index){
@@ -168,6 +165,7 @@ const handleProductChange = (index,event)=>{
 
   useEffect(()=>{
     dispatch(getManufacturers(token));
+    dispatch(getProductCategories())
     dispatch(getBrands(token));
     dispatch(getUnits(token));
     dispatch(getTaxes());
@@ -196,11 +194,11 @@ const submit = (data)=>{
  
     const attributes=[];
     attributes.push({name:form[0].name,option:tags.join(',')});
-    console.log(adjustedProducts);
 
 
   productData.append("product_image",acceptedFiles[0]);
   productData.append("name",productName);
+  productData.append("category_id",data.category_id);
   productData.append("type",data.type);
   productData.append("returnable",Number(data.returnable));
   productData.append("unit_id",data.unit);
@@ -228,7 +226,7 @@ if(addSuccess){
 {addError && <ErrorMessage message={addError}/>}
     <form onSubmit={handleSubmit(submit)}>
    
-    <div className="row mt-2 row mx-auto">
+    <div className="row mt-2 mx-auto">
       <div className="col-md-7">
       <div className="form-group row">
 <label htmlFor="type" className="col-sm-3 col-form-label">Type</label>
@@ -262,6 +260,8 @@ if(addSuccess){
        />
        <span className="text-danger text-center">{errors.product_name?.message}</span>
     </div>
+
+    
   </div>
 
 
@@ -275,6 +275,25 @@ if(addSuccess){
   <label className="form-check-label">Returnable Products <i className="feather icon-help-circle" data-toggle="tooltip" data-placement="top" title="Enable this option if items in this group are eligible for sales return"></i></label>
 </div>
     </div>
+  </div>
+
+  <div className="form-group row">
+    <label className="col-sm-3 col-form-label">
+    <span className="text-danger">Product Category</span> </label>
+
+    <div className="col-sm-9">
+    <select className="custom-select" name="category_id"
+    {...register("category_id", { required: "Product Category is required" })}>
+       <option>Select Product Category</option>
+      {categories && categories.map(category=>(
+         <option value={category.id} key={category.id}>{category.category_name}</option>
+       ))}
+     </select>
+
+     
+
+    </div>
+
   </div>
       </div>
 

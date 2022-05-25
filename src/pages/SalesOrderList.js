@@ -5,27 +5,27 @@ import {notify} from '../components/Toast';
 import {ErrorMessage} from '../components/Message';
 import Loader from '../components/Loader';
 import { useTitle } from 'components/hooks/useTitle';
-import {getPriceLists,deletePriceList,deletePriceListComplete} from '../store/actions/priceList';
+import {getSalesOrder,deleteSalesOrder,deleteSalesOrderComplete} from '../store/actions/salesOrder';
 
 const SalesOrderList = ()=>{
 useTitle("Inventroo |  Sales Order")
     const dispatch = useDispatch();
-    const {loading,error,priceLists} = useSelector((state) => state.priceLists);
-    const deleteState = useSelector((state) => state.deletePriceList);
-    const {loading:deleteLoading,error:deleteError,success:deleteSuccess} = deleteState;
+    const {loading,error,salesOrders} = useSelector((state) => state.salesOrder);
+    const deleteState = useSelector((state) => state.deleteSalesOrder);
+    const {loading:deleteLoading,error:deleteError,success:deleteSuccess,messge} = deleteState;
 
     useEffect(()=>{
       if(deleteSuccess){
           notify("success","Sales Order Deleted Successfully");
-          dispatch(deletePriceListComplete())
+          dispatch(deleteSalesOrderComplete())
       }
-      dispatch(getPriceLists());
+      dispatch(getSalesOrder());
   },[dispatch,deleteSuccess])
 
   
-  const deleteHandler =(priceList)=>{
+  const deleteHandler =(salesOrder)=>{
     if(window.confirm('Are You Sure to Delete?')){
-      dispatch(deletePriceList(Number(priceList.priceListID)));
+      dispatch(deleteSalesOrder(Number(salesOrder.salesOrderID)));
     }
 }
 
@@ -74,36 +74,36 @@ useTitle("Inventroo |  Sales Order")
         <th>Sales Order</th>
         <th>Reference</th>
         <th>Customer Name</th>
-        <th>Order Status</th>
-        <th>Invoiced</th>
+        {/* <th>Order Status</th>
+        <th>Invoiced</th> */}
         <th>Payment</th>
-        <th>Packed</th>
-        <th>Shipped</th>
+        {/* <th>Packed</th>
+        <th>Shipped</th> */}
+          <th>Shipment Date</th>
         <th>Amount</th>
         <th >Action</th>
       </tr>
     </thead>
     <tbody>
-        {priceLists && priceLists.map(priceList=>(
-        <tr key={priceList.priceListID}>
-                 <td>{priceList.date_created}</td>
-                  <td>{priceList.name}</td>
-                  <td>{priceList.type}</td>
-                  <td>{priceList.mark_type}</td>
-                  <td>{priceList.percentage}</td>
-                  <td>{priceList.roundoff}</td>
-                  <td>{priceList.percentage}</td>
-                  <td>{priceList.roundoff}</td>
-                  <td>{priceList.roundoff}</td>
-
+        {salesOrders && salesOrders.map(salesOrder=>(
+        <tr key={salesOrders.salesOrderID}>
+                 <td>{salesOrder.sales_date}</td>
+                 <td>{salesOrder.sales_order}</td>
+                   <td>{salesOrder.reference}</td>
+                  <td>{salesOrder.customer_name}</td>
+                  <td>{salesOrder.payment_term}</td>
+                  <td>{salesOrder.expected_shipment_date}</td>
+                  <td>{salesOrder.total}</td>
+                  
+             
                   <td>
-                    <Link to={`/dashboard/price-list/${priceList.priceListID}/edit`}>
+                    <Link to={`/dashboard/sales-order/${salesOrder.salesOrderID}/edit`}>
                     <button className="btn btn-warning mr-1">
                 <i className="feather icon-edit"></i>
                 </button>
                     </Link>
   
-                <button className="btn btn-danger" onClick={()=>deleteHandler(priceList)}>
+                <button className="btn btn-danger" onClick={()=>deleteHandler(salesOrder)}>
                 <i className="feather icon-trash-2"></i>
                 </button>
                 </td>

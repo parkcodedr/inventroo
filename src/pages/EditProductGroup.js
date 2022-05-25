@@ -42,13 +42,9 @@ const EditProductGroup = ()=>{
     ]);
 
     const { success:updateSuccess, error:updateError, loading:updateLoading} = useSelector((state) => state.updateProductGroup);
-  const { units} = useSelector((state) => state.units);
-  const { taxes} = useSelector((state) => state.taxes);
-  const { brands} = useSelector((state) => state.brands);
-  const { manufacturers} = useSelector((state) => state.manufacturers);
-  const { loading,success,error,productGroup} = useSelector((state) => state.productGroupDetail);
-  const {register,formState: { errors },handleSubmit} = useForm();
-  const { token} = useSelector((state) => state.auth);
+  const { loading,success,error,productGroup,taxes,units,brands,manufacturers} = useSelector((state) => state.productGroupDetail);
+  const {register,reset,formState: { errors },handleSubmit} = useForm();
+  const { categories} = useSelector((state) => state.productCategories);
 
   const {
     acceptedFiles,
@@ -67,9 +63,6 @@ const EditProductGroup = ()=>{
       setTags(tags)
       handleAddProduct(tags)
      
-      // const prevTags = [...tags];
-      // const newTags = [...prevTags,...tags];
-      // setTags([...new Set(newTags)]);
       
     };
 
@@ -172,14 +165,17 @@ const handleProductChange = (index,event)=>{
     if(!productGroup || productGroup.productID!=productGroupID){
       dispatch(getProductGroupDetail(productGroupID));
     }else{
-
+      reset({
+        type:productGroup.type,
+        name:productGroup.name,
+        unit:productGroup.unit.id,
+        tax:productGroup.tax.id,
+        brand:productGroup.brand.id,
+        manufacturer:productGroup.manufacturer.id,
+      });
+      setProductName(productGroup.name);
     }
     
-
-    // dispatch(getManufacturers(token));
-    // dispatch(getBrands(token));
-    // dispatch(getUnits(token));
-    // dispatch(getTaxes());
   },[productGroup,productGroupID]);
 
   if(loading) return <Loader/>
@@ -205,11 +201,12 @@ const submit = (data)=>{
  
     const attributes=[];
     attributes.push({name:form[0].name,option:tags.join(',')});
-    console.log(adjustedProducts);
+    
 
 
   productData.append("product_image",acceptedFiles[0]);
   productData.append("name",productName);
+  productData.append("category_id",data.category_id);
   productData.append("type",data.type);
   productData.append("returnable",Number(data.returnable));
   productData.append("unit_id",data.unit);
@@ -285,6 +282,25 @@ if(updateSuccess){
 </div>
     </div>
   </div>
+
+  <div className="form-group row">
+    <label className="col-sm-3 col-form-label">
+    <span className="text-danger">Product Category</span> </label>
+
+    <div className="col-sm-9">
+    <select className="custom-select" name="category_id"
+    {...register("category_id", { required: "Product Category is required" })}>
+       <option>Select Product Category</option>
+      {categories && categories.map(category=>(
+         <option value={category.id} key={category.id}>{category.category_name}</option>
+       ))}
+     </select>
+
+     
+
+    </div>
+
+  </div>
       </div>
 
       <div className="d-flex flex-column col-md-3 align-items-center">
@@ -356,8 +372,7 @@ if(updateSuccess){
     </div>
   </div>
   <p className="text-danger">Multiple Products?</p>
- 
- {JSON.stringify(product)}
+
 
   {form.map((item,index)=>(
     <div className="form-row" key={`item-${index}`}>

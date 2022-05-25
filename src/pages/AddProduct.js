@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import {ErrorMessage} from 'components/Message';
 import LoadingButton from 'components/LoadingButton';
 import { useHistory} from 'react-router-dom';
+import Loader from 'components/Loader';
 import {notify} from 'components/Toast';
 import { useTitle } from 'components/hooks/useTitle';
 import { useSelector, useDispatch } from 'react-redux';
@@ -12,6 +13,7 @@ import {getManufacturers} from 'store/actions/manufacturer';
 import {getBrands} from 'store/actions/brand';
 import {getUnits} from 'store/actions/unit';
 import {getTaxes} from 'store/actions/tax';
+import {getProductCategories} from 'store/actions/productCategory';
 import {addProduct,addProductComplete} from 'store/actions/product';
 
 const AddProductGroup = ()=>{
@@ -22,6 +24,7 @@ const AddProductGroup = ()=>{
 
     const { success:addProductSuccess, error:addProductError, loading:addProductLoading} = useSelector((state) => state.addProduct);
     const { units} = useSelector((state) => state.units);
+    const { categories} = useSelector((state) => state.productCategories);
     const { taxes} = useSelector((state) => state.taxes);
     const { brands} = useSelector((state) => state.brands);
     const { loading,success,error,manufacturers} = useSelector((state) => state.manufacturers);
@@ -47,12 +50,14 @@ useEffect(()=>{
   dispatch(getManufacturers(token));
   dispatch(getBrands(token));
   dispatch(getUnits(token));
+  dispatch(getProductCategories())
   dispatch(getTaxes());
 },[]);
 
 const submitProduct = (data)=>{
   const productData = new FormData();
   productData.append("product_image",acceptedFiles[0]);
+  productData.append("category_id",data.category_id);
   productData.append("name",data.name);
   productData.append("type",data.type);
   productData.append("dimension",data.dimension);
@@ -85,17 +90,21 @@ if(addProductSuccess){
   notify("success","Product Added Successfully");
 }
 
-if(loading) return <p className="mt-3">Loading...</p>
+if(loading) return <Loader/>
 
     return(
 <div className="content-body">
 <div className="row mx-auto">
     <h4 className="font-weight-bold">New Product</h4>
+    <p>
+    {addProductError && <ErrorMessage message={addProductError}/>}
+    </p>
 </div>
 
     <form onSubmit={handleSubmit(submitProduct)}>
+    
     <div className="row">
-      {addProductError && <ErrorMessage message={addProductError}/>}
+      
     <div className="col-md-7">
     <div className="form-group row">
 <label htmlFor="type" className="col-sm-3 col-form-label">Type</label>
@@ -156,6 +165,26 @@ if(loading) return <p className="mt-3">Loading...</p>
   </label>
   <span className="text-danger text-center">{errors.unit?.message}</span>
 </div>
+
+    </div>
+
+  </div>
+
+  
+  <div className="form-group row">
+    <label className="col-sm-3 col-form-label">
+    <span className="text-danger">Product Category</span> </label>
+
+    <div className="col-sm-9">
+    <select className="custom-select" name="category_id"
+    {...register("category_id", { required: "Product Category is required" })}>
+       <option>Select Product Category</option>
+      {categories && categories.map(category=>(
+         <option value={category.id} key={category.id}>{category.category_name}</option>
+       ))}
+     </select>
+
+     
 
     </div>
 
