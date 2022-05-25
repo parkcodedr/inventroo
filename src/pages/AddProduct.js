@@ -96,11 +96,15 @@ if(loading) return <Loader/>
 <div className="content-body">
 <div className="row mx-auto">
     <h4 className="font-weight-bold">New Product</h4>
+    <p>
+    {addProductError && <ErrorMessage message={addProductError}/>}
+    </p>
 </div>
 
     <form onSubmit={handleSubmit(submitProduct)}>
+    
     <div className="row">
-      {addProductError && <ErrorMessage message={addProductError}/>}
+      
     <div className="col-md-7">
     <div className="form-group row">
 <label htmlFor="type" className="col-sm-3 col-form-label">Type</label>

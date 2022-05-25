@@ -114,6 +114,38 @@ export const getProducts = () => {
 }
 
 
+export const getProductByCategory = (categoryId) => {
+    return (dispatch,getState) => {
+        const {auth:{token}} = getState();
+        dispatch(getProductsStart());
+        try {
+            const headers = {
+                'Content-Type': 'application/json',
+                'Authorization':`Bearer ${token}`
+            }
+            ApiService.get(`/product/productsByCategory?category_id=${categoryId}`,{headers})
+                .then(response => {
+                    const {products} = response.data;
+                    dispatch(getProductsSuccess(products));
+                }).catch(error => {
+                    if (error.response) {
+                        const { message } = error.response.data;
+                        console.log(error.response.data);
+                        dispatch(getProductsFail(message));
+
+                    } else if (error.request) {
+                        console.log(error);
+                        dispatch(getProductsFail("Connection failure! Try Again"));
+
+                    }
+                    console.log(error.response);
+                })
+        } catch (e) {
+            console.log(e);
+        }
+    }
+}
+
 export const getProductDetailStart = () => {
     return {
         type: actionTypes.GET_PRODUCT_DETAIL_START
