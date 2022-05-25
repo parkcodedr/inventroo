@@ -1,6 +1,5 @@
-import React,{useEffect} from 'react';
+import React,{useEffect,useState} from 'react';
 import { usePageSetup } from "components/hooks/usePageSetup";
-import {tillMenu} from 'components/utils'
 import {Accordian} from 'components/Accordian'
 import { Link } from "react-router-dom";
 import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
@@ -8,7 +7,7 @@ import { AccordianItem } from "components/AccordianItem";
 import Loader from '../components/Loader';
 import { useTitle } from 'components/hooks/useTitle';
 import {getProductCategories} from '../store/actions/productCategory';
-import {getProducts,getProductByCategory} from '../store/actions/product';
+import {getProductByCategory} from '../store/actions/product';
 import { useSelector, useDispatch } from 'react-redux';
 
 const TillA = ()=>{
@@ -17,6 +16,8 @@ const TillA = ()=>{
     useTitle("Inventroo | Till");
     const {loading,error,categories} = useSelector((state) => state.productCategories);
     const {loading:productLoading,error:productError,products} = useSelector((state) => state.products);
+    const [cart,setCart]=useState([]);
+    
     useEffect(()=>{
       dispatch(getProductCategories())
     },[])
@@ -30,8 +31,34 @@ const TillA = ()=>{
     const getProduct = (categoryId)=>{
       dispatch(getProductByCategory(categoryId));
     }
+    const addToCart = (product)=>{
+      const {cost_price,productID,name} = product;
+      const quantity = 1;
+      const total = cost_price * quantity
+   
+      const exist = cart.find(item=>item.product_id==productID);
+      if(exist){
+        const newQuantity = exist.quantity+1;
+        const newTotal = exist.price * newQuantity
+        console.log(newQuantity*exist.price);
+        setCart(
+          cart.map((item)=>item.product_id==productID?{...exist,quantity:exist.quantity+1,total:newTotal}:item
+  
+          )
+        );
+      }else{
+        setCart([...cart,
+          {price:cost_price,product_id:productID,quantity,total,name}])
+      }
+      
+
+      // return [...prev,
+      //   {price:cost_price,product_id:productID,quantity,total,name}]
+    }
     
+    console.log(cart);
     if(loading===true) return <p className="mt-5"><Loader/></p>
+
 return(
     <div className="" >
       <div className="content-wrapper bg-main" style={{ height:'100vh' }}>
@@ -102,7 +129,8 @@ return(
              >
               <>
               <img src={"/app-assets/images/jollof_rice.jpg"} alt={"Jollof Rice"} className="card-image" />
-                <button  className="btn btn-float btn-round btn-success float-right m-1"><i class="fa fa-plus"></i></button>
+                <button  className="btn btn-float btn-round btn-success float-right m-1"  onClick={(e)=>addToCart(product)}>
+                  <i class="fa fa-plus"></i></button>
               </>
              </AccordianItem>
             </div>
@@ -149,23 +177,20 @@ return(
     <tr>
       <th scope="col">Description</th>
       <th scope="col">Quantity</th>
-      <th scope="col">Eact</th>
+      <th scope="col">Each</th>
       <th scope="col">Total</th>
     </tr>
   </thead>
   <tbody >
-    <tr>
-      <th scope="row">Jollof Rice</th>
-      <td>1</td>
-      <td>500</td>
-      <td>500</td>
+    {cart && cart.map(item=>(
+      <tr>
+      <th scope="row">{item.name}</th>
+      <td>{item.quantity}</td>
+      <td>{item.price}</td>
+      <td>{item.total}</td>
     </tr>
-    <tr >
-      <th scope="row">Coca cola</th>
-      <td>2</td>
-      <td>500</td>
-      <td>1000</td>
-    </tr>
+    ))}
+    
    
     
   </tbody>
