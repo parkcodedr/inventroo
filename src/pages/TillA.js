@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
 import { AccordianItem } from "components/AccordianItem";
 import Loader from '../components/Loader';
+import {ErrorMessage} from 'components/Message';
 import { useTitle } from 'components/hooks/useTitle';
 import {getProductCategories} from '../store/actions/productCategory';
 import {getProductByCategory} from '../store/actions/product';
@@ -40,7 +41,6 @@ const TillA = ()=>{
       if(exist){
         const newQuantity = exist.quantity+1;
         const newTotal = exist.price * newQuantity
-        console.log(newQuantity*exist.price);
         setCart(
           cart.map((item)=>item.product_id==productID?{...exist,quantity:exist.quantity+1,total:newTotal}:item
   
@@ -51,17 +51,32 @@ const TillA = ()=>{
           {price:cost_price,product_id:productID,quantity,total,name}])
       }
       
-
-      // return [...prev,
-      //   {price:cost_price,product_id:productID,quantity,total,name}]
     }
-    
+     const removeFromCart =(id)=>{
+      const newCart = cart.filter(item=>item.product_id!==id);
+      setCart(newCart);
+     }
+
+     const ReduceItemFromCart =(product)=>{
+      const exist = cart.find(item=>item.product_id==product.product_id);
+      if(exist){
+        const newQuantity = exist.quantity-1;
+        const newTotal = exist.price * newQuantity
+        setCart(
+          cart.map((item)=>item.product_id==product.product_id?{...exist,quantity:newQuantity,total:newTotal}:item
+  
+          )
+        );
+      }
+     }
+
+    const total = cart.reduce((accumulator,current)=> accumulator+current.total,0);
     console.log(cart);
     if(loading===true) return <p className="mt-5"><Loader/></p>
 
 return(
-    <div className="" >
-      <div className="content-wrapper bg-main" style={{ height:'100vh' }}>
+    <div className="bg-main">
+      <div className="content-wrapper " >
         <section className="d-flex justify-content-between pt-1">
         
             <div className="nav-menu">
@@ -73,10 +88,10 @@ return(
                             </a>
                         </li>
                         <li className="nav-item pl-3">
-                            <NavLink to={"/dashboard/till/preview"} activeClassName={'till-nav-active'} className="nav-link active text-white" href="#">Till</NavLink>
+                            <NavLink to={"/till/restaurant"} activeClassName={'till-nav-active'} className="nav-link active text-white" href="#">Till</NavLink>
                         </li>
                         <li className="nav-item pl-3">
-                            <NavLink activeClassName={'till-nav-active'}  to={"/kid"} className="nav-link text-white" href="#">KDS</NavLink>
+                            <NavLink activeClassName={'till-nav-active'}  to={"/till/kds"} className="nav-link text-white" href="#">KDS</NavLink>
                         </li>
                     </ul>
 
@@ -96,7 +111,11 @@ return(
         </section>
        
       <div className="row mx-auto">
+        
         <div className="col-md-7 food-menu">
+        <p>
+        {error && <ErrorMessage message={error}/>}
+        </p>
         <ul className="nav nav-pills mb-2" id="pills-tab" role="tablist">
         {categories && categories.map((category,index)=>(
             <li className="nav-item " role="presentation" key={`${category.id}`}
@@ -167,18 +186,19 @@ return(
 
             </div>
 
-            <section className="table-wrapper mt-1 bg-white mb-3">
+            <section className="table-wrapper mt-1 bg-white mb-3 mx-auto overflow-hidden">
               <div className="table-select d-flex justify-content-between color-light pr-2 pl-2 pt-1">
                 <h4 className="font-weight-bold">Select Table</h4>
                 <h4 className="font-weight-bold">Table #1</h4>
               </div>
-    <table className="table">
+    <table className="table table-responsive-md">
   <thead>
     <tr>
       <th scope="col">Description</th>
       <th scope="col">Quantity</th>
       <th scope="col">Each</th>
       <th scope="col">Total</th>
+      <th scope="col">Action</th>
     </tr>
   </thead>
   <tbody >
@@ -188,6 +208,12 @@ return(
       <td>{item.quantity}</td>
       <td>{item.price}</td>
       <td>{item.total}</td>
+      <td>
+        
+        {/* <i className="feather icon-plus h4 font-weight-bold"  onClick={()=>ReduceItemFromCart(item)} style={{ cursor:'pointer' }}></i>
+        <i className="feather icon-minus h4 font-weight-bold"  onClick={()=>ReduceItemFromCart(item)} style={{ cursor:'pointer' }}></i> */}
+        <i className="feather icon-x-circle h4 font-weight-bold text-danger"  onClick={()=>removeFromCart(item.product_id)} style={{ cursor:'pointer' }}></i>
+      </td>
     </tr>
     ))}
     
@@ -199,11 +225,11 @@ return(
 
           <div className="color-light">
           <div className="p-1">
-            <div className="d-flex justify-content-between">
-              <button className="btn btn-success col-md-2 mr-1">Discount</button>
-              <button className="btn btn-success col-md-2 mr-1">Cancel</button>
-              <button className="btn btn-success col-md-2 mr-1">Hold</button>
-              <button className="btn btn-success col-md-2 mr-1">Comment</button>
+            <div className="d-flex justify-content-between flex-wrap ">
+              <button className="btn btn-success col-md-2 mr-1 mb-1">Discount</button>
+              <button className="btn btn-success col-md-2 mr-1 mb-1">Cancel</button>
+              <button className="btn btn-success col-md-2 mr-1 mb-1">Hold</button>
+              <button className="btn btn-success col-md-2 mr-1 mb-1">Comment</button>
             </div>
           </div>
           <div className="row">
@@ -221,7 +247,7 @@ return(
             
             <div className="col-md-6">
             <div className="d-flex justify-content-between pr-1 pl-1 pt-1">
-              <p>Subtotal</p><p>0.00</p>
+              <p>Subtotal</p><p>{total && total}</p>
             </div>
             <div className="d-flex justify-content-between pr-1 pl-1 ">
               <p>Tax</p><p>0.00</p>
@@ -231,7 +257,7 @@ return(
             </div>
             <div className="d-flex justify-content-between pr-1 pl-1">
               <h4 className="font-weight-bold">Total</h4>
-              <h4 className="font-weight-bold">0.00</h4>
+              <h4 className="font-weight-bold">{total}</h4>
             </div>
             </div>
             
