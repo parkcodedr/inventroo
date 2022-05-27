@@ -14,7 +14,7 @@ const Till = ()=>{
   }
 
     return(
-        <div className="content-body">
+        <div className="content-body overflow-y-auto" >
             <h4 className="font-weight-bold">Select Till Format</h4>
             <div className="row">
                 <div className="col-md-10">

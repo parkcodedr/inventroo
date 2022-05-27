@@ -4,6 +4,7 @@ const initialState = {
     loading: false,
     success: false,
     products:[],
+    scanProduct:{},
     error: ""
 }
 export const addProductReducer = (state = initialState, action) => {
@@ -52,6 +53,24 @@ export const getProductsReducer = (state = initialState, action) => {
             }
 
         case actionTypes.GET_PRODUCTS_FAIL:
+            return {
+                loading: false,
+                error: action.error
+            }
+            case actionTypes.GET_SCAN_PRODUCT_START:
+            return {
+                loading: true,
+                ...state,
+               
+            }
+            case actionTypes.GET_SCAN_PRODUCT_SUCCESS:
+            return {
+                loading: false,
+                ...state,
+                scanProduct:action.product,
+                error: ""
+            }
+            case actionTypes.GET_SCAN_PRODUCT_FAIL:
             return {
                 loading: false,
                 error: action.error

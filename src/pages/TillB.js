@@ -9,7 +9,7 @@ import Loader from '../components/Loader';
 import {ErrorMessage} from 'components/Message';
 import { useTitle } from 'components/hooks/useTitle';
 import {getProductCategories} from '../store/actions/productCategory';
-import {getProductByCategory} from '../store/actions/product';
+import {getProductByCategory,getScanProduct,searchProduct} from '../store/actions/product';
 import { useSelector, useDispatch } from 'react-redux';
 
 const TillB = ()=>{
@@ -18,8 +18,9 @@ const TillB = ()=>{
   useTitle("Inventroo | Till");
 
     const [show,setShow] = useState(false);
+    const [searchItem,setSearchItem] = useState("");
      const {loading,error,categories} = useSelector((state) => state.productCategories);
-    const {loading:productLoading,error:productError,products} = useSelector((state) => state.products);
+    const {loading:productLoading,error:productError,products,scanProduct} = useSelector((state) => state.products);
     const [cart,setCart]=useState([]);
 
     useEffect(()=>{
@@ -35,6 +36,15 @@ const TillB = ()=>{
     const getProduct = (categoryId)=>{
       dispatch(getProductByCategory(categoryId));
     }
+
+    const scanProductCode = (productCode)=>{
+      dispatch(getScanProduct(productCode))
+    }
+
+    const searchProductItem = ()=>{
+      dispatch(searchProduct(searchItem))
+    }
+
     const addToCart = (product,event)=>{
       event.preventDefault();
       const {cost_price,productID,name} = product;
@@ -76,6 +86,8 @@ const TillB = ()=>{
 
     const total = cart.reduce((accumulator,current)=> accumulator+current.total,0);
     console.log(cart);
+    console.log(scanProduct);
+
     if(loading===true) return <p className="mt-5"><Loader/></p>
 
 return(
@@ -127,9 +139,9 @@ return(
          <>
           <div className="col-md-9">
         <div className="input-group">
-  <input type="text" className="form-control" placeholder="Write to search" />
+  <input type="text" className="form-control" autoFocus placeholder="Write to search" onChange={(e)=>setSearchItem(e.target.value)} />
   <div className="input-group-append">
-    <button className="btn btn-success" type="button" >Enter</button>
+    <button className="btn btn-success" type="button" onClick={searchProductItem}>Enter</button>
   </div>
 </div>
         </div>
@@ -137,7 +149,7 @@ return(
        ):(
          <>
          <div className="col-md-9">
-         <input type="text" className="form-control" placeholder="Scan product barcode" />
+         <input type="text" className="form-control" placeholder="Scan product barcode" autoFocus onChange={(e)=>scanProductCode(e.target.value)} />
          </div>
          </>
        )}
@@ -153,7 +165,7 @@ return(
             </div>
 
             <Accordian id={"accordionTillNew"}>
-            <section className="row mt-4 bg-main">
+            <section className="row mt-2 bg-main">
             {categories && categories.map((category,index)=>(
 
               <div className="col-md-4">
