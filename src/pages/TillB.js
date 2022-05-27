@@ -1,16 +1,82 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import { usePageSetup } from "components/hooks/usePageSetup";
-import {tillMenu} from 'components/utils'
 import {Accordian} from 'components/Accordian'
 import { NavLink,Link } from "react-router-dom";
 import { AccordianItem } from "components/AccordianItem";
 import ListGroup from 'components/ListGroup';
 import ListGroupItem from 'components/ListGroupItem';
+import Loader from '../components/Loader';
+import {ErrorMessage} from 'components/Message';
+import { useTitle } from 'components/hooks/useTitle';
+import {getProductCategories} from '../store/actions/productCategory';
+import {getProductByCategory} from '../store/actions/product';
+import { useSelector, useDispatch } from 'react-redux';
 
 const TillB = ()=>{
-    usePageSetup();
+  const dispatch = useDispatch();
+  usePageSetup();
+  useTitle("Inventroo | Till");
+
     const [show,setShow] = useState(false);
-    console.log(show);
+     const {loading,error,categories} = useSelector((state) => state.productCategories);
+    const {loading:productLoading,error:productError,products} = useSelector((state) => state.products);
+    const [cart,setCart]=useState([]);
+
+    useEffect(()=>{
+      dispatch(getProductCategories())
+    },[])
+
+   useEffect(()=>{
+    if(loading===false && categories!==undefined){
+      getProduct(categories[0]?.id);
+     }
+   },[categories])
+
+    const getProduct = (categoryId)=>{
+      dispatch(getProductByCategory(categoryId));
+    }
+    const addToCart = (product,event)=>{
+      event.preventDefault();
+      const {cost_price,productID,name} = product;
+      const quantity = 1;
+      const total = cost_price * quantity
+   
+      const exist = cart.find(item=>item.product_id==productID);
+      if(exist){
+        const newQuantity = exist.quantity+1;
+        const newTotal = exist.price * newQuantity
+        setCart(
+          cart.map((item)=>item.product_id==productID?{...exist,quantity:exist.quantity+1,total:newTotal}:item
+  
+          )
+        );
+      }else{
+        setCart([...cart,
+          {price:cost_price,product_id:productID,quantity,total,name}])
+      }
+      
+    }
+     const removeFromCart =(id)=>{
+      const newCart = cart.filter(item=>item.product_id!==id);
+      setCart(newCart);
+     }
+
+     const ReduceItemFromCart =(product)=>{
+      const exist = cart.find(item=>item.product_id==product.product_id);
+      if(exist){
+        const newQuantity = exist.quantity-1;
+        const newTotal = exist.price * newQuantity
+        setCart(
+          cart.map((item)=>item.product_id==product.product_id?{...exist,quantity:newQuantity,total:newTotal}:item
+  
+          )
+        );
+      }
+     }
+
+    const total = cart.reduce((accumulator,current)=> accumulator+current.total,0);
+    console.log(cart);
+    if(loading===true) return <p className="mt-5"><Loader/></p>
 
 return(
     <div className="content-body">
@@ -51,7 +117,11 @@ return(
         </section>
        
       <div className="row m-1">
+
         <div className="col-md-7 food-menu">
+        <p>
+        {error && <ErrorMessage message={error}/>}
+        </p>
         <div className="d-flex justify-content-between">
        {show==false?(
          <>
@@ -72,137 +142,60 @@ return(
          </>
        )}
 
-            <div className="switchToggle">
-                <input type="checkbox" id="switch"
-                onChange={(e)=>setShow(!show)}
-                 />
-                <label htmlFor="switch" className="label-switch">Search</label>
-            </div>
-            
-
-            </div>
-<div className="tab-content mt-2" id="pills-tabContent">
-  <div className="tab-pane fade show active" id="pills-Rice" role="tabpanel" aria-labelledby="pills-Rice-tab">
-          <Accordian id={"accordionTill"}>
-          <section className="row ">
-            <div className="col-md-4">
-            <AccordianItem 
-            title="Fruits"
-            id="fruits"
-            show="false"
-            parent="accordionTill"
-            headerId="fruitHeader"
-            bg="bg-main"
-             >
-              <div className="bg-main">
-              <ListGroup>
-              <ListGroupItem title="Apple" link="/apple" />
-                <ListGroupItem title="Orange" link="/orange" />
-                <ListGroupItem title="Mango" link="/mango" />
-              </ListGroup>
-              </div>
-          
-             </AccordianItem>
-
-             <AccordianItem 
-            title="Soda"
-            id="soda"
-            show="false"
-            parent="accordionTill"
-            headerId="sodaHeader"
-            bg="bg-main"
-             >
-              <div className="bg-main">
-              <ListGroup>
-              <ListGroupItem title="Coca Cola" link="/apple" />
-                <ListGroupItem title="Pepsi" link="/orange" />
-                <ListGroupItem title="Fanta" link="/mango" />
-              </ListGroup>
-              </div>
-          
-             </AccordianItem>
-            </div>
-            <div className="col-md-4 ">
-           
-             <AccordianItem 
-            title="Condiments"
-            id="condiments"
-            show="false"
-            parent="accordionTill"
-            headerId="condimentHeader"
-            bg="bg-main"
-             >
-              <div className="bg-main">
-              <ListGroup>
-              <ListGroupItem title="Maggi" link="/apple" />
-                <ListGroupItem title="Curry" link="/orange" />
-                <ListGroupItem title="Onga" link="/mango" />
-              </ListGroup>
-              </div>
-          
-             </AccordianItem>
-             <AccordianItem 
-            title="Wines"
-            id="wines"
-            show="false"
-            parent="accordionTill"
-            headerId="winesHeader"
-            bg="bg-main"
-             >
-              <div className="bg-main">
-              <ListGroup>
-              <ListGroupItem title="Voldka" link="/apple" />
-                <ListGroupItem title="Spirit" link="/orange" />
-                <ListGroupItem title="Fruit Wine" link="/mango" />
-              </ListGroup>
-              </div>
-          
-             </AccordianItem>
-            </div>
-            <div className="col-md-4 ">
-            <AccordianItem 
-            title="Vegetable"
-            id="vegetable"
-            show="false"
-            parent="accordionTill"
-            headerId="vegetableHeader"
-            bg="bg-main"
-             >
-              <div className="bg-main">
-              <ListGroup>
-              <ListGroupItem title="Carrot" link="/apple" />
-                <ListGroupItem title="Okra" link="/orange" />
-                <ListGroupItem title="Carrot" link="/mango" />
-              </ListGroup>
-              </div>
-          
-             </AccordianItem>
-             <AccordianItem 
-            title="Beverages"
-            id="beverages"
-            show="false"
-            parent="accordionTill"
-            headerId="beveragesHeader"
-            bg="bg-main"
-             >
-              <div className="bg-main">
-              <ListGroup>
-              <ListGroupItem title="Milo" link="/apple" />
-                <ListGroupItem title="Cocoa" link="/orange" />
-                <ListGroupItem title="Bournvita" link="/mango" />
-              </ListGroup>
-              </div>
-          
-             </AccordianItem>
-            </div>
-
-            
-          </section>
-          </Accordian>
-  </div>
-  <div className="tab-pane fade" id="pills-Pasta" role="tabpanel" aria-labelledby="pills-Pasta-tab">Pasta</div>
-  <div className="tab-pane fade" id="pills-Swallow" role="tabpanel" aria-labelledby="pills-Swallow-tab">Swallow</div>
+<div className="btn-container">
+    
+    <label className="switch btn-color-mode-switch">
+          <input type="checkbox" name="color_mode" id="color_mode" onChange={(e)=>setShow(!show)} />
+          <label htmlFor="color_mode" data-on="Scan" data-off="Search" className="btn-color-mode-switch-inner"></label>
+      </label>
+   
 </div>
+            </div>
+
+            <Accordian id={"accordionTillNew"}>
+            <section className="row mt-4 bg-main">
+            {categories && categories.map((category,index)=>(
+
+              <div className="col-md-4">
+              <AccordianItem 
+              title={category.category_name}
+              id={(category.category_name).replace(/\s+/g, '')}
+              show="false"
+              parent={'accordionTillNew'}
+              headerId={`${category.id}Header`}
+              bg="bg-main"
+           
+              >
+                <>
+
+                {productLoading? <Loader/>:(
+
+                      <div className="bg-main">
+                      <ListGroup>
+                        {
+                      products && products.map(product=>(
+                        
+                      <ListGroupItem title={product.name} 
+                      onclick={(event)=>addToCart(product,event)}/>
+
+                      ))
+                      }
+                        </ListGroup>
+                      </div>
+                )}
+
+                
+                </>
+              </AccordianItem>
+              </div>
+        ))}
+        </section>
+            </Accordian>
+
+            
+
+          
+ 
 
         </div>
         <div className="col-md-5 pr-2 pl-2">
@@ -217,22 +210,27 @@ return(
       <th scope="col">Description</th>
       <th scope="col">Quantity</th>
       <th scope="col">Total</th>
+      <th scope="col">Action</th>
     </tr>
   </thead>
-  <tbody >
-    <tr>
-      <th scope="row">Jollof Rice</th>
-      <td>x1</td>
-      <td>3500</td>
-     
+  <tbody>
+  {cart && cart.map(item=>(
+      <tr>
+      <th scope="row">{item.name}</th>
+      <td>{item.quantity}</td>
+      <td>{item.price}</td>
+      <td>{item.total}</td>
+      <td>
+        
+        {/* <i className="feather icon-plus h4 font-weight-bold"  onClick={()=>ReduceItemFromCart(item)} style={{ cursor:'pointer' }}></i>
+        <i className="feather icon-minus h4 font-weight-bold"  onClick={()=>ReduceItemFromCart(item)} style={{ cursor:'pointer' }}></i> */}
+        <i className="feather icon-x-circle h4 font-weight-bold text-danger"  onClick={()=>removeFromCart(item.product_id)} style={{ cursor:'pointer' }}></i>
+      </td>
     </tr>
-    <tr >
-      <th scope="row">Coca Cola</th>
-      <td>x2</td>
-      <td>500</td>
-      
-    </tr>
-    <div style={{'margin-top':'100px'}}></div>
+    ))}
+    
+    
+  
     
   </tbody>
   
@@ -262,7 +260,7 @@ return(
             
             <div className="col-md-6">
             <div className="d-flex justify-content-between pr-1 pl-1 pt-1">
-              <p>Subtotal</p><p>0.00</p>
+              <p>Subtotal</p><p>{total && total}</p>
             </div>
             <div className="d-flex justify-content-between pr-1 pl-1 ">
               <p>Tax</p><p>0.00</p>
@@ -272,7 +270,7 @@ return(
             </div>
             <div className="d-flex justify-content-between pr-1 pl-1">
               <h4 className="font-weight-bold">Total</h4>
-              <h4 className="font-weight-bold">0.00</h4>
+              <h4 className="font-weight-bold">{total && total}</h4>
             </div>
             </div>
             

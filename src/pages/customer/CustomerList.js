@@ -1,10 +1,10 @@
 import React,{useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import {ErrorMessage} from '../components/Message';
-import Loader from '../components/Loader';
+import {ErrorMessage} from 'components/Message';
+import Loader from 'components/Loader';
 import { useTitle } from 'components/hooks/useTitle';
-import {getCustomers,deleteCustomer,deleteCustomerComplete} from '../store/actions/customers';
+import {getCustomers,deleteCustomer,deleteCustomerComplete} from 'store/actions/customers';
 
 const CustomerList = () => {
   useTitle("Inventroo | Customers ")

@@ -559,7 +559,9 @@ div.btn-container i{
   /*color: #fff;*/
 }
 
-
+.list-menu-item:focus{
+background:#8c51eb;
+}
 
 
 

@@ -1,77 +1,100 @@
-import React,{useState} from 'react';
+
+import React,{useState,useEffect} from 'react';
+import {Link} from 'react-router-dom';
+import {useDropzone} from 'react-dropzone';
 import { useForm } from 'react-hook-form';
-import {ErrorMessage} from '../components/Message';
-import { useHistory} from 'react-router-dom';
-import {notify} from '../components/Toast';
-import { useTitle } from 'components/hooks/useTitle';
+import Loader from 'components/Loader';
+import {ErrorMessage} from 'components/Message';
+import ButtonProcessing from 'components/ButtonProcessing';
+import {useHistory,useParams} from 'react-router-dom';
+import {notify} from 'components/Toast';
 import { useSelector, useDispatch } from 'react-redux';
-import {addCustomer,addCustomerComplete} from '../store/actions/customers';
-import LoadingButton from 'components/LoadingButton';
+import { useTitle } from 'components/hooks/useTitle';
 
-const AddCustomer = ()=>{
-  useTitle("Inventroo | New Customer");
+import {updateCustomer,updateCustomerComplete,getCustomerDetail} from '../../store/actions/customers';
+
+const EditCustomer= ()=>{
+useTitle("Inventroo | Edit Customer");
+const [customerType,setCustomerType] = useState("");
+const [displayName,setDisplayName] = useState([]);
+const [salutation,setSalutation] = useState("");
+const [firstname,setFirstname] = useState("");
     const dispatch = useDispatch();
-  const history = useHistory();
-  const [customerType,setCustomerType] = useState("business");
-  const [displayName,setDisplayName] = useState([]);
-  const [salutation,setSalutation] = useState("");
-  const [firstname,setFirstname] = useState("");
+    const history = useHistory();
+    const params = useParams();
+    const id = params.customerId;
+    const {register,reset,formState: { errors },handleSubmit} = useForm();
 
-    const { success, error, loading} = useSelector((state) => state.addCustomer);
-    const {register,formState: { errors },handleSubmit} = useForm();
-    const { token} = useSelector((state) => state.auth);
+    const customerDetail = useSelector((state) => state.customerDetail);
+    const { customer, error, loading} = customerDetail;
+    const updateState = useSelector((state) => state.updateCustomer);
+    const { success:updateSuccess, error:updateError, loading:updateLoading} = updateState;
     
-//console.log(displayName);
-    if(success){
-        
-        dispatch(addCustomerComplete());
+
+    if(updateSuccess){
         history.push('/dashboard/customer/all');
-        notify("success","Customer Added Successfully");
+        notify("success","Customer Updated Successfully");
+        dispatch(updateCustomerComplete());
       }
 
-      const generateDisplayName = (salutation,firstname,lastname)=>{
+    useEffect(()=>{
+        if(!customer || customer.customerID!=id){
+            dispatch(getCustomerDetail(id));
+        }else{
+            reset({
+            ...customer
+            })
+            setCustomerType(customer.account_type);
+        }
+    },[customer,id,dispatch])
+    
+    const generateDisplayName = (salutation,firstname,lastname)=>{
       
           
-      }
-
-    const submit = (data)=>{
-       
-        data.display_name="user980";
-        data.account_type=customerType;
-        const customer = Object.fromEntries(
-          Object.entries(data)
-            .filter(item => item[1] !== "")
-        )
-        console.log(customer);
-        dispatch(addCustomer(customer));
     }
+
+    const submitPriceList = (data)=>{
+        data.customerID = id;
+        dispatch(updateCustomer(data));
+    }
+        
 
     return(
         <div className="content-body">
-            <h4 className="font-weight-bold">Add Customer</h4>
-            <div className="row mt-5">
-                <div className="col-md-10">
-            <form onSubmit={handleSubmit(submit)}>
-                {error && <ErrorMessage message={error}/>}
-                <div className="form-group row">
+        {loading? (
+            <Loader/>
+        ):error?(
+            <ErrorMessage message={error}/>
+        ):(
+            <>
+            <h4 className="font-weight-bold">Edit Customer</h4>
+            <hr/>
+            <div className="row mt-2">
+                
+    
+    <div className="col-md-10">
+    <form onSubmit={handleSubmit(submitPriceList)}>
+      {updateError && <ErrorMessage message={updateError}/>}
+    
+      <div className="form-group row">
 <label htmlFor="type" className="col-sm-2 col-form-label">Customer Type</label>
 <div className="col-sm-9">
     <div className="form-check form-check-inline">
-  <input className="form-check-input" type="radio" value="business" name="type"
+  <input className="form-check-input" type="radio" value="business" name="account_type"
   checked={customerType==="business"}
-  {...register("type", { required: "Customer Type is required" })}
+  {...register("account_type", { required: "Customer Type is required" })}
   onChange={(e)=>setCustomerType(e.target.value)} />
   <label className="form-check-label">Business</label>
     </div>
 <div className="form-check form-check-inline">
-  <input className="form-check-input" type="radio" value="individual" name="type"
-  {...register("type", { required: "Customer Type is required" })}
+  <input className="form-check-input" type="radio" value="individual" name="account_type"
+  {...register("account_type", { required: "Customer Type is required" })}
   checked={customerType==="individual"}
   onChange={(e)=>setCustomerType(e.target.value)}
   />
   <label className="form-check-label">Individual</label>
 </div>
-<span className="text-danger text-center">{errors.type?.message}</span>
+<span className="text-danger text-center">{errors.account_type?.message}</span>
 </div>
 </div>
 <div className="form-group row">
@@ -363,7 +386,7 @@ access only to the data of this customer <a href="#">Learn more</a></p>
     Attention</label>
     <div className="col-sm-9">
     <input className="form-control" name="attention"
-    {...register("billing_attention")} />
+    {...register("attention")} />
        
     </div>
 </div>
@@ -629,22 +652,37 @@ access only to the data of this customer <a href="#">Learn more</a></p>
           </>
         )}
 
-  
-          {loading?(<LoadingButton/>):(
-            <button type="submit" className="btn btn-main mr-1">
-            <i className="fa fa-check-square-o"></i> Submit
-            </button>
-          )}
 
-        <button type="reset" className="btn btn-outline-main mr-1">
-				<i className="feather icon-x"></i> Cancel
-				</button>
-                </form>
-                </div>
+  <div className="float-right mb-2 mt-5">
+
+								{updateLoading? (
+                  <ButtonProcessing message={"Updating"}/>
+                ):(
+                  <button type="submit" className="btn btn-main mr-1">
+									<i className="fa fa-check-square-o"></i> Save and Continue
+								</button>
+                )}
+
+                                <button type="reset" className="btn btn-warning ">
+									<i className="feather icon-x"></i> Cancel
+								</button>
+							</div>
+
+
+   
+
+    
+              </form>
+</div>
+    
+
+                
          </div>
 
+        </>
+        )}
         </div>
     )
 }
 
-export default AddCustomer;
+export default EditCustomer;
