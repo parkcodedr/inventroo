@@ -128,13 +128,13 @@ return(
         </nav>
         </section>
        
-      <div className="row m-1">
+      <div className="row mx-auto bg-main">
 
         <div className="col-md-7 food-menu">
         <p>
         {error && <ErrorMessage message={error}/>}
         </p>
-        <div className="d-flex justify-content-between">
+        <div className="row mx-auto justify-content-between">
        {show==false?(
          <>
           <div className="col-md-9">
@@ -154,7 +154,7 @@ return(
          </>
        )}
 
-<div className="btn-container">
+<div className="btn-container col-md-3">
     
     <label className="switch btn-color-mode-switch">
           <input type="checkbox" name="color_mode" id="color_mode" onChange={(e)=>setShow(!show)} />
@@ -180,12 +180,12 @@ return(
               >
                 <>
 
-                {productLoading? <Loader/>:(
+               
 
                       <div className="bg-main">
                       <ListGroup>
                         {
-                      products && products.map(product=>(
+                      category.products && category.products.map(product=>(
                         
                       <ListGroupItem title={product.name} 
                       onclick={(event)=>addToCart(product,event)}/>
@@ -194,7 +194,7 @@ return(
                       }
                         </ListGroup>
                       </div>
-                )}
+             
 
                 
                 </>
@@ -216,11 +216,12 @@ return(
                 <h5 className="font-weight-bold">Around-the-corner-Gloceries</h5>
                 <h5 className="font-weight-bold"><i className="feather icon-printer"></i> Print</h5>
               </div>
-    <table className="table">
+    <table className="table table-responsive">
   <thead>
     <tr>
       <th scope="col">Description</th>
       <th scope="col">Quantity</th>
+      <th scope="col">Each</th>
       <th scope="col">Total</th>
       <th scope="col">Action</th>
     </tr>
@@ -249,12 +250,12 @@ return(
 </table>
 
           <div className="color-light">
-          <div className="p-1">
-            <div className="d-flex justify-content-between">
-              <button className="btn btn-success col-md-2 mr-1">Discount</button>
-              <button className="btn btn-success col-md-2 mr-1">Cancel</button>
-              <button className="btn btn-success col-md-2 mr-1">Hold</button>
-              <button className="btn btn-success col-md-2 mr-1">Comment</button>
+          <div className="">
+            <div className="row mx-auto p-1 justify-content-space-between">
+              <button className="btn btn-success col m-1">Discount</button>
+              <button className="btn btn-success col m-1">Cancel</button>
+              <button className="btn btn-success col m-1">Hold</button>
+              <button className="btn btn-success col m-1">Comment</button>
             </div>
           </div>
           <div className="row">
