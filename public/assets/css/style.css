@@ -417,28 +417,7 @@ svg circle {
 }
 
 
-.switchToggle input[type=checkbox]{height: 0; width: 0; visibility: hidden; position: absolute; }
-.switchToggle .table-label {cursor: pointer; text-indent: -9999px; width: 190px; max-width: 190px; height: 42px; background: transparent;border:1px solid gray; display: block; border-radius: 100px; position: relative; }
-.switchToggle .table-label:after {content: 'Takeout'; position: absolute; top: 2px; left: 2px; width: 90px; height: 36px; background: #a080f8; border-radius: 90px; transition: 0.3s; }
-.switchToggle input:checked + .table-label, .switchToggle input:checked + input + .table-label  {background: transparent }
 
-.switchToggle input + .table-label:before, .switchToggle input + input + label:before {content: 'Takeout'; position: absolute; top: 10px; left: 110px; width: 36px; height: 26px; border-radius: 90px; transition: 0.3s; text-indent: 0; color: #fff; }
-.switchToggle input:checked + label:before, .switchToggle input:checked + input + .table-label:before {content: 'Eat-in'; position: absolute; top: 10px; left: 20px; width: 56px; height: 26px; border-radius: 90px; transition: 0.3s; text-indent: 0; color: #fff; }
-.switchToggle input:checked + .table-label:after, .switchToggle input:checked + input + .table-label:after {left: calc(100% - 2px); transform: translateX(-100%); }
-.switchToggle .table-label:active:after {width: 60px; } 
-.toggle-switchArea { margin: 10px 0 10px 0; }
-
-
-.switchToggle input[type=checkbox]{height: 0; width: 0; visibility: hidden; position: absolute; }
-.switchToggle .label-switch {cursor: pointer; text-indent: 9999px; width: 190px; max-width: 190px; height: 42px; background: transparent;border:1px solid gray; display: block; border-radius: 100px; position: relative; }
-.switchToggle .label-switch:after {content: 'Takeout'; position: absolute; top: 2px; left: 2px; width: 90px; height: 36px; background: #a080f8; border-radius: 90px; transition: 0.3s; }
-.switchToggle input:checked + .label-switch, .switchToggle input:checked + input + .label-switch  {background: transparent }
-
-.switchToggle input + .label-switch:before, .switchToggle input + input + .label-switch:before {content: 'Scan'; position: absolute; top: 10px; left: 110px; width: 36px; height: 26px; border-radius: 90px; transition: 0.3s; text-indent: 0; color: #fff; }
-.switchToggle input:checked + .label-switch:before, .switchToggle input:checked + input + label:before {content: 'Search'; position: absolute; top: 10px; left: 20px; width: 56px; height: 26px; border-radius: 90px; transition: 0.3s; text-indent: 0; color: #fff; }
-.switchToggle input:checked + .label-switch:after, .switchToggle input:checked + input + label:after {left: calc(100% - 2px); transform: translateX(-100%); }
-.switchToggle .label-switch:active:after {width: 60px; } 
-.toggle-switchArea { margin: 10px 0 10px 0; }
 
 
 .card-image{

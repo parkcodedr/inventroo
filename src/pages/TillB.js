@@ -92,7 +92,7 @@ const TillB = ()=>{
 
 return(
     <div className="content-body">
-      <div className="bg-main" style={{ height:'100vh' }}>
+      <div className="bg-main" style={{ height:'100vh',width:[1] }}>
         <section className="d-flex justify-content-between pt-1">
         <div className="logo">
         <Link className="nav-link active" to={'/dashboard'}>
@@ -134,7 +134,7 @@ return(
         <p>
         {error && <ErrorMessage message={error}/>}
         </p>
-        <div className="row mx-auto justify-content-between">
+        <div className="row justify-content-between">
        {show==false?(
          <>
           <div className="col-md-9">
@@ -210,8 +210,8 @@ return(
  
 
         </div>
-        <div className="col-md-5 pr-2 pl-2">
-            <section className="table-wrapper bg-white">
+        <div className="col-md-5">
+            <section className="table-wrapper mx-auto bg-white">
               <div className="table-select d-flex justify-content-between color-light pr-2 pl-2 pt-1">
                 <h5 className="font-weight-bold">Around-the-corner-Gloceries</h5>
                 <h5 className="font-weight-bold"><i className="feather icon-printer"></i> Print</h5>

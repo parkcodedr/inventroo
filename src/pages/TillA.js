@@ -75,10 +75,9 @@ const TillA = ()=>{
     if(loading===true) return <p className="mt-5"><Loader/></p>
 
 return(
-    <div className="bg-main">
+    <div className="bg-main" style={{ height:'100vh' }}>
       <div className="content-wrapper " >
         <section className="d-flex justify-content-between pt-1">
-        
             <div className="nav-menu">
                     <ul className="nav">
                     <li className="nav-item">
