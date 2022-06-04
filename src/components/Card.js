@@ -1,15 +1,14 @@
 const Card = ({title,time,mode,color,id})=>{
 return(
-    <div className="card">
+    <div className="card shadow-none">
   <div className={`card-header bg-${color} text-white`}>
-    <div className="d-flex justify-content-between align-items-center">
-        <p>{title}</p>
-        <p>{time}</p>
+    <div className="d-flex justify-content-between">
+        <h5>{title}</h5>
+        <h5>{time}</h5>
     </div>
   </div>
   <div className="card-body">
     <h5 className="card-title text-center font-weight-bold">
-    <span class="divider"></span>
         {mode}
         </h5>
     <p className="card-text text-center">

@@ -407,7 +407,6 @@ svg circle {
   padding-right:22px;
 }
 
-
 .logo-image{
   height: 60%;
   width:60%;
@@ -415,9 +414,6 @@ svg circle {
 .till-image {
   cursor:pointer;
 }
-
-
-
 
 
 .card-image{
@@ -447,7 +443,6 @@ div.btn-container i{
   position: relative;
   top: -9px;
 }
-
 
 
 .btn-color-mode-switch{
@@ -533,15 +528,19 @@ div.btn-container i{
   cursor: pointer;
 }
 
-.btn-color-mode-switch input[type="checkbox"]:checked + label.btn-color-mode-switch-inner{
-  /*background: #66BB6A; */
-  /*color: #fff;*/
-}
 
 .list-menu-item:focus{
 background:#8c51eb;
 }
 
+.bg-error{
+  background-image:url('/app-assets/images/backgrounds/ErrorPage.jpg')
+}
+.image-responsive {
+width: 100%;
+height:100%;
+
+}
 
 
 

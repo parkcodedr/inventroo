@@ -1,8 +1,9 @@
 import axios from 'axios';
+const BASE_URL = "https://app.inventroo.com/inventroo_backend/api";
 
 export const ApiService = axios.create(
     {
-        baseURL: "https://app.inventroo.com/inventroo_backend/api",
+        baseURL: BASE_URL,
         headers: {
             'contentType': 'application/json',
             //'Authorization': `Bearer ${token}`
@@ -20,3 +21,34 @@ export const ApiService = axios.create(
 //         delete ApiService.defaults.headers.common['Authorization'];
 //     }
 // }
+
+ApiService.interceptors.response.use(
+    (res) => {
+      return res;
+    },
+    async (err) => {
+      const originalConfig = err.config;
+      if (err.response) {
+        // Access Token was expired
+        if (err.response.status === 401 && !originalConfig._retry) {
+          originalConfig._retry = true;
+          try {
+            const rs = await ApiService.post('/account/refreshToken',{});
+            const { access_token } = rs.data;
+            localStorage.setItem("x-token", access_token);
+            ApiService.defaults.headers.common["Bearer"] = access_token;
+            return ApiService(originalConfig);
+          } catch (_error) {
+            if (_error.response && _error.response.data) {
+              return Promise.reject(_error.response.data);
+            }
+            return Promise.reject(_error);
+          }
+        }
+        if (err.response.status === 403 && err.response.data) {
+          return Promise.reject(err.response.data);
+        }
+      }
+      return Promise.reject(err);
+    }
+  );

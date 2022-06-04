@@ -17,9 +17,9 @@ import {
   UserRoles,
   OrganizationProfile,
   PageNotFound} from './pages'
-import TillA from 'pages/TillA';
-import TillB from 'pages/TillB';
-import Kds from 'pages/Kds';
+import TillA from 'pages/till/TillA';
+import TillB from 'pages/till/TillB';
+import Kds from 'pages/till/Kds';
 
 export default function App() {
 
