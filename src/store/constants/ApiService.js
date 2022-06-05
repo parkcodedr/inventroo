@@ -31,9 +31,10 @@ ApiService.interceptors.response.use(
       if (err.response) {
         // Access Token was expired
         if (err.response.status === 401 && !originalConfig._retry) {
+            console.log('expired');
           originalConfig._retry = true;
           try {
-            const rs = await ApiService.post('/account/refreshToken',{});
+            const rs = await ApiService.get('/account/refreshToken');
             const { access_token } = rs.data;
             localStorage.setItem("x-token", access_token);
             ApiService.defaults.headers.common["Bearer"] = access_token;

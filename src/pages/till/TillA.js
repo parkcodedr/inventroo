@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
 import { AccordianItem } from "components/AccordianItem";
 import Loader from 'components/Loader';
+import CashCalculator from 'components/CashCalculator';
+import Modal from 'components/Modal';
 import {ErrorMessage} from 'components/Message';
 import { useTitle } from 'components/hooks/useTitle';
 import {getProductCategories} from 'store/actions/productCategory';
@@ -76,7 +78,7 @@ const TillA = ()=>{
 
 return(
     <div className="content-body">
-      <div className="bg-main" style={{ height:'100vh',width:'100vw' }}>
+      <div className="bg-main" style={{ height:'100vh'}}>
         <section className="d-flex justify-content-between pt-1">
             <div className="nav-menu">
                     <ul className="nav">
@@ -267,7 +269,7 @@ return(
             <div className="d-flex justify-content-between">
              
               <button className="btn btn-success col-md-3 mr-1">Split Bill</button>
-              <button className="btn btn-success col-md-3 mr-1">Cash Payment</button>
+              <button className="btn btn-success col-md-3 mr-1" data-toggle="modal" data-target="#cashCalculator">Cash Payment</button>
               <button className="btn btn-success col-md-3 mr-1">Card Payment</button>
             </div>
           </div>
@@ -278,6 +280,19 @@ return(
       </div>
        )}
       
+          <Modal id="cashCalculator" btnOk="Pay" btnCancel="Cancel">
+            <div className="row mx-auto">
+              <div className="col-md-8">
+                <div className="calculator-header">
+                  <h3 className="text-center">Cash Amount Calculator</h3>
+                </div>
+              <CashCalculator />
+              </div>
+              <div className="col-md-4">
+                <p>Cash PAyment</p>
+              </div>
+            </div>
+          </Modal>
 
       </div>
       </div>

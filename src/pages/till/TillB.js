@@ -88,11 +88,11 @@ const TillB = ()=>{
     console.log(cart);
     console.log(scanProduct);
 
-    if(loading===true) return <p className="mt-5"><Loader/></p>
+    
 
 return(
     <div className="content-body">
-      <div className="bg-main" style={{ height:'100vh',width:'100vw' }}>
+      <div className="bg-main" style={{ height:'100vh'}}>
         <section className="d-flex justify-content-between pt-1">
         <div className="logo">
         <Link className="nav-link active" to={'/dashboard'}>
@@ -129,8 +129,12 @@ return(
         </section>
        
       <div className="row mx-auto bg-main">
+        {loading? (
+          <p className="mt-3"><Loader/></p>
+        ):(
+<>
 
-        <div className="col-md-7 food-menu">
+<div className="col-md-7 food-menu">
         <p>
         {error && <ErrorMessage message={error}/>}
         </p>
@@ -302,6 +306,9 @@ return(
           </div>
             </section>
         </div>
+</>
+        )}
+
       </div>
 
       </div>

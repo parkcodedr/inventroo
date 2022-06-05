@@ -1,4 +1,4 @@
-const Modal = ({id,title,mode,time,children})=>{
+const Modal = ({id,title,mode,time,btnOk,btnCancel,children})=>{
     return (
 <div class="modal fade" id={id} tabindex="-1" aria-labelledby={id} aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -19,8 +19,8 @@ const Modal = ({id,title,mode,time,children})=>{
         {children}
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-main" data-dismiss="modal">OK</button>
-        <button type="button" class="btn btn-danger">Decline</button>
+        <button type="button" class="btn btn-main" data-dismiss="modal">{btnOk}</button>
+        <button type="button" class="btn btn-danger">{btnCancel}</button>
       </div>
     </div>
   </div>
