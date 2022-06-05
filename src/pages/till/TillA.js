@@ -184,10 +184,10 @@ return(
 </div>
 
         </div>
+
         <div className="col-md-6">
         <div className="d-flex justify-content-between">
         <div class="btn-container">
-    
       <label class="switch btn-color-mode-switch">
             <input type="checkbox" name="color_mode" id="color_mode" value="1"/>
             <label for="color_mode" data-on="Takeout" data-off="Eat-in" class="btn-color-mode-switch-inner"></label>
@@ -200,12 +200,12 @@ return(
 
             </div>
 
-            <section className="table-wrapper mt-1 bg-white mb-3 mx-auto">
-              <div className="table-select d-flex justify-content-between color-light p-1">
+            <section className="table-wrapper mt-1 bg-white  mx-auto">
+              <div className="table-select d-flex justify-content-between color-light pr-2 pl-2 pt-1">
                 <h4 className="font-weight-bold">Select Table</h4>
                 <h4 className="font-weight-bold">Table #1</h4>
               </div>
-    <table className="table table-responsive">
+    <table className="table table-responsive-md table-sm">
   <thead>
     <tr>
       <th scope="col">Description</th>

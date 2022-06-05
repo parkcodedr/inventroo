@@ -150,7 +150,7 @@ return(
         ):(
 <>
 <div className="row mx-auto bg-main">
-<div className="col-md-7 food-menu">
+<div className="col-md-6 food-menu">
         <p>
         {error && <ErrorMessage message={error}/>}
         </p>
@@ -230,13 +230,14 @@ return(
  
 
         </div>
-        <div className="col-md-5">
+
+        <div className="col-md-6 mt-1">
             <section className="table-wrapper mx-auto bg-white">
               <div className="table-select d-flex justify-content-between color-light pr-2 pl-2 pt-1">
                 <h5 className="font-weight-bold">Around-the-corner-Gloceries</h5>
                 <h5 className="font-weight-bold"><i className="feather icon-printer"></i> Print</h5>
               </div>
-    <table className="table table-responsive">
+    <table className="table table-responsive-md">
   <thead>
     <tr>
       <th scope="col">Description</th>
