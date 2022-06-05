@@ -544,7 +544,9 @@ height:100%;
 .pointer{
   cursor:pointer;
 }
-
+.border-left-column{
+  border-left:1px solid #4c27b3;
+}
 
 
 

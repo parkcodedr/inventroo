@@ -1,5 +1,7 @@
 import React,{useEffect} from 'react';
+// import {useHistory}  from 'react-router-dom';
 export const usePageSetup = ()=>{
+    // const history =useHistory();
     useEffect(()=>{
         document.body.classList.remove("2-columns");
         document.body.classList.remove("fixed-navbar");

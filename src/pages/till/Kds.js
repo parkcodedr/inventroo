@@ -127,6 +127,12 @@ return(
      time="07:40"
      mode="Dine in"
      id="modal88"
+     btnOk="OK"
+     btnOkType="btn btn-outline-main"
+     btnCancelType="btn btn-main"
+     btnCancel="Decline"
+     modalBody={true}
+    enableTitle={true}
      >
          <p>1 Akpu</p>
          <p>2 Chicken</p>
@@ -183,6 +189,12 @@ return(
      time="07:40"
      mode="Dine in"
      id="modal89"
+     btnOk="OK"
+     btnOkType="btn btn-outline-main"
+     btnCancelType="btn btn-main"
+     btnCancel="Decline"
+     modalBody={true}
+    enableTitle={true}
      >
          <p>1 Akpu</p>
          <p>2 Chicken</p>

@@ -152,7 +152,7 @@ return(
                 <section className="row">
             {
               products && products.map(product=>(
-          <div className="col-md-4">
+          <div className="col-md-4" key={product.productID}>
             <AccordianItem 
             title={product.name}
             id={(product.name).replace(/\s+/g, '')}
@@ -217,7 +217,7 @@ return(
   </thead>
   <tbody >
     {cart && cart.map(item=>(
-      <tr>
+      <tr key={item.name}>
       <th scope="row">{item.name}</th>
       <td>
       
@@ -304,16 +304,17 @@ return(
           btnCancel="Cancel"
           btnOkType="btn btn-success"
           btnCancelType="btn btn-outline-success"
+          modalBody={false}
+          enableTitle={false}
           >
-            <div className="row mx-auto">
-              <div className="col-md-8 justify-content-center">
-                <div className="calculator-header">
+           
+             
+                <div className="calculator-header bg-main p-1 text-white mb-1">
                   <h4 className="text-center font-weight-bold">Cash Amount Calculator</h4>
                 </div>
-              <CashCalculator />
-              </div>
+                <CashCalculator />
              
-            </div>
+          
           </Modal>
 
       </div>

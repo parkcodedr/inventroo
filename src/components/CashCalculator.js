@@ -23,7 +23,7 @@ const btnValues = [
   
 
 const CashCalculator = ()=>{
-
+let operation ='0';
     let [calc, setCalc] = useState({
         sign: "",
         num: 0,
@@ -34,6 +34,7 @@ const CashCalculator = ()=>{
         e.preventDefault();
         const value = e.target.innerHTML;
         if (removeSpaces(calc.num).length < 16) {
+          operation=operation+operation;
           setCalc({
             ...calc,
             num:
@@ -122,10 +123,15 @@ const CashCalculator = ()=>{
           res: 0,
         });
       };
+
+     
 return(
-<Wrapper>
-      <Screen value={calc.num ? calc.num : calc.res} />
-      <ButtonBox>
+  <>
+  
+  <div className="row mx-auto">
+     
+     <div className="col-md-6">
+     <ButtonBox>
         {btnValues.flat().map((btn, i) => {
           return (
             <Button
@@ -157,8 +163,20 @@ return(
         })}
      
       </ButtonBox>
-     
-    </Wrapper>
+     </div>
+     <div className="col-md-6 border-left-column">
+       <aside className="d-flex flex-column  flex-wrap">
+       <p className="mb-5 mt-3 h5">{calc.num && calc.num }</p>
+       <p className="mt-5 font-weight-bold h4">Total
+       <Screen value={calc.res && calc.res} />
+       </p>
+       </aside>
+       
+     </div>
+    </div>
+  
+  </>
+
 )
 }
 
