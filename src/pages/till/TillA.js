@@ -61,8 +61,21 @@ const TillA = ()=>{
 
      const ReduceItemFromCart =(product)=>{
       const exist = cart.find(item=>item.product_id==product.product_id);
-      if(exist){
+      if(exist && exist.quantity!==1){
         const newQuantity = exist.quantity-1;
+        const newTotal = exist.price * newQuantity
+        setCart(
+          cart.map((item)=>item.product_id==product.product_id?{...exist,quantity:newQuantity,total:newTotal}:item
+  
+          )
+        );
+      }
+     }
+
+     const increaseCartItem =(product)=>{
+      const exist = cart.find(item=>item.product_id==product.product_id);
+      if(exist){
+        const newQuantity = exist.quantity+1;
         const newTotal = exist.price * newQuantity
         setCart(
           cart.map((item)=>item.product_id==product.product_id?{...exist,quantity:newQuantity,total:newTotal}:item
@@ -111,9 +124,9 @@ return(
         </nav>
         </section>
        {loading? (<Loader/>):(
-        <div className="row mx-auto">
+        <div className="row mx-auto bg-main">
         
-        <div className="col-md-7 food-menu">
+        <div className="col-md-6 food-menu">
         <p>
         {error && <ErrorMessage message={error}/>}
         </p>
@@ -171,7 +184,7 @@ return(
 </div>
 
         </div>
-        <div className="col-md-5 pr-2 pl-2">
+        <div className="col-md-6">
         <div className="d-flex justify-content-between">
         <div class="btn-container">
     
@@ -187,12 +200,12 @@ return(
 
             </div>
 
-            <section className="table-wrapper mt-1 bg-white mb-3 mx-auto overflow-hidden">
-              <div className="table-select d-flex justify-content-between color-light pr-2 pl-2 pt-1">
+            <section className="table-wrapper mt-1 bg-white mb-3 mx-auto">
+              <div className="table-select d-flex justify-content-between color-light p-1">
                 <h4 className="font-weight-bold">Select Table</h4>
                 <h4 className="font-weight-bold">Table #1</h4>
               </div>
-    <table className="table table-responsive-md">
+    <table className="table table-responsive">
   <thead>
     <tr>
       <th scope="col">Description</th>
@@ -206,14 +219,20 @@ return(
     {cart && cart.map(item=>(
       <tr>
       <th scope="row">{item.name}</th>
-      <td>{item.quantity}</td>
+      <td>
+      
+      
+      <span className="feather icon-minus-circle text-info pointer h4  mr-1" onClick={()=>ReduceItemFromCart(item)}></span>
+      {item.quantity} 
+      <span className="feather icon-plus-circle text-success pointer ml-1  h4 " onClick={()=>increaseCartItem(item)}></span>
+      </td>
       <td>{item.price}</td>
       <td>{item.total}</td>
       <td>
         
         {/* <i className="feather icon-plus h4 font-weight-bold"  onClick={()=>ReduceItemFromCart(item)} style={{ cursor:'pointer' }}></i>
         <i className="feather icon-minus h4 font-weight-bold"  onClick={()=>ReduceItemFromCart(item)} style={{ cursor:'pointer' }}></i> */}
-        <i className="feather icon-x-circle h4 font-weight-bold text-danger"  onClick={()=>removeFromCart(item.product_id)} style={{ cursor:'pointer' }}></i>
+        <i className="feather icon-x-circle h4 text-danger"  onClick={()=>removeFromCart(item.product_id)} style={{ cursor:'pointer' }}></i>
       </td>
     </tr>
     ))}
@@ -280,17 +299,20 @@ return(
       </div>
        )}
       
-          <Modal id="cashCalculator" btnOk="Pay" btnCancel="Cancel">
+          <Modal id="cashCalculator" 
+          btnOk="Pay" 
+          btnCancel="Cancel"
+          btnOkType="btn btn-success"
+          btnCancelType="btn btn-outline-success"
+          >
             <div className="row mx-auto">
-              <div className="col-md-8">
+              <div className="col-md-8 justify-content-center">
                 <div className="calculator-header">
-                  <h3 className="text-center">Cash Amount Calculator</h3>
+                  <h4 className="text-center font-weight-bold">Cash Amount Calculator</h4>
                 </div>
               <CashCalculator />
               </div>
-              <div className="col-md-4">
-                <p>Cash PAyment</p>
-              </div>
+             
             </div>
           </Modal>
 

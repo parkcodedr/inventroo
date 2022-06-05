@@ -7,6 +7,8 @@ import ListGroup from 'components/ListGroup';
 import ListGroupItem from 'components/ListGroupItem';
 import Loader from 'components/Loader';
 import {ErrorMessage} from 'components/Message';
+import CashCalculator from 'components/CashCalculator';
+import Modal from 'components/Modal';
 import { useTitle } from 'components/hooks/useTitle';
 import {getProductCategories} from 'store/actions/productCategory';
 import {getProductByCategory,getScanProduct,searchProduct} from 'store/actions/product';
@@ -73,8 +75,22 @@ const TillB = ()=>{
 
      const ReduceItemFromCart =(product)=>{
       const exist = cart.find(item=>item.product_id==product.product_id);
-      if(exist){
+      if(exist && exist.quantity!==1){
         const newQuantity = exist.quantity-1;
+        const newTotal = exist.price * newQuantity
+        setCart(
+          cart.map((item)=>item.product_id==product.product_id?{...exist,quantity:newQuantity,total:newTotal}:item
+  
+          )
+        );
+      }
+
+     }
+
+     const increaseCartItem =(product)=>{
+      const exist = cart.find(item=>item.product_id==product.product_id);
+      if(exist){
+        const newQuantity = exist.quantity+1;
         const newTotal = exist.price * newQuantity
         setCart(
           cart.map((item)=>item.product_id==product.product_id?{...exist,quantity:newQuantity,total:newTotal}:item
@@ -128,12 +144,12 @@ return(
         </nav>
         </section>
        
-      <div className="row mx-auto bg-main">
+      
         {loading? (
           <p className="mt-3"><Loader/></p>
         ):(
 <>
-
+<div className="row mx-auto bg-main">
 <div className="col-md-7 food-menu">
         <p>
         {error && <ErrorMessage message={error}/>}
@@ -158,7 +174,7 @@ return(
          </>
        )}
 
-<div className="btn-container col-md-3">
+<div className="btn-container">
     
     <label className="switch btn-color-mode-switch">
           <input type="checkbox" name="color_mode" id="color_mode" onChange={(e)=>setShow(!show)} />
@@ -234,14 +250,20 @@ return(
   {cart && cart.map(item=>(
       <tr>
       <th scope="row">{item.name}</th>
-      <td>{item.quantity}</td>
+      <td>
+      
+      
+      <span className="feather icon-minus-circle text-info pointer h4  mr-1" onClick={()=>ReduceItemFromCart(item)}></span>
+      {item.quantity} 
+      <span className="feather icon-plus-circle text-success pointer ml-1  h4 " onClick={()=>increaseCartItem(item)}></span>
+      </td>
       <td>{item.price}</td>
       <td>{item.total}</td>
       <td>
         
         {/* <i className="feather icon-plus h4 font-weight-bold"  onClick={()=>ReduceItemFromCart(item)} style={{ cursor:'pointer' }}></i>
         <i className="feather icon-minus h4 font-weight-bold"  onClick={()=>ReduceItemFromCart(item)} style={{ cursor:'pointer' }}></i> */}
-        <i className="feather icon-x-circle h4 font-weight-bold text-danger"  onClick={()=>removeFromCart(item.product_id)} style={{ cursor:'pointer' }}></i>
+        <i className="feather icon-x-circle h4  text-danger"  onClick={()=>removeFromCart(item.product_id)} style={{ cursor:'pointer' }}></i>
       </td>
     </tr>
     ))}
@@ -298,7 +320,7 @@ return(
             <div className="d-flex justify-content-between">
              
               <button className="btn btn-success col-md-3 mr-1">Split Bill</button>
-              <button className="btn btn-success col-md-3 mr-1">Cash Payment</button>
+              <button className="btn btn-success col-md-3 mr-1" data-toggle="modal" data-target="#cashCalculator">Cash Payment</button>
               <button className="btn btn-success col-md-3 mr-1">Card Payment</button>
             </div>
           </div>
@@ -306,10 +328,26 @@ return(
           </div>
             </section>
         </div>
+        </div>
 </>
         )}
 
-      </div>
+<Modal id="cashCalculator" 
+          btnOk="Pay" 
+          btnCancel="Cancel"
+          btnOkType="btn btn-success"
+          btnCancelType="btn btn-outline-success"
+          >
+            <div className="row mx-auto">
+              <div className="col-md-8 justify-content-center">
+                <div className="calculator-header">
+                  <h4 className="text-center font-weight-bold">Cash Amount Calculator</h4>
+                </div>
+              <CashCalculator />
+              </div>
+             
+            </div>
+          </Modal>
 
       </div>
       </div>

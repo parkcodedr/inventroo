@@ -30,8 +30,8 @@ ApiService.interceptors.response.use(
       const originalConfig = err.config;
       if (err.response) {
         // Access Token was expired
-        if (err.response.status === 401 && !originalConfig._retry) {
-            console.log('expired');
+        if (err.response.status === 500 && !originalConfig._retry) {
+            console.log(err.response.status);
           originalConfig._retry = true;
           try {
             const rs = await ApiService.get('/account/refreshToken');

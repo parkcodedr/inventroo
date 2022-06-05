@@ -7,7 +7,7 @@ import Button from "components/Button";
 
 const btnValues = [
     ["C", "+-", "%", "/"],
-    [7, 8, 9, "X"],
+    [7, 8, 9, "*"],
     [4, 5, 6, "-"],
     [1, 2, 3, "+"],
     [0, ".", "="],
@@ -19,7 +19,7 @@ const btnValues = [
   const removeSpaces = (num) => num.toString().replace(/\s/g, "");
   
   const math = (a, b, sign) =>
-    sign === "+" ? a + b : sign === "-" ? a - b : sign === "X" ? a * b : a / b;
+    sign === "+" ? a + b : sign === "-" ? a - b : sign === "*" ? a * b : a / b;
   
 
 const CashCalculator = ()=>{
@@ -132,7 +132,7 @@ return(
               key={i}
               className={btn === "=" ? "equals"
               : btn==="+"?"operator" 
-              : btn==="X"?"operator" :
+              : btn==="*"?"operator" :
               btn==="-"?"operator" :
               btn==="/"?"operator" :
                ""}
@@ -146,7 +146,7 @@ return(
                   ? percentClickHandler
                   : btn === "="
                   ? equalsClickHandler
-                  : btn === "/" || btn === "X" || btn === "-" || btn === "+"
+                  : btn === "/" || btn === "*" || btn === "-" || btn === "+"
                   ? signClickHandler
                   : btn === "."
                   ? comaClickHandler
