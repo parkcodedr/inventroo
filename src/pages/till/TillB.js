@@ -47,9 +47,10 @@ const TillB = ()=>{
       dispatch(searchProduct(searchItem))
     }
 
-    const addToCart = (product,event)=>{
-      event.preventDefault();
-      const {cost_price,productID,name} = product;
+    const addToCart = (product)=>{
+      //event.preventDefault();
+      if(product!=undefined){
+        const {cost_price,productID,name} = product;
       const quantity = 1;
       const total = cost_price * quantity
    
@@ -65,6 +66,7 @@ const TillB = ()=>{
       }else{
         setCart([...cart,
           {price:cost_price,product_id:productID,quantity,total,name}])
+      }
       }
       
     }
@@ -103,8 +105,6 @@ const TillB = ()=>{
     const total = cart.reduce((accumulator,current)=> accumulator+current.total,0);
     console.log(cart);
     console.log(scanProduct);
-
-    
 
 return(
     <div className="content-body">
@@ -208,7 +208,7 @@ return(
                       category.products && category.products.map(product=>(
                         
                       <ListGroupItem title={product.name} 
-                      onclick={(event)=>addToCart(product,event)}/>
+                      onclick={(event)=>addToCart(product)}/>
 
                       ))
                       }
@@ -237,7 +237,7 @@ return(
                 <h5 className="font-weight-bold">Around-the-corner-Gloceries</h5>
                 <h5 className="font-weight-bold"><i className="feather icon-printer"></i> Print</h5>
               </div>
-    <table className="table table-responsive-md">
+    <table className="table table-responsive-lg">
   <thead>
     <tr>
       <th scope="col">Description</th>

@@ -56,7 +56,7 @@ const {
         }else{
             reset({
               name:product.name,sku:product.sku,
-              category_id:product.categoy.id,
+              category_id:product.categoy?.id,
               unit:product.unit.id,
               type:product.type,
               dimension:product.dimension,

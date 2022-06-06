@@ -205,7 +205,7 @@ return(
                 <h4 className="font-weight-bold">Select Table</h4>
                 <h4 className="font-weight-bold">Table #1</h4>
               </div>
-    <table className="table table-responsive-md table-sm">
+    <table className="table table-responsive-md">
   <thead>
     <tr>
       <th scope="col">Description</th>

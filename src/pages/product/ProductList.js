@@ -116,14 +116,14 @@ const ProductList = ()=>{
 
           <td>
           <Link to={`/dashboard/product/${product.productID}/edit`}>
-                  <button className="btn btn-warning mr-1">
-              <i className="feather icon-edit"></i>
-              </button>
+                  
+              <i className="feather icon-edit text-warning"></i>
+              
                   </Link>
 
-              <button className="btn btn-danger" onClick={()=>deleteHandler(product)}>
-              <i className="feather icon-trash-2"></i>
-              </button>
+              
+              <i className="feather icon-trash-2 text-danger ml-1 pointer" onClick={()=>deleteHandler(product)}></i>
+              
           </td>
     </tr>
 ))}

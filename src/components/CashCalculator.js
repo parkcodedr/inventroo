@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Wrapper from "components/Wrapper";
 import Screen from "components/Screen";
 import ButtonBox from "components/ButtonBox";
 import Button from "components/Button";
@@ -14,9 +13,9 @@ const btnValues = [
   ];
   
   const toLocaleString = (num) =>
-    String(num).replace(/(?<!\..*)(\d)(?=(?:\d{3})+(?:\.|$))/g, "$1 ");
+    String(num).replace(/(?<!\..*)(\d)(?=(?:\d{3})+(?:\.|$))/g, "$1,");
   
-  const removeSpaces = (num) => num.toString().replace(/\s/g, "");
+  const removeSpaces = (num) => num.toString().replace(/,/g, "");
   
   const math = (a, b, sign) =>
     sign === "+" ? a + b : sign === "-" ? a - b : sign === "*" ? a * b : a / b;
