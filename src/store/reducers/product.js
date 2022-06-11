@@ -48,6 +48,7 @@ export const getProductsReducer = (state = initialState, action) => {
         case actionTypes.GET_PRODUCTS_SUCCESS:
             return {
                 loading: false,
+               
                 products:action.products,
                 error: ""
             }
@@ -67,9 +68,18 @@ export const getProductsReducer = (state = initialState, action) => {
             return {
                 loading: false,
                 ...state,
+                success:true,
                 scanProduct:action.product,
                 error: ""
             }
+            case actionTypes.GET_SCAN_PRODUCT_COMPLETE:
+                return {
+                    loading: false,
+                    success:false,
+                  
+                    scanProduct:action.product,
+                    error: ""
+                }
             case actionTypes.GET_SCAN_PRODUCT_FAIL:
             return {
                 loading: false,

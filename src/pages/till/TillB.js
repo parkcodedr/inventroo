@@ -11,7 +11,7 @@ import CashCalculator from 'components/CashCalculator';
 import Modal from 'components/Modal';
 import { useTitle } from 'components/hooks/useTitle';
 import {getProductCategories} from 'store/actions/productCategory';
-import {getProductByCategory,getScanProduct,searchProduct} from 'store/actions/product';
+import {getProductByCategory,getScanProduct,searchProduct,getScanProductComplete} from 'store/actions/product';
 import { useSelector, useDispatch } from 'react-redux';
 
 const TillB = ()=>{
@@ -22,7 +22,7 @@ const TillB = ()=>{
     const [show,setShow] = useState(false);
     const [searchItem,setSearchItem] = useState("");
      const {loading,error,categories} = useSelector((state) => state.productCategories);
-    const {loading:productLoading,error:productError,products,scanProduct} = useSelector((state) => state.products);
+    const {loading:productLoading,success,error:productError,products,scanProduct} = useSelector((state) => state.products);
     const [cart,setCart]=useState([]);
 
     useEffect(()=>{
@@ -105,6 +105,10 @@ const TillB = ()=>{
     const total = cart.reduce((accumulator,current)=> accumulator+current.total,0);
     console.log(cart);
     console.log(scanProduct);
+    if(success===true && scanProduct!==undefined){
+      addToCart(scanProduct);
+      dispatch(getScanProductComplete());
+    }
 
 return(
     <div className="content-body">

@@ -1,7 +1,7 @@
 import { actionTypes } from '../constants/ActionTypes';
 
 const initialState = {
-    loading: false,
+    loading: true,
     success: false,
     salesOrders:[],
     error: ""

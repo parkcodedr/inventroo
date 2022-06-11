@@ -164,6 +164,13 @@ export const getScanProductSuccess = (product) => {
     };
 };
 
+export const getScanProductComplete = () => {
+    return {
+        type: actionTypes.GET_SCAN_PRODUCT_COMPLETE,
+    };
+};
+
+
 export const getScanProductFail = (error) => {
     return {
         type: actionTypes.GET_SCAN_PRODUCT_FAIL,
