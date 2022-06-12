@@ -165,8 +165,8 @@ return(
      </div>
      <div className="col-md-6 border-left-column">
        <aside className="d-flex flex-column  flex-wrap">
-       <p className="mb-5 mt-3 h5">{calc.num && calc.num }</p>
-       <p className="mt-5 font-weight-bold h4">Total
+       <p className="mb-5 mt-3 h4 font-weight-bold ">{calc.num && calc.num }</p>
+       <p className="mt-5 font-weight-bold h3">Total
        <Screen value={calc.res && calc.res} />
        </p>
        </aside>

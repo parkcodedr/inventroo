@@ -4,6 +4,7 @@ import {Accordian} from 'components/Accordian'
 import { NavLink,Link } from "react-router-dom";
 import { AccordianItem } from "components/AccordianItem";
 import ListGroup from 'components/ListGroup';
+import {notify} from 'components/Toast';
 import ListGroupItem from 'components/ListGroupItem';
 import Loader from 'components/Loader';
 import {ErrorMessage} from 'components/Message';
@@ -40,11 +41,17 @@ const TillB = ()=>{
     }
 
     const scanProductCode = (productCode)=>{
-      dispatch(getScanProduct(productCode))
+      if(productCode){
+        dispatch(getScanProduct(productCode))
+      }
+      
     }
 
     const searchProductItem = ()=>{
-      dispatch(searchProduct(searchItem))
+      if(searchItem){
+        dispatch(searchProduct(searchItem))
+      }
+     
     }
 
     const addToCart = (product)=>{
@@ -103,11 +110,12 @@ const TillB = ()=>{
      }
 
     const total = cart.reduce((accumulator,current)=> accumulator+current.total,0);
-    console.log(cart);
-    console.log(scanProduct);
     if(success===true && scanProduct!==undefined){
       addToCart(scanProduct);
       dispatch(getScanProductComplete());
+    }
+    if(productError){
+      notify("error",productError);
     }
 
 return(
@@ -155,9 +163,10 @@ return(
 <>
 <div className="row mx-auto bg-main">
 <div className="col-md-6 food-menu">
-        <p>
-        {error && <ErrorMessage message={error}/>}
-        </p>
+        
+        {/* <p>
+        {productError && <ErrorMessage message={productError}/>}
+        </p> */}
         <div className="row justify-content-between">
        {show==false?(
          <>
@@ -187,6 +196,9 @@ return(
    
 </div>
             </div>
+            <p>
+        {error && <ErrorMessage message={error}/>}
+        </p>
 
             <Accordian id={"accordionTillNew"}>
             <section className="row mt-2 bg-main">
@@ -280,7 +292,7 @@ return(
   
 </table>
 
-          <div className="color-light">
+          <div className="color-light mb-2">
           <div className="">
             <div className="row mx-auto p-1 justify-content-space-between">
               <button className="btn btn-success col m-1">Discount</button>
@@ -337,23 +349,22 @@ return(
 </>
         )}
 
-<Modal id="cashCalculator" 
+      
+      <Modal id="cashCalculator" 
           btnOk="Pay" 
           btnCancel="Cancel"
           btnOkType="btn btn-success"
           btnCancelType="btn btn-outline-success"
+          modalBody={false}
+          enableTitle={false}
           >
-            <div className="row mx-auto">
-              <div className="col-md-8 justify-content-center">
-                <div className="calculator-header">
+                <div className="calculator-header bg-main p-1 text-white mb-1">
                   <h4 className="text-center font-weight-bold">Cash Amount Calculator</h4>
                 </div>
-              <CashCalculator />
-              </div>
+                <CashCalculator />
              
-            </div>
+          
           </Modal>
-
       </div>
       </div>
 )

@@ -194,9 +194,9 @@ export const getScanProduct = (code) => {
                     dispatch(getScanProductSuccess(product));
                 }).catch(error => {
                     if (error.response) {
-                        const { message } = error.response.data;
+                        const { ResponseMessage } = error.response.data;
                         console.log(error.response.data);
-                        dispatch(getScanProductFail(message));
+                        dispatch(getScanProductFail(ResponseMessage));
 
                     } else if (error.request) {
                         console.log(error);

@@ -144,16 +144,23 @@ return(
 
   {
     categories && categories.map((category,index)=>(
-  <div key={category.id} className={index===0?'tab-pane fade show active text-white':`tab-pane fade text-white`} id={`pills-${category.id}`} role="tabpanel" aria-labelledby={`pills-${category.category_name}-tab`}>
+  <div key={category.id} className={index===0?'tab-pane fade show active ':`tab-pane fade`} id={`pills-${category.id}`} role="tabpanel" aria-labelledby={`pills-${category.category_name}-tab`}>
            {productLoading? <Loader/>:(
             
           
-             <Accordian id={`accordion${category.category_name}`}>
+            //  <Accordian id={`accordion${category.category_name}`}>
                 <section className="row">
+                  
             {
               products && products.map(product=>(
           <div className="col-md-4" key={product.productID}>
-            <AccordianItem 
+            <li className="list-group-item">
+              <div className="d-flex justify-content-between align-items-center">
+              {product.name}
+              <span className="feather icon-plus-circle pointer h4 text-success" onClick={(e)=>addToCart(product)}></span>
+              </div>
+            </li>
+            {/* <AccordianItem 
             title={product.name}
             id={(product.name).replace(/\s+/g, '')}
             show="false"
@@ -165,12 +172,12 @@ return(
                 <button  className="btn btn-float btn-round btn-success float-right m-1"  onClick={(e)=>addToCart(product)}>
                   <i class="fa fa-plus"></i></button>
               </>
-             </AccordianItem>
+             </AccordianItem> */}
             </div>
               ))
             }
              </section>
-            </Accordian>
+            
          
           
            )}
