@@ -37,7 +37,9 @@ AddSalesOrder,
 SalesOrderList,
 EditSalesOrder,
 EditProductCategory,
-Till
+Till,
+AddCreditNote,
+CreditNoteList
 } from '../../pages';
 
 
@@ -255,6 +257,16 @@ export const routes = [
       path: "/dashboard/till/preview",
       exact: true,
       main: () => <Till/>
-    }
+    },
+    {
+      path: "/dashboard/return/credit-note/all",
+      exact: true,
+      main: () => <CreditNoteList/>
+    },
+    {
+      path: "/dashboard/return/credit-note/new",
+      exact: true,
+      main: () => <AddCreditNote/>
+    },
 
   ];

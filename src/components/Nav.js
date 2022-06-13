@@ -91,7 +91,7 @@ const Nav = () => {
                             <NavLink to={'/dashboard/return/sales'} activeClassName={"active-nav"}>Sales Returns</NavLink>
                         </li>
                         <li className="ml-2">
-                            <NavLink to={'/dashboard/return/credit'} activeClassName={"active-nav"}>Credit Note</NavLink>
+                            <NavLink to={'/dashboard/return/credit-note/all'} activeClassName={"active-nav"}>Credit Note</NavLink>
                         </li>
                         
                     </ul>

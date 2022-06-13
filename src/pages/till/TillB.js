@@ -188,7 +188,6 @@ return(
        )}
 
 <div className="btn-container">
-    
     <label className="switch btn-color-mode-switch">
           <input type="checkbox" name="color_mode" id="color_mode" onChange={(e)=>setShow(!show)} />
           <label htmlFor="color_mode" data-on="Scan" data-off="Search" className="btn-color-mode-switch-inner"></label>

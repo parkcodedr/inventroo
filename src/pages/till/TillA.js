@@ -207,7 +207,7 @@ return(
 
             </div>
 
-            <section className="table-wrapper mt-1 bg-white  mx-auto">
+            <section className="table-wrapper mt-1 bg-white  mx-auto mb-1">
               <div className="table-select d-flex justify-content-between color-light pr-2 pl-2 pt-1">
                 <h4 className="font-weight-bold">Select Table</h4>
                 <h4 className="font-weight-bold">Table #1</h4>
