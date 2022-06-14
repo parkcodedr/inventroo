@@ -1,5 +1,5 @@
 import React,{useEffect} from 'react';
-
+import Loader from 'components/Loader';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer} from 'react-toastify';
 import {
@@ -33,7 +33,7 @@ export default function App() {
             <Register />
           </Route>
           <Route path="/login">
-          <React.Suspense fallback={<>Loading...</>}>
+          <React.Suspense fallback={<p className="d-flex justify-content-center align-items-center"><Loader/></p>}>
           <Login/>
             </React.Suspense>
           </Route>

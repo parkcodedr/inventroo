@@ -37,20 +37,20 @@ const TillA = ()=>{
     const addToCart = (product)=>{
       const {cost_price,productID,name} = product;
       const quantity = 1;
-      const total = cost_price * quantity
+      const total_cost = cost_price * quantity
    
       const exist = cart.find(item=>item.product_id==productID);
       if(exist){
         const newQuantity = exist.quantity+1;
-        const newTotal = exist.price * newQuantity
+        const newTotal = exist.rate * newQuantity
         setCart(
-          cart.map((item)=>item.product_id==productID?{...exist,quantity:exist.quantity+1,total:newTotal}:item
+          cart.map((item)=>item.product_id==productID?{...exist,quantity:exist.quantity+1,total_cost:newTotal}:item
   
           )
         );
       }else{
         setCart([...cart,
-          {price:cost_price,product_id:productID,quantity,total,name}])
+          {rate:cost_price,product_id:productID,quantity,total_cost,product_name:name}])
       }
       
     }
@@ -63,9 +63,9 @@ const TillA = ()=>{
       const exist = cart.find(item=>item.product_id==product.product_id);
       if(exist && exist.quantity!==1){
         const newQuantity = exist.quantity-1;
-        const newTotal = exist.price * newQuantity
+        const newTotal = exist.rate * newQuantity
         setCart(
-          cart.map((item)=>item.product_id==product.product_id?{...exist,quantity:newQuantity,total:newTotal}:item
+          cart.map((item)=>item.product_id==product.product_id?{...exist,quantity:newQuantity,total_cost:newTotal}:item
   
           )
         );
@@ -76,16 +76,16 @@ const TillA = ()=>{
       const exist = cart.find(item=>item.product_id==product.product_id);
       if(exist){
         const newQuantity = exist.quantity+1;
-        const newTotal = exist.price * newQuantity
+        const newTotal = exist.rate * newQuantity
         setCart(
-          cart.map((item)=>item.product_id==product.product_id?{...exist,quantity:newQuantity,total:newTotal}:item
+          cart.map((item)=>item.product_id==product.product_id?{...exist,quantity:newQuantity,total_cost:newTotal}:item
   
           )
         );
       }
      }
 
-    const total = cart.reduce((accumulator,current)=> accumulator+current.total,0);
+    const total = cart.reduce((accumulator,current)=> accumulator+current.total_cost,0);
     console.log(cart);
    
 
@@ -224,8 +224,8 @@ return(
   </thead>
   <tbody >
     {cart && cart.map(item=>(
-      <tr key={item.name}>
-      <th scope="row">{item.name}</th>
+      <tr key={item.product_id}>
+      <th scope="row">{item.product_name}</th>
       <td>
       
       
@@ -233,8 +233,8 @@ return(
       {item.quantity} 
       <span className="feather icon-plus-circle text-success pointer ml-1  h4 " onClick={()=>increaseCartItem(item)}></span>
       </td>
-      <td>{item.price}</td>
-      <td>{item.total}</td>
+      <td>{item.rate}</td>
+      <td>{item.total_cost}</td>
       <td>
         
         {/* <i className="feather icon-plus h4 font-weight-bold"  onClick={()=>ReduceItemFromCart(item)} style={{ cursor:'pointer' }}></i>
