@@ -42,9 +42,9 @@ export const addCashPayment = (cashPayment) => {
                     dispatch(addCashPaymentSuccess());
                 }).catch(error => {
                     if (error.response) {
-                        const { message } = error.response.data;
+                        const { ResponseMessage } = error.response.data;
                         console.log(error.response.data);
-                        dispatch(addCashPaymentFail(message));
+                        dispatch(addCashPaymentFail(ResponseMessage));
 
                     } else if (error.request) {
                         console.log(error);

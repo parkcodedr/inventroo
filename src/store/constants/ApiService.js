@@ -22,34 +22,34 @@ export const ApiService = axios.create(
 //     }
 // }
 
-ApiService.interceptors.response.use(
-    (res) => {
-      return res;
-    },
-    async (err) => {
-      const originalConfig = err.config;
-      if (err.response) {
-        // Access Token was expired
-        if (err.response.status === 500 && !originalConfig._retry) {
-            console.log(err.response.status);
-          originalConfig._retry = true;
-          try {
-            const rs = await ApiService.get('/account/refreshToken');
-            const { access_token } = rs.data;
-            localStorage.setItem("x-token", access_token);
-            ApiService.defaults.headers.common["Bearer"] = access_token;
-            return ApiService(originalConfig);
-          } catch (_error) {
-            if (_error.response && _error.response.data) {
-              return Promise.reject(_error.response.data);
-            }
-            return Promise.reject(_error);
-          }
-        }
-        if (err.response.status === 403 && err.response.data) {
-          return Promise.reject(err.response.data);
-        }
-      }
-      return Promise.reject(err);
-    }
-  );
+// ApiService.interceptors.response.use(
+//     (res) => {
+//       return res;
+//     },
+//     async (err) => {
+//       const originalConfig = err.config;
+//       if (err.response) {
+//         // Access Token was expired
+//         if (err.response.status === 500 && !originalConfig._retry) {
+//             console.log(err.response.status);
+//           originalConfig._retry = true;
+//           try {
+//             const rs = await ApiService.get('/account/refreshToken');
+//             const { access_token } = rs.data;
+//             localStorage.setItem("x-token", access_token);
+//             ApiService.defaults.headers.common["Bearer"] = access_token;
+//             return ApiService(originalConfig);
+//           } catch (_error) {
+//             if (_error.response && _error.response.data) {
+//               return Promise.reject(_error.response.data);
+//             }
+//             return Promise.reject(_error);
+//           }
+//         }
+//         if (err.response.status === 403 && err.response.data) {
+//           return Promise.reject(err.response.data);
+//         }
+//       }
+//       return Promise.reject(err);
+//     }
+//   );

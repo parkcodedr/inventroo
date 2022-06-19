@@ -22,7 +22,6 @@ const AddProductCateogory = ()=>{
       }
 
     const submit = (data)=>{
-        console.log(data);
         dispatch(addProductCategory(data));
     }
 

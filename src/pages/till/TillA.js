@@ -7,11 +7,16 @@ import { AccordianItem } from "components/AccordianItem";
 import Loader from 'components/Loader';
 import CashCalculator from 'components/CashCalculator';
 import Modal from 'components/Modal';
+//import PaymentModal from '../../components/PaymentModal ';
 import {ErrorMessage} from 'components/Message';
 import { useTitle } from 'components/hooks/useTitle';
 import {getProductCategories} from 'store/actions/productCategory';
+import {addCashPayment,addCashPaymentComplete} from 'store/actions/payment';
 import {getProductByCategory} from 'store/actions/product';
 import { useSelector, useDispatch } from 'react-redux';
+import { notify } from 'components/Toast';
+import {closeModal} from 'components/closeModal';
+import {openModal} from 'components/openModal';
 
 const TillA = ()=>{
   const dispatch = useDispatch();
@@ -19,7 +24,13 @@ const TillA = ()=>{
     useTitle("Inventroo | Till");
     const {loading,error,categories} = useSelector((state) => state.productCategories);
     const {loading:productLoading,error:productError,products} = useSelector((state) => state.products);
+    const {loading:addPaymentLoading,error:addPaymentError,success:paymentSuccess} = useSelector((state) => state.addPayment);
     const [cart,setCart]=useState([]);
+    const [credit,setCredit]= useState(0);
+    const [discount,setDiscount]= useState(0);
+    const [tips,setTips]= useState(0);
+    const [tax,setTax]= useState(0);
+
     
     useEffect(()=>{
       dispatch(getProductCategories())
@@ -50,7 +61,7 @@ const TillA = ()=>{
         );
       }else{
         setCart([...cart,
-          {rate:cost_price,product_id:productID,quantity,total_cost,product_name:name}])
+          {rate:cost_price,product_id:productID,quantity,total_cost,product_name:name,currency:"NGN"}])
       }
       
     }
@@ -84,10 +95,40 @@ const TillA = ()=>{
         );
       }
      }
-
-    const total = cart.reduce((accumulator,current)=> accumulator+current.total_cost,0);
+     const sub_total = cart.reduce((accumulator,current)=> accumulator+current.total_cost,0);
+    const total = sub_total +discount+tips+tax;
+    
+    
     console.log(cart);
    
+    const makePayment = ()=>{
+      const payments = new FormData();
+      payments.append("credit",0);
+      payments.append("discount",0);
+      payments.append("tips",0);
+      payments.append("payment_mode","cash");
+      payments.append("tax",0);
+      payments.append("sub_total",sub_total);
+      payments.append("total",total);
+      payments.append("currency",'NGN');
+      payments.append("items",JSON.stringify(cart));
+      dispatch(addCashPayment(payments));
+
+    }
+
+ 
+if(paymentSuccess){
+  closeModal("cashCalculator")
+  notify("success","Payment Successful");
+  dispatch(addCashPaymentComplete());
+  setCart([]);
+  openModal("receiptModal");
+}
+if(addPaymentError){
+  closeModal("cashCalculator")
+  notify("error",addPaymentError);
+  
+}
 
 return(
     <div className="content-body">
@@ -212,7 +253,7 @@ return(
                 <h4 className="font-weight-bold">Select Table</h4>
                 <h4 className="font-weight-bold">Table #1</h4>
               </div>
-    <table className="table table-responsive-md">
+    <table className="table table-responsive-sm">
   <thead>
     <tr>
       <th scope="col">Description</th>
@@ -296,7 +337,7 @@ return(
              
               <button className="btn btn-success col-md-3 mr-1">Split Bill</button>
               <button className="btn btn-success col-md-3 mr-1" data-toggle="modal" data-target="#cashCalculator">Cash Payment</button>
-              <button className="btn btn-success col-md-3 mr-1">Card Payment</button>
+              <button className="btn btn-success col-md-3 mr-1" data-toggle="modal" data-target="#cardPaymentModal">Card Payment</button>
             </div>
           </div>
 
@@ -313,6 +354,8 @@ return(
           btnCancelType="btn btn-outline-success"
           modalBody={false}
           enableTitle={false}
+          onClick={()=>makePayment()}
+          loading={addPaymentLoading}
           >
            
              
@@ -324,7 +367,49 @@ return(
           
           </Modal>
 
+          <Modal id="receiptModal" 
+          btnOk="Print Receipt" 
+          btnCancel="No Receipt"
+          btnOkType="btn btn-success"
+          btnCancelType="btn btn-outline-success"
+          modalBody={false}
+          enableTitle={false}
+          title={"Cash Payment"}
+          loading={false}
+          onCloseModal={()=>closeModal("receiptModal")}
+         
+          >
+            <div className="calculator-header bg-main p-1 text-white mb-1">
+                  <h4 className="text-center font-weight-bold">Cash Payment</h4>
+                </div>
+            <p className="m-5">Total: {total}</p>
+            </Modal>
+
+
+          
+
       </div>
+
+      <Modal id="cardPaymentModal" 
+          btnOk="Print Receipt" 
+          btnCancel="No Receipt"
+          btnOkType="btn btn-success"
+          btnCancelType="btn btn-outline-success"
+          modalBody={false}
+          enableTitle={false}
+          title={"Cash Payment"}
+          loading={false}
+         
+          >
+            <div className="calculator-header bg-main p-1 text-white mb-1">
+                  <h4 className="text-center font-weight-bold">Card Payment</h4>
+                </div>
+            <div className="m-3 d-flex justify-content-center flex-column">
+              <span className="mx-auto"  style={{ fontSize:"60px" }}>
+                <i className="fa fa-check-circle text-success"></i></span>
+              <h3 className="text-center">Card Payment Successful</h3>
+            </div>
+            </Modal>
       </div>
 )
 }

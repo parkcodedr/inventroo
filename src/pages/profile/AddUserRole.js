@@ -39,10 +39,9 @@ const AddUserRole = () => {
       modules:formattedModules,
       description:data.description
     }
-    console.log(params);
+  
     dispatch(addUserRole(params,token));
-    console.log(data);
-    console.log(formattedModules);
+
   }
 
 

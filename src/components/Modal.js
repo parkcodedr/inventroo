@@ -1,6 +1,8 @@
-const Modal = ({id,enableTitle,modalBody,title,mode,time,btnOk,btnCancel,btnOkType,btnCancelType,children})=>{
+import LoadingButton from 'components/LoadingButton';
+
+const Modal = ({loading,id,enableTitle,modalBody,title,mode,time,btnOk,btnCancel,btnOkType,btnCancelType,onClick,onCloseModal,children})=>{
     return (
-<div className="modal fade" id={id} tabindex="-1" aria-labelledby={id} aria-hidden="true">
+<div className="modal fade" id={id}  aria-labelledby={id} aria-hidden="true">
   <div className="modal-dialog modal-dialog-centered ">
     <div className="modal-content">
       {enableTitle? (
@@ -20,8 +22,14 @@ const Modal = ({id,enableTitle,modalBody,title,mode,time,btnOk,btnCancel,btnOkTy
         {children}
       </div>
       <div className="modal-footer">
-      <button type="button" data-dismiss="modal" className={`${btnCancelType}`}>{btnCancel}</button>
-        <button type="button" className={`${btnOkType}`} >{btnOk}</button>
+      <button type="button" data-dismiss="modal" className={`${btnCancelType}`} onClick={onCloseModal}>{btnCancel}</button>
+        {loading?(
+          <LoadingButton/>
+        ):(
+          <button type="button" className={`${btnOkType}`} onClick={onClick}>{btnOk}</button>
+        )}
+
+       
    
       </div>
     </div>
