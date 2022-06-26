@@ -60,30 +60,30 @@ export const addCashPayment = (cashPayment) => {
 }
 
 
-export const getCashPaymentsStart = () => {
+export const getPaymentsStart = () => {
     return {
-        type: actionTypes.GET_CASH_PAYMENT_START
+        type: actionTypes.GET_PAYMENTS_START
     };
 };
 
-export const getCashPaymentsSuccess = (payments) => {
+export const getPaymentsSuccess = (payments) => {
     return {
-        type: actionTypes.GET_CASH_PAYMENT_SUCCESS,
+        type: actionTypes.GET_PAYMENTS_SUCCESS,
         payments
     };
 };
 
-export const getCashPaymentsFail = (error) => {
+export const getPaymentsFail = (error) => {
     return {
-        type: actionTypes.GET_CASH_PAYMENT_FAIL,
+        type: actionTypes.GET_PAYMENTS_FAIL,
         error: error
     };
 };
 
-export const getCashPayments = () => {
+export const getPayments = () => {
     return (dispatch,getState) => {
         const {auth:{token}} = getState();
-        dispatch(getCashPaymentsStart());
+        dispatch(getPaymentsStart());
         try {
             const headers = {
                 'Content-Type': 'application/json',
@@ -92,16 +92,16 @@ export const getCashPayments = () => {
             ApiService.get("/payment/all",{headers})
                 .then(response => {
                     const {payments} = response.data;
-                    dispatch(getCashPaymentsSuccess(payments));
+                    dispatch(getPaymentsSuccess(payments));
                 }).catch(error => {
                     if (error.response) {
                         const { message } = error.response.data;
                         console.log(error.response.data);
-                        dispatch(getCashPaymentsFail(message));
+                        dispatch(getPaymentsFail(message));
 
                     } else if (error.request) {
                         console.log(error);
-                        dispatch(getCashPaymentsFail("Connection failure! Try Again"));
+                        dispatch(getPaymentsFail("Connection failure! Try Again"));
 
                     }
                     console.log(error.response);
@@ -227,36 +227,36 @@ export const updateCashPayment = (payment) => {
     }
 }
 
-export const deleteCashPaymentStart = () => {
+export const deletePaymentStart = () => {
     return {
         type: actionTypes.DELETE_CASH_PAYMENT_START
     };
 };
 
-export const deleteCashPaymentSuccess = () => {
+export const deletePaymentSuccess = () => {
     return {
         type: actionTypes.DELETE_CASH_PAYMENT_SUCCESS,
     };
 };
 
-export const deleteCashPaymentFail = (error) => {
+export const deletePaymentFail = (error) => {
     return {
         type: actionTypes.DELETE_CASH_PAYMENT_FAIL,
         error: error
     };
 };
 
-export const deleteCashPaymentComplete = () => {
+export const deletePaymentComplete = () => {
     return {
         type: actionTypes.DELETE_CASH_PAYMENT_COMPLETE,
     };
 };
 
 
-export const deleteCashPayment = (id) => {
+export const deletePayment = (id) => {
     return (dispatch,getState) => {
         const {auth:{token}} = getState();
-        dispatch(deleteCashPaymentStart());
+        dispatch(deletePaymentStart());
         try {
             const headers = {
                 'Content-Type': 'application/json',
@@ -265,16 +265,16 @@ export const deleteCashPayment = (id) => {
             ApiService.get(`/payment/remove?paymentID=${id}`,{headers})
                 .then(response => {
                     //const {manufacturers} = response.data;
-                    dispatch(deleteCashPaymentSuccess());
+                    dispatch(deletePaymentSuccess());
                 }).catch(error => {
                     if (error.response) {
                         const { ResponseMessage } = error.response.data;
                         console.log(error.response.data);
-                        dispatch(deleteCashPaymentFail(ResponseMessage));
+                        dispatch(deletePaymentFail(ResponseMessage));
 
                     } else if (error.request) {
                         console.log(error);
-                        dispatch(deleteCashPaymentFail("Connection failure! Try Again"));
+                        dispatch(deletePaymentFail("Connection failure! Try Again"));
 
                     }
                     console.log(error.response);

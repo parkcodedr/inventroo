@@ -37,21 +37,21 @@ export const addCashPaymentReducer = (state = initialState, action) => {
 }
 
 
-export const getCashPaymentReducer = (state = initialState, action) => {
+export const getPaymentReducer = (state = initialState, action) => {
     switch (action.type) {
-        case actionTypes.GET_CASH_PAYMENT_START:
+        case actionTypes.GET_PAYMENTS_START:
             return {
                 ...state,
                 loading: true,
             }
-        case actionTypes.GET_CASH_PAYMENT_SUCCESS:
+        case actionTypes.GET_PAYMENTS_SUCCESS:
             return {
                 loading: false,
                 payments:action.payments,
                 error: ""
             }
         
-        case actionTypes.GET_CASH_PAYMENT_FAIL:
+        case actionTypes.GET_PAYMENTS_FAIL:
             return {
                 loading: false,
                 error: action.error

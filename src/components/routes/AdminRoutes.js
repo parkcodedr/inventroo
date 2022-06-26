@@ -39,7 +39,8 @@ EditSalesOrder,
 EditProductCategory,
 Till,
 AddCreditNote,
-CreditNoteList
+CreditNoteList,
+PaymentList
 } from '../../pages';
 
 
@@ -267,6 +268,11 @@ export const routes = [
       path: "/dashboard/return/credit-note/new",
       exact: true,
       main: () => <AddCreditNote/>
+    },
+    {
+      path: "/dashboard/payment/all",
+      exact: true,
+      main: () => <PaymentList/>
     },
 
   ];

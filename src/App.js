@@ -2,6 +2,7 @@ import React,{useEffect} from 'react';
 import Loader from 'components/Loader';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer} from 'react-toastify';
+import 'rsuite/dist/rsuite.min.css';
 import {
   Switch,
   Route,
