@@ -138,8 +138,7 @@ return(
                     <ul className="nav">
                     <li className="nav-item">
                             <a className="nav-link active" href="#">
-                            <img src="/app-assets/images/logo/troo-logo-white.png"
-                  alt="branding logo" className="logo-image"/>
+                            <img src="/app-assets/images/logo/troo-logo-color.png"alt="branding logo" className="logo-image"/>
                             </a>
                         </li>
                         <li className="nav-item pl-3">

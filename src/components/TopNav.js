@@ -146,7 +146,7 @@ const TopNav = () => {
 
                             <img className="mx-auto"  width="50%" height="50%" alt="user" src="/app-assets/images/logo/user-64.png"/>
 
-                          <h4 className="text-center mt-2">OLA BANJI</h4>
+                          <h5 className="text-center mt-2">OLA BANJI</h5>
 
                           <div className="text-center mt-0 mx-auto">
                             <p>User ID: 7865748</p>
@@ -169,7 +169,7 @@ const TopNav = () => {
                       </li>
                         <div className="d-flex justify-content-between p-2 bg-white">
                         <div>
-                        <h4>Gabriel</h4>
+                        <h6>Gabriel</h6>
                         <p>Organization ID: 0908776</p>
                         <p>FREE</p>
                         </div>

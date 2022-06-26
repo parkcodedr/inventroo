@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {ErrorMessage} from 'components/Message';
 import Loader from 'components/Loader';
 import { useTitle } from 'components/hooks/useTitle';
+import { Table,Pagination } from 'rsuite';
 import {getCustomers,deleteCustomer,deleteCustomerComplete} from 'store/actions/customers';
 
 const CustomerList = () => {
@@ -13,6 +14,21 @@ const CustomerList = () => {
     const deleteState = useSelector((state) => state.deleteCustomer);
     const {loading:deleteLoading,error:deleteError,success:deleteSuccess} = deleteState;
     const { token} = useSelector((state) => state.auth);
+
+    const [limit, setLimit] = React.useState(10);
+  const [page, setPage] = React.useState(1);
+
+  const handleChangeLimit = dataKey => {
+    setPage(1);
+    setLimit(dataKey);
+  };
+
+  const data = customers && customers.filter((v, i) => {
+    const start = limit * (page - 1);
+    const end = start + limit;
+    return i >= start && i < end;
+  });
+
 
     useEffect(()=>{
       if(deleteSuccess){
@@ -34,83 +50,103 @@ const CustomerList = () => {
 
 </div>
         </>
-          <div className="row d-flex justify-content-between ml-2 mr-5 ">
-<div className="">
-  <h3 className="font-weight-bold">
-  All Customers
-  </h3>
-
-</div>
-<Link to={'/dashboard/customer/new'}>
-    <button className="btn btn-success">
-        <i className="feather icon-plus"></i>
-        New
-    </button>
-</Link>
-    </div>
+  
         {loading? (
           <Loader/>
         ):error?(
           <ErrorMessage message={error}/>
         ):(
 
-        <div className="unit-list mt-2">
+        <div className="customer-list">
+          <div className="row d-flex justify-content-between ml-2 mr-5 mb-1">
+
+            <h5 className="font-weight-bold">
+            All Customers
+            </h5>
+
+          <Link to={'/dashboard/customer/new'}>
+            <button className="btn btn-success">
+                <i className="feather icon-plus"></i>
+                New
+            </button>
+          </Link>
+    </div>
+          <Table height={420} data={data} loading={loading}>
+        <Table.Column flexGrow={1} align="center" fixed>
+          <Table.HeaderCell style={{ padding: 4, backgroundColor: '#4c27b3', color: '#fff' }}>
+            <h6>Name</h6></Table.HeaderCell>
+          <Table.Cell dataKey="name" />
+        </Table.Column>
+
+        <Table.Column flexGrow={1} fixed>
+          <Table.HeaderCell style={{ padding: 4, backgroundColor: '#4c27b3', color: '#fff' }}>
+            <h6>Company</h6></Table.HeaderCell>
+          <Table.Cell dataKey="company_name" />
+        </Table.Column>
+
+        <Table.Column flexGrow={1} fixed>
+          <Table.HeaderCell style={{ padding: 4, backgroundColor: '#4c27b3', color: '#fff' }}>
+            <h6>Email</h6></Table.HeaderCell>
+          <Table.Cell dataKey="customer_email" />
+        </Table.Column>
+
+        <Table.Column flexGrow={1} fixed>
+          <Table.HeaderCell style={{ padding: 4, backgroundColor: '#4c27b3', color: '#fff' }}>
+            <h6>Work Phone</h6></Table.HeaderCell>
+          <Table.Cell dataKey="work_phone" />
+        </Table.Column>
+        <Table.Column flexGrow={1} fixed>
+          <Table.HeaderCell style={{ padding: 4, backgroundColor: '#4c27b3', color: '#fff' }}><h6>Date</h6></Table.HeaderCell>
+          <Table.Cell>
+          {'0.00'}
+            </Table.Cell>
+        </Table.Column>
+
+        <Table.Column flexGrow={1} fixed>
+          <Table.HeaderCell style={{ padding: 4, backgroundColor: '#4c27b3', color: '#fff' }}><h6>Action</h6></Table.HeaderCell>
+          <Table.Cell>
+          {rowData => {
+            return (
+              <span>
+               <Link to={`/dashboard/customer/${rowData.customerID}/edit`}>
+                  
+                  <i className="feather icon-edit"></i>
+                  
+                      </Link>
+          
+                  <i className="feather icon-trash-2 ml-1 pointer" onClick={()=>deleteHandler(rowData)}></i> 
+              </span>
+            );
+          }}
+        </Table.Cell>
+      
+        </Table.Column>
+        
+      </Table>
+      <div style={{ padding: 20 }}>
+        <Pagination
+          prev
+          next
+          first
+          last
+          ellipsis
+          boundaryLinks
+          maxButtons={5}
+          size="sm"
+          layout={['total', '-', 'limit', '|', 'pager', 'skip']}
+          total={customers.length}
+          limitOptions={[10, 20,50,100]}
+          limit={limit}
+          activePage={page}
+          onChangePage={setPage}
+          onChangeLimit={handleChangeLimit}
+        />
+      </div>
+
+
 
           
-<section id="configuration">
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header">
-                    
-                    <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
-                   
-                </div>
-                <div class="card-content collapse show">
-                    <div class="card-body card-dashboard">
-                        <p class="card-text"></p>
-                        <table class="table table-striped table-bordered zero-configuration">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Company</th>
-                                    <th>Email</th>
-                                    <th>work Phone</th>
-                                    <th>Receivables</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-      {customers && customers.map(customer=>(
-          <tr key={customer.customerID}>
-                <td>{customer.name}</td>
-                <td>{customer.company_name}</td>
-                <td>{customer.customer_email}</td>
-                <td>{customer.work_phone}</td>
-                <td>{'0.00'}</td>
-              
-                <td>
-                  <Link to={`/dashboard/customer/${customer.customerID}/edit`}>
-                  
-              <i className="feather icon-edit"></i>
-              
-                  </Link>
-      
-              <i className="feather icon-trash-2 ml-1 pointer" onClick={()=>deleteHandler(customer)}></i>
-              
-              </td>
-                </tr>
-      ))}
-      
-                            </tbody>
-                          
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+
         </div>
 
 
