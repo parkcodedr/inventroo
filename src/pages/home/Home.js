@@ -2,12 +2,15 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { usePageSetup } from "components/hooks/usePageSetup";
 import HeroSection from './HeroSection';
-import Services from './Features';
+import Features from './Features';
+import { services } from "components/features";
+import ServiceCard from './ServiceCard';
 
 
 const Home = () => {
   usePageSetup();
     return (
+        <>
         <section className="home-bg">
             <div className="container">
               <nav  className="header-navbar navbar-expand-sm navbar navbar-with-menu ">
@@ -29,7 +32,7 @@ const Home = () => {
                             <div id="navbar-mobile1" className="collapse navbar-collapse">
                                 <ul className="nav navbar-nav mr-auto">
                                     <li className="nav-item dropdown">
-                                        <a className="nav-link dropdown-toggle h5 font-weight-bold" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Products</a>
+                                        <a className="nav-link dropdown-toggle h5 " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Products</a>
                                         <div className="dropdown-menu">
                                             <a className="dropdown-item" href="#">tilltroo</a>
                                             <a className="dropdown-item" href="#">inventroo</a>
@@ -39,7 +42,7 @@ const Home = () => {
                                         </div>
                                     </li>
                                     <li className="nav-item dropdown">
-                                        <a className="nav-link dropdown-toggle h5 font-weight-bold" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Businesses</a>
+                                        <a className="nav-link dropdown-toggle h5 " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Businesses</a>
                                         <div className="dropdown-menu">
                                         <a className="dropdown-item" href="#">tilltroo</a>
                                             <a className="dropdown-item" href="#">inventroo</a>
@@ -49,7 +52,7 @@ const Home = () => {
                                         </div>
                                     </li>
                                     <li className="nav-item dropdown">
-                                        <a className="nav-link dropdown-toggle h5 font-weight-bold" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Shops</a>
+                                        <a className="nav-link dropdown-toggle h5" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Shops</a>
                                         <div className="dropdown-menu">
                                         <a className="dropdown-item" href="#">tilltroo</a>
                                             <a className="dropdown-item" href="#">inventroo</a>
@@ -84,11 +87,11 @@ const Home = () => {
                         </div>
                     </div>
                 </nav>
-                <main className="mt-3">
+                <main className="mt-5">
                 <HeroSection/>
                 </main>
                 <div className="text-center mx-auto mt-5">
-                  <h3 className="color-main">Feature Rich Software, Hardware and Payments
+                  <h3 className="color-main mt-5">Feature Rich Software, Hardware and Payments
                   </h3>
                   <h3 className="color-main">Designed for Your Business</h3>
                   <p className="hero-text mt-2">Whether you are just starting out, or looking to scale
@@ -97,10 +100,21 @@ const Home = () => {
                   <p className="hero-text">operating system helps you streamline your operations.</p>
                 </div>
 
-                <Services/>
+                <Features/>
         </div>
-
+        
         </section>
+       {
+        services.map(service=>(
+            <ServiceCard
+            service={service}
+            
+
+            />
+        ))
+       }
+
+        </>
     )
 }
 
