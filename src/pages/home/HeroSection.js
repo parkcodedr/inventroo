@@ -1,19 +1,19 @@
 const HeroSection = ()=>{
 return(
-    <div className="row">
-        <section className="col-md-6">
+    <div className="row mx-auto justify-content-center ml-lg-3">
+        <section className="col-md-7">
             <h5>Hassle-free Business Operations For SMEs</h5>
-            <h1 className="font-weight-bold">Cloud-based</h1>
-            <h1>retail tech stack</h1>
-            <h1>build for <span className="color-main">Inventory.</span></h1>
-            <p>Troo offers smart point-of-sales system for every</p>
-            <p>Setup shops, take orders, accept payments, track inventory
-                grow sales and manage employees all in one place
+            <h1 className="font-weight-bolder hero-title">Cloud-based</h1>
+            <h1 className="font-weight-bolder hero-title">retail tech stack</h1>
+            <h1 className="font-weight-bolder hero-title">build for <span className="color-main">Inventory.</span></h1>
+            <p className="hero-text mt-1">Troo offers smart point-of-sales system for every</p>
+            <p className="hero-text">Setup shops, take orders, accept payments, track inventory
+                <br/>grow sales and manage employees all in one place
             </p>
-            <button className="btn col-md-4 btn-main mr-2 ml-2 mt-1">Get Started</button>
+            <button className="btn col-md-5 btn-main pr-2 pl-2 mt-2">Get Started</button>
         </section>
-        <section className="col-md-6">
-        <img src="/app-assets/images/" alt="Shop"/>
+        <section className="col-md-5">
+        <img src="/app-assets/images/shop3.jpg" className="round mx-auto" alt="Shop"/>
         </section>
 
     </div>
