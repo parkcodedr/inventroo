@@ -2,7 +2,7 @@ const HeroSection = ()=>{
 return(
     <div className="row mx-auto justify-content-center ml-lg-3">
         <section className="col-md-7">
-            <h5>Hassle-free Business Operations For SMEs</h5>
+            <h5 className="color-main">Hassle-free Business Operations For SMEs</h5>
             <h1 className="font-weight-bolder hero-title">Cloud-based</h1>
             <h1 className="font-weight-bolder hero-title">retail tech stack</h1>
             <h1 className="font-weight-bolder hero-title">build for <span className="color-main">Inventory.</span></h1>
@@ -13,7 +13,7 @@ return(
             <button className="btn col-md-5 btn-main pr-2 pl-2 mt-2">Get Started</button>
         </section>
         <section className="col-md-5">
-        <img src="/app-assets/images/shop3.jpg" className="round mx-auto" alt="Shop"/>
+        <img src="/app-assets/images/backgrounds/hero section image.png"  className="image-responsive " alt="Shop"/>
         </section>
 
     </div>

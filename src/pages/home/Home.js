@@ -2,14 +2,15 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { usePageSetup } from "components/hooks/usePageSetup";
 import HeroSection from './HeroSection';
-import Services from './Services';
+import Services from './Features';
 
 
 const Home = () => {
   usePageSetup();
     return (
-        <div className="container">
-              <nav  className="header-navbar navbar-expand-sm navbar navbar-with-menu navbar-light ">
+        <section className="home-bg">
+            <div className="container">
+              <nav  className="header-navbar navbar-expand-sm navbar navbar-with-menu ">
                     <div className="navbar-wrapper">
                         <div className="navbar-header">
                             <ul className="nav navbar-nav mr-auto">
@@ -63,7 +64,7 @@ const Home = () => {
                                   <span className="nav-link mt-1">
                                   <fieldset class="form-group position-relative has-icon-left">
                             <input type="text" class="form-control mb-1" 
-                                placeholder="Search"/>
+                                placeholder="Search" style={{borderRadius:'10px'}} />
                             <div class="form-control-position">
                                 <i class="feather icon-search"></i>
                             </div>
@@ -98,6 +99,8 @@ const Home = () => {
 
                 <Services/>
         </div>
+
+        </section>
     )
 }
 

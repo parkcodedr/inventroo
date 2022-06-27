@@ -535,6 +535,7 @@ background:#8c51eb;
 
 .bg-error{
   background-image:url('/app-assets/images/backgrounds/ErrorPage.jpg')
+
 }
 .image-responsive {
 width: 100%;
@@ -555,9 +556,22 @@ height:100%;
   font-size:16px;
   line-height: 1.4rem;
 }
+.home-bg{
+top: 0px;
+left: 0px;
+background: transparent url('/app-assets/images/backgrounds/Mask Group 39.png') 0% 0% no-repeat ;
+opacity: 1;
+background-size: contain;
+}
 
-
-
+.features-text{
+  line-height: 1.5em;
+  font-size:16px;
+}
+.img-small{
+  width:15%;
+  height:15%;
+}
 
 
 
