@@ -12,7 +12,7 @@ const ServiceCard = ({service})=>{
                 <section className="col-md-8 p-lg-5">
                 <img src={`/app-assets/images/backgrounds/${service.logo}`} className="col-md-3 mt-2"  />
                 <h4 className="color-main mt-1 mb-1">{service.title}</h4>
-                <div className="col-md-8 justify-content-end">
+                <div className="col-md-8 justify-content-end color-main">
                
                 <ul className="hero-text">
                     {service.items.map((item,index)=>(
