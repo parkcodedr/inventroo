@@ -9,12 +9,14 @@ const ServiceCard = ({service})=>{
                  <img src={`/app-assets/images/backgrounds/${service.image}`} className="image-responsive" />
                  </div>
 
-                <section className="col-md-8 p-lg-5">
-                <img src={`/app-assets/images/backgrounds/${service.logo}`} className="col-md-3 mt-2"  />
-                <h4 className="color-main mt-1 mb-1">{service.title}</h4>
-                <div className="col-md-8 justify-content-end color-main">
-               
-                <ul className="hero-text">
+                <section className="col-md-8">
+                <img src={`/app-assets/images/backgrounds/${service.logo}`} className="col-md-3 mt-2 ml-lg-5"  />
+                <h4 className="color-main mt-1 mb-1 ml-lg-5">{service.title}</h4>
+                <div className="col-md-8 color-main">
+               <section>
+
+                   
+                <ul className="hero-text ml-lg-5">
                     {service.items.map((item,index)=>(
                         <li className="mb-1" key={index}>
                             {item}
@@ -22,7 +24,8 @@ const ServiceCard = ({service})=>{
                     ))}
                     
                 </ul>
-                <button className="btn col-md-5 btn-main pr-lg-2 pl-lg-2 mt-2">Learn more</button>
+                <button className="btn col-md-5 btn-main pr-lg-2 pl-lg-2 mt-2 ml-lg-5">Learn more</button>
+               </section>
             
                 </div>
                 </section>
