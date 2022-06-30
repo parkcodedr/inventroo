@@ -9,7 +9,7 @@ const ServiceCard = ({service})=>{
                  <img src={`/app-assets/images/backgrounds/${service.image}`} className="image-responsive" />
                  </div>
 
-                <section className="col-md-8">
+                <section className="col-md-8 mt-5 pl-lg-5">
                 <img src={`/app-assets/images/backgrounds/${service.logo}`} className="col-md-3 mt-2 ml-lg-5"  />
                 <h4 className="color-main mt-1 mb-1 ml-lg-5">{service.title}</h4>
                 <div className="col-md-8 color-main">
@@ -34,7 +34,7 @@ const ServiceCard = ({service})=>{
             ):(
                 <>
          
-                <section className="col-md-8 p-lg-5">
+                <section className="col-md-8 pl-lg-5">
                 <img src={`/app-assets/images/backgrounds/${service.logo}`} className="col-md-3 mt-2"  />
                 <h4 className="color-main mt-1 mb-1">Android Compactible POS Hardware & Accessories</h4>
                 <div className="col-md-8">
