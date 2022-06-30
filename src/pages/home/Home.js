@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom'
 import { usePageSetup } from "components/hooks/usePageSetup";
 import HeroSection from './HeroSection';
 import Features from './Features';
-import { services } from "components/features";
+import { services,screenCard } from "components/features";
 import ServiceCard from './ServiceCard';
 import Store from './Store';
+import ScreenCard from 'components/ScreenCard';
 
 
 const Home = () => {
@@ -115,6 +116,22 @@ const Home = () => {
         ))
        }
        <Store/>
+
+       <div className="row mx-auto mt-5 justify-content-center">
+       <h4 className="text-center color-main">Accessories Tailor-Made For Retail</h4>
+       </div>
+       <section className="row mx-auto justify-content-center mt-5">
+
+       {
+           screenCard.map(cardItem=>(
+               <div className="col-md-3">
+               <ScreenCard cardDetail={cardItem} />
+               </div>
+           ))
+       }
+
+       </section>
+       
         </section>
        
 

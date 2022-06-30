@@ -81,3 +81,37 @@ export const services = [
     },
     
 ]
+
+export const screenCard = [
+    {
+        id:1,
+        image:'till device image.png',
+        title:"Set Up Smart With Tilltroo Station Pro",
+        items:[
+           "Android based smart cash register system complete with HD dual screen, cash box, printer and bar code scanner.",
+           "Offers fast checkout capabilities, payment collection",
+        //    "Run Troo's software on this set up to effectively manage your business."
+        ]
+    },
+    {
+        id:2,
+        image:'pos device.png',
+        title:"No Limit Transactions With Tilltroo Go",
+        items:[
+           "All in one hand-held smart POS system. This multi-purpose device offers payments, cash register and inventory tracking capabilities.",
+           "Now you can serve customers on the go  ",
+         
+        ]
+    },
+
+    {
+        id:3,
+        image:'card scan device.png',
+        title:"Accept Payments With Paytroo Mini",
+        items:[
+           "Comes complete with a mobile app for tracking and payment logs.",
+           "Pair this device with your smart phone to start processing payments instantly.",
+         
+        ]
+    },
+]

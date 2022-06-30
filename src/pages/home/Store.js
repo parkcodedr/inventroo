@@ -14,16 +14,16 @@ return(
     </section>
     <div className="row mx-auto justify-content-center mt-3">
     <div className="col-md-4 m-1">
-    <img src="app-assets/images/backgrounds/restaurant image.png" className="image-responsive" />
+    <img src="/app-assets/images/backgrounds/restaurant image.png" className="image-responsive" />
     </div>
     <div className="col-md-4 m-1">
-    <img src="app-assets/images/backgrounds/retail stores & supermarket.png" className="image-responsive"/>
+    <img src="/app-assets/images/backgrounds/retail stores & supermarket.png" className="image-responsive"/>
     </div>
     <div className="col-md-4 m-1">
-    <img src="app-assets/images/backgrounds/service businesses.png" className="image-responsive"/>
+    <img src="/app-assets/images/backgrounds/service businesses.png" className="image-responsive"/>
     </div>
     <div className="col-md-4 m-1">
-    <img src="app-assets/images/backgrounds/fashion apparel.png" className="image-responsive" />
+    <img src="/app-assets/images/backgrounds/fashion apparel.png" className="image-responsive" />
     </div>
     </div>
     </div>
