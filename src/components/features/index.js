@@ -98,7 +98,7 @@ export const screenCard = [
         image:'pos device.png',
         title:"No Limit Transactions With Tilltroo Go",
         items:[
-           "All in one hand-held smart POS system. This multi-purpose device offers payments, cash register and inventory tracking capabilities.",
+           "All in one hand-held smart POS system. This multi-purpose device offers payments, cash register and inventory tracking.",
            "Now you can serve customers on the go  ",
          
         ]

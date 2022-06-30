@@ -13,8 +13,24 @@ return(
 
     </section>
     <div className="row mx-auto justify-content-center mt-3">
-    <div className="col-md-4 m-1">
+
+    {/* <div className="col-md-4 m-1 flip">
+    <div class="flip-card-inner">
+    <div class="flip-card-front">
     <img src="/app-assets/images/backgrounds/restaurant image.png" className="image-responsive" />
+    </div>
+    
+    <div class="flip-card-back">
+      <h1>John Doe</h1> 
+      <p>Architect & Engineer</p> 
+      <p>We love that guy</p>
+    </div>
+    </div>
+
+    </div> */}
+
+<div className="col-md-4 m-1">
+    <img src="/app-assets/images/backgrounds/restaurant image.png" className="image-responsive"/>
     </div>
     <div className="col-md-4 m-1">
     <img src="/app-assets/images/backgrounds/retail stores & supermarket.png" className="image-responsive"/>

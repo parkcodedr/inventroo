@@ -7,6 +7,7 @@ import { services,screenCard } from "components/features";
 import ServiceCard from './ServiceCard';
 import Store from './Store';
 import ScreenCard from 'components/ScreenCard';
+import Footer from 'components/Footer';
 
 
 const Home = () => {
@@ -79,9 +80,9 @@ const Home = () => {
                                       
                                     </li>
                                     <li className="dropdown dropdown-user nav-item">
-                                      <a className="nav-link">
+                                      <Link className="nav-link" to="/register">
                                       <button className="btn btn-success">Sign up</button>
-                                      </a>
+                                      </Link>
                                       
                                     </li>
                                 </ul>
@@ -131,6 +132,8 @@ const Home = () => {
        }
 
        </section>
+
+       <Footer/>
        
         </section>
        
