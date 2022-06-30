@@ -50,6 +50,7 @@ import PaymentList from './payment/PaymentList';
 
 
 const Login = React.lazy(() => import("./auth/Login"));
+const ConnectSales = React.lazy(() => import("./auth/ConnectSales"));
 
 
 
@@ -73,6 +74,7 @@ Home,
 Confirm,
 AdminDashboard,
 Login,
+ConnectSales,
 PageNotFound,
 EmailConfirmation,
 EditManufacturer,

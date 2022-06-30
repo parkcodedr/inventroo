@@ -636,3 +636,8 @@ background-size: contain;
 }
 
 
+.bg-sales{
+  background:url("/app-assets/images/backgrounds/connect-sales.png");
+  background-size:cover;
+  background-repeat: no-repeat;
+}

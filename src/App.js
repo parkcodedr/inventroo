@@ -11,6 +11,7 @@ import {
   Home,
   Register,
   Login,
+  ConnectSales,
   AdminDashboard,
   EmailConfirmation,
   Confirm,
@@ -36,6 +37,11 @@ export default function App() {
           <Route path="/login">
           <React.Suspense fallback={<p className="d-flex justify-content-center align-items-center"><Loader/></p>}>
           <Login/>
+            </React.Suspense>
+          </Route>
+          <Route path="/connect-sales">
+          <React.Suspense fallback={<p className="d-flex justify-content-center align-items-center"><Loader/></p>}>
+          <ConnectSales/>
             </React.Suspense>
           </Route>
           <Route path="/dashboard">
