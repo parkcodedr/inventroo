@@ -80,6 +80,8 @@ export const getProductsFail = (error) => {
     };
 };
 
+
+
 export const getProducts = () => {
     return (dispatch,getState) => {
         const {auth:{token}} = getState();
@@ -103,6 +105,102 @@ export const getProducts = () => {
                     } else if (error.request) {
                         console.log(error);
                         dispatch(getProductsFail("Connection failure! Try Again"));
+
+                    }
+                    console.log(error.response);
+                })
+        } catch (e) {
+            console.log(e);
+        }
+    }
+}
+
+
+export const searchProduct = (searchTerm) => {
+    return (dispatch,getState) => {
+        const {auth:{token}} = getState();
+        dispatch(getProductsStart());
+        try {
+            const headers = {
+                'Content-Type': 'application/json',
+                'Authorization':`Bearer ${token}`
+            }
+            ApiService.get(`/product/searchProduct?search_value=${searchTerm}`,{headers})
+                .then(response => {
+                    const {products} = response.data;
+                    console.log(products);
+                    dispatch(getProductsSuccess(products));
+                }).catch(error => {
+                    if (error.response) {
+                        const { message } = error.response.data;
+                        console.log(error.response.data);
+                        dispatch(getProductsFail(message));
+
+                    } else if (error.request) {
+                        console.log(error);
+                        dispatch(getProductsFail("Connection failure! Try Again"));
+
+                    }
+                    console.log(error.response);
+                })
+        } catch (e) {
+            console.log(e);
+        }
+    }
+}
+
+
+
+export const getScanProductStart = () => {
+    return {
+        type: actionTypes.GET_SCAN_PRODUCT_START
+    };
+};
+
+export const getScanProductSuccess = (product) => {
+    return {
+        type: actionTypes.GET_SCAN_PRODUCT_SUCCESS,
+        product
+    };
+};
+
+export const getScanProductComplete = () => {
+    return {
+        type: actionTypes.GET_SCAN_PRODUCT_COMPLETE,
+    };
+};
+
+
+export const getScanProductFail = (error) => {
+    return {
+        type: actionTypes.GET_SCAN_PRODUCT_FAIL,
+        error: error
+    };
+};
+
+export const getScanProduct = (code) => {
+    return (dispatch,getState) => {
+        const {auth:{token}} = getState();
+        dispatch(getScanProductStart());
+        try {
+            const headers = {
+                'Content-Type': 'application/json',
+                'Authorization':`Bearer ${token}`
+            }
+            ApiService.get(`/product/scanProduct?search_value=${code}`,{headers})
+                .then(response => {
+                    const {product} = response.data;
+                    console.log(product);
+                    dispatch(getScanProductSuccess(product));
+                }).catch(error => {
+                    if (error.response) {
+                        const { ResponseMessage } = error.response.data;
+                        console.log(error.response.data);
+                        dispatch(getScanProductFail(ResponseMessage));
+
+                    } else if (error.request) {
+                        console.log(error);
+                        dispatch(getScanProductFail("Connection failure! Try Again"));
 
                     }
                     console.log(error.response);

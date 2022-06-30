@@ -1,7 +1,8 @@
 import React,{useEffect} from 'react';
-
+import Loader from 'components/Loader';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer} from 'react-toastify';
+import 'rsuite/dist/rsuite.min.css';
 import {
   Switch,
   Route,
@@ -17,8 +18,9 @@ import {
   UserRoles,
   OrganizationProfile,
   PageNotFound} from './pages'
-import TillA from 'pages/TillA';
-import TillB from 'pages/TillB';
+import TillA from 'pages/till/TillA';
+import TillB from 'pages/till/TillB';
+import Kds from 'pages/till/Kds';
 
 export default function App() {
 
@@ -32,7 +34,7 @@ export default function App() {
             <Register />
           </Route>
           <Route path="/login">
-          <React.Suspense fallback={<>Loading...</>}>
+          <React.Suspense fallback={<p className="d-flex justify-content-center align-items-center"><Loader/></p>}>
           <Login/>
             </React.Suspense>
           </Route>
@@ -61,6 +63,9 @@ export default function App() {
           </Route>
           <Route path="/till/glocery">
            <TillB/>
+          </Route>
+          <Route path="/till/kds">
+           <Kds/>
           </Route>
 
       <Route path="*">

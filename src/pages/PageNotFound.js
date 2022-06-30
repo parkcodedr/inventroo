@@ -3,7 +3,7 @@ import { useTitle } from 'components/hooks/useTitle';
 const PageNotFound = () => {
     useTitle("Inventroo | 404");
     return ( 
-        <div className="content-body">
+        <div className="content-body" style={{ backgroundImage:"url(/app-assets/images/backgrounds/ErrorPage.jpg)" }}>
         <section className="flexbox-container">
         <div className="col-12 d-flex align-items-center justify-content-center">
     <div className="col-lg-4 col-md-8 col-10 p-0">

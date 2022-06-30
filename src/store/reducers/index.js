@@ -21,6 +21,7 @@ import { addInventoryAdjustmentReducer,getInventoryAdjustmentsReducer,getInvento
 import {addCustomerReducer,getCustomersReducer,getCustomerDetailReducer,updateCustomerReducer,deleteCustomerReducer} from './customers';
 import {addProductCategoryReducer,getProductCategoriesReducer,getProductCategoryDetailReducer,updateProductCategoryReducer,deleteProductCategoryReducer} from './productCategory';
 import { addSalesOrderReducer, deleteSalesOrderReducer, getSalesOrderDetailReducer, getSalesOrderReducer, updateSalesOrderReducer } from "./salesOrder";
+import { addCashPaymentReducer, deleteCashPaymentReducer, getCashPaymentDetailReducer, getPaymentReducer, updateCashPaymentReducer } from "./payment";
 
 const rootReducer = combineReducers({
     auth: authReducer,
@@ -85,7 +86,12 @@ const rootReducer = combineReducers({
     salesOrder:getSalesOrderReducer,
     salesOrderDetail:getSalesOrderDetailReducer,
     updateSalesOrder:updateSalesOrderReducer,
-    deleteSalesOrder:deleteSalesOrderReducer
+    deleteSalesOrder:deleteSalesOrderReducer,
+    addPayment:addCashPaymentReducer,
+    payments:getPaymentReducer,
+    paymentDetail:getCashPaymentDetailReducer,
+    updatePayment:updateCashPaymentReducer,
+    deletePayment:deleteCashPaymentReducer
 });
 
 export default rootReducer;

@@ -20,7 +20,7 @@ const TopNav = () => {
     return (
         <nav className="header-navbar navbar-expand-lg navbar navbar-with-menu fixed-top navbar-semi-dark">
       <div className="navbar-wrapper">
-        <div className="navbar-header bg-dark-nav" style={{ background:"#3d199f" }}>
+        <div className="navbar-header bg-dark-nav" style={{ background:"#3d199f",height:' 4.3rem' }}>
           <ul className="nav navbar-nav flex-row">
             <li className="nav-item mobile-menu d-lg-none mr-auto">
                 <a className="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i className="feather icon-menu font-large-1"></i></a></li>
@@ -105,10 +105,11 @@ const TopNav = () => {
                   <a className="nav-link" ><i className="ficon feather icon-refresh-cw"></i>
               </a>
               </li>
+              
 
-              <div className="col-xl-8 col-lg-8 col-md-8 d-flex align-items-center ">
+              <div className="col-md-6  align-items-center" style={{ marginTop:'0.6rem' }}>
                 <fieldset className="form-group has-icon-left search-bar">
-                    <select className="custom-select pl-3 round" id="customSelect" style={{ height:"32px" }}>
+                    <select className="custom-select pl-3 round" style={{ height:"38px" }}>
                         <option >Search in Items</option>
                         <option value="1">Customers</option>
                         <option value="2">Vendors</option>
@@ -145,7 +146,7 @@ const TopNav = () => {
 
                             <img className="mx-auto"  width="50%" height="50%" alt="user" src="/app-assets/images/logo/user-64.png"/>
 
-                          <h4 className="text-center mt-2">OLA BANJI</h4>
+                          <h5 className="text-center mt-2">OLA BANJI</h5>
 
                           <div className="text-center mt-0 mx-auto">
                             <p>User ID: 7865748</p>
@@ -168,7 +169,7 @@ const TopNav = () => {
                       </li>
                         <div className="d-flex justify-content-between p-2 bg-white">
                         <div>
-                        <h4>Gabriel</h4>
+                        <h6>Gabriel</h6>
                         <p>Organization ID: 0908776</p>
                         <p>FREE</p>
                         </div>

@@ -41,7 +41,7 @@ export const getProductCategoriesReducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.GET_PRODUCT_CATEGORIES_START:
             return {
-                ...state,
+                
                 loading: true,
             }
         case actionTypes.GET_PRODUCT_CATEGORIES_SUCCESS:

@@ -407,7 +407,6 @@ svg circle {
   padding-right:22px;
 }
 
-
 .logo-image{
   height: 60%;
   width:60%;
@@ -415,30 +414,6 @@ svg circle {
 .till-image {
   cursor:pointer;
 }
-
-
-.switchToggle input[type=checkbox]{height: 0; width: 0; visibility: hidden; position: absolute; }
-.switchToggle .table-label {cursor: pointer; text-indent: -9999px; width: 190px; max-width: 190px; height: 42px; background: transparent;border:1px solid gray; display: block; border-radius: 100px; position: relative; }
-.switchToggle .table-label:after {content: 'Takeout'; position: absolute; top: 2px; left: 2px; width: 90px; height: 36px; background: #a080f8; border-radius: 90px; transition: 0.3s; }
-.switchToggle input:checked + .table-label, .switchToggle input:checked + input + .table-label  {background: transparent }
-
-.switchToggle input + .table-label:before, .switchToggle input + input + label:before {content: 'Takeout'; position: absolute; top: 10px; left: 110px; width: 36px; height: 26px; border-radius: 90px; transition: 0.3s; text-indent: 0; color: #fff; }
-.switchToggle input:checked + label:before, .switchToggle input:checked + input + .table-label:before {content: 'Eat-in'; position: absolute; top: 10px; left: 20px; width: 56px; height: 26px; border-radius: 90px; transition: 0.3s; text-indent: 0; color: #fff; }
-.switchToggle input:checked + .table-label:after, .switchToggle input:checked + input + .table-label:after {left: calc(100% - 2px); transform: translateX(-100%); }
-.switchToggle .table-label:active:after {width: 60px; } 
-.toggle-switchArea { margin: 10px 0 10px 0; }
-
-
-.switchToggle input[type=checkbox]{height: 0; width: 0; visibility: hidden; position: absolute; }
-.switchToggle .label-switch {cursor: pointer; text-indent: -9999px; width: 190px; max-width: 190px; height: 42px; background: transparent;border:1px solid gray; display: block; border-radius: 100px; position: relative; }
-.switchToggle .label-switch:after {content: 'Takeout'; position: absolute; top: 2px; left: 2px; width: 90px; height: 36px; background: #a080f8; border-radius: 90px; transition: 0.3s; }
-.switchToggle input:checked + .label-switch, .switchToggle input:checked + input + .label-switch  {background: transparent }
-
-.switchToggle input + .label-switch:before, .switchToggle input + input + .label-switch:before {content: 'Scan'; position: absolute; top: 10px; left: 110px; width: 36px; height: 26px; border-radius: 90px; transition: 0.3s; text-indent: 0; color: #fff; }
-.switchToggle input:checked + .label-switch:before, .switchToggle input:checked + input + label:before {content: 'Search'; position: absolute; top: 10px; left: 20px; width: 56px; height: 26px; border-radius: 90px; transition: 0.3s; text-indent: 0; color: #fff; }
-.switchToggle input:checked + .label-switch:after, .switchToggle input:checked + input + label:after {left: calc(100% - 2px); transform: translateX(-100%); }
-.switchToggle .label-switch:active:after {width: 60px; } 
-.toggle-switchArea { margin: 10px 0 10px 0; }
 
 
 .card-image{
@@ -455,3 +430,176 @@ background:#5462b0;
 .full-height{
   height:100vh;
 }
+
+
+div.btn-container{
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+
+div.btn-container i{
+  display: inline-block;
+  position: relative;
+  top: -9px;
+}
+
+
+.btn-color-mode-switch{
+  display: inline-block;
+  margin: 0px;
+  position: relative;
+}
+
+.btn-color-mode-switch > label.btn-color-mode-switch-inner{
+  margin: 0px;
+  width: 163px;
+  height: 40px;
+  color:white;
+  background: #4c27b3;
+  border-radius: 26px;
+  border:1px solid rgb(194, 189, 189);
+  overflow: hidden;
+  position: relative;
+  transition: all 0.3s ease;
+  /*box-shadow: 0px 0px 8px 0px rgba(17, 17, 17, 0.34) inset;*/
+  display: block;
+}
+
+.btn-color-mode-switch > label.btn-color-mode-switch-inner:before{
+  content: attr(data-on);
+  position: absolute;
+  font-size: 14px;
+  font-weight: 500;
+  top: 10px;
+  right: 20px;
+
+}
+
+.btn-color-mode-switch > label.btn-color-mode-switch-inner:after{
+  content: attr(data-off);
+  width: 88px;
+  color:white;
+  height: 34px;
+  background: #8c51eb;
+  border-radius: 26px;
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  text-align: center;
+  transition: all 0.3s ease;
+  box-shadow: 0px 0px 6px -2px #111;
+  padding: 5px 0px;
+}
+
+.btn-color-mode-switch > .alert{
+  display: none;
+  background: #FF9800;
+  border: none;
+  color: #fff;
+}
+
+.btn-color-mode-switch input[type="checkbox"]{
+  cursor: pointer;
+  width: 50px;
+  height: 25px;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  z-index: 1;
+  margin: 0px;
+}
+
+.btn-color-mode-switch input[type="checkbox"]:checked + label.btn-color-mode-switch-inner{
+  background: #4c27b3;
+  color: #fff;
+}
+
+.btn-color-mode-switch input[type="checkbox"]:checked + label.btn-color-mode-switch-inner:after{
+  content: attr(data-on);
+  left: 70px;
+  background: #8c51eb;
+}
+
+.btn-color-mode-switch input[type="checkbox"]:checked + label.btn-color-mode-switch-inner:before{
+  content: attr(data-off);
+  right: auto;
+  left: 20px;
+  cursor: pointer;
+}
+
+
+.list-menu-item:focus{
+background:#8c51eb;
+}
+
+.bg-error{
+  background-image:url('/app-assets/images/backgrounds/ErrorPage.jpg')
+
+}
+.image-responsive {
+max-width: 100%;
+max-height:100%;
+
+}
+.pointer{
+  cursor:pointer;
+}
+.border-left-column{
+  border-left:1px solid #4c27b3;
+}
+.hero-title{
+  font-size:3.8rem;
+
+}
+.hero-text{
+  font-size:14px;
+  line-height: 24px;
+}
+.home-bg{
+top: 0px;
+left: 0px;
+background: transparent url('/app-assets/images/backgrounds/Mask Group 39.png') 0% 0% no-repeat ;
+opacity: 1;
+background-size: contain;
+}
+
+.features-text{
+  line-height: 24px;
+  font-size:14px;
+}
+.img-small{
+  width:15%;
+  height:15%;
+}
+
+.feature-image{
+  max-width:80%;
+  max-height:80%;
+}
+
+.service-card-left{
+background: transparent url('/app-assets/images/backgrounds/Group 1875.svg') 0% 0% no-repeat padding-box;
+opacity: 1;
+padding:5px 30px;
+background-size: contain;
+}
+
+.service-card-right{
+  background: transparent url('/app-assets/images/backgrounds/Group 1876.svg') 0% 0% no-repeat padding-box;
+  opacity: 1;
+  padding:5px 30px;
+  background-size: contain;
+  }
+
+.background-right{
+  background-position:right;
+}
+
+.background-left{
+  background-position:left;
+}
+
+
+
+

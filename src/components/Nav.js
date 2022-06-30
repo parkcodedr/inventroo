@@ -1,12 +1,9 @@
 import React from 'react';
-import { NavLink,useHistory} from 'react-router-dom';
+import { NavLink} from 'react-router-dom';
 
 
 const Nav = () => {
-    const history = useHistory();
-    const handleNavigation = (link)=>{
-        history.push(link);
-    }
+  
     return (
         <div className="main-menu menu-fixed menu-dark menu-accordion menu-shadow expanded" data-scroll-to-active="true">
       <div className="main-menu-content">
@@ -47,6 +44,8 @@ const Nav = () => {
                 <li className="nav-item"><NavLink to={'/dashboard/customer/all'} activeClassName="active-nav"><i className="feather icon-users"></i><span className="menu-title " >Customers</span></NavLink>
           </li>
           <li className="nav-item"><NavLink to="/dashboard/invoice/all" activeClassName="active-nav"><i className="feather icon-file-text"></i><span className="menu-title " data-i18n="Invoice">Invoice</span></NavLink>
+          </li>
+          <li className="nav-item"><NavLink to="/dashboard/payment/all" activeClassName="active-nav"><i className="feather icon-file-text"></i><span className="menu-title " data-i18n="Payments">Payments</span></NavLink>
           </li>
 
                 <li className="nav-item"><NavLink  to={'/dashboard/manufacturer/all'} activeClassName="active-nav">
@@ -91,7 +90,7 @@ const Nav = () => {
                             <NavLink to={'/dashboard/return/sales'} activeClassName={"active-nav"}>Sales Returns</NavLink>
                         </li>
                         <li className="ml-2">
-                            <NavLink to={'/dashboard/return/credit'} activeClassName={"active-nav"}>Credit Note</NavLink>
+                            <NavLink to={'/dashboard/return/credit-note/all'} activeClassName={"active-nav"}>Credit Note</NavLink>
                         </li>
                         
                     </ul>
