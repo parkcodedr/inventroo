@@ -5,6 +5,7 @@ import HeroSection from './HeroSection';
 import Features from './Features';
 import { services } from "components/features";
 import ServiceCard from './ServiceCard';
+import Store from './Store';
 
 
 const Home = () => {
@@ -103,8 +104,8 @@ const Home = () => {
                 <Features/>
         </div>
         
-        </section>
-       {
+
+        {
         services.map(service=>(
             <ServiceCard
             service={service}
@@ -113,6 +114,9 @@ const Home = () => {
             />
         ))
        }
+       <Store/>
+        </section>
+       
 
         </>
     )

@@ -72,7 +72,7 @@ export const services = [
         right:true,
         logo:'scantroo logo.svg',
         image:'scantroo image.png',
-        title:"Optimize your retail operations for efficiency",
+        title:"Stock control made simple",
         items:[
            "Turn your phone into a barcode scanner using the Troo inventory mobile app",
            "Count stock and make changes in bulk and in real time",

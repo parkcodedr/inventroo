@@ -36,8 +36,8 @@ const ServiceCard = ({service})=>{
          
                 <section className="col-md-8 pl-lg-5">
                 <img src={`/app-assets/images/backgrounds/${service.logo}`} className="col-md-3 mt-2"  />
-                <h4 className="color-main mt-1 mb-1">Android Compactible POS Hardware & Accessories</h4>
-                <div className="col-md-8">
+                <h4 className="color-main mt-1 mb-1 ml-lg-5">{service.title}</h4>
+                <div className="col-md-lg-8">
                
                 <ul className="hero-text">
                     {service.items.map((item,index)=>(
