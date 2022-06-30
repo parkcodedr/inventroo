@@ -16,7 +16,7 @@ const Home = () => {
         <>
         <section className="home-bg">
             <div className="container">
-              <nav  className="header-navbar navbar-expand-sm navbar navbar-with-menu ">
+              <nav  className="header-navbar navbar-expand-sm navbar navbar-with-menu">
                     <div className="navbar-wrapper">
                         <div className="navbar-header">
                             <ul className="nav navbar-nav mr-auto">
@@ -93,6 +93,7 @@ const Home = () => {
                 <main className="mt-5">
                 <HeroSection/>
                 </main>
+                
                 <div className="text-center mx-auto mt-5">
                   <h3 className="color-main mt-5">Feature Rich Software, Hardware and Payments
                   </h3>
@@ -104,10 +105,8 @@ const Home = () => {
                 </div>
 
                 <Features/>
-        </div>
-        
 
-        {
+                {
         services.map(service=>(
             <ServiceCard
             service={service}
@@ -133,7 +132,15 @@ const Home = () => {
 
        </section>
 
-       <Footer/>
+        </div>
+       
+        <Footer/>
+        
+
+        
+
+        
+       
        
         </section>
        

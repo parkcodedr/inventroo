@@ -15,7 +15,6 @@ import ProductGroupList from "./productGroup/ProductGroupList";
 import AddProductGroup from "./productGroup/AddProductGroup";
 import { Register } from './auth/Register';
 import Dashboard from './Dashboard';
-import Home from './home/Home';
 import Confirm from './auth/Confirm';
 import AdminDashboard from './AdminDashboard';
 import PageNotFound from './PageNotFound';
@@ -51,6 +50,7 @@ import PaymentList from './payment/PaymentList';
 
 const Login = React.lazy(() => import("./auth/Login"));
 const ConnectSales = React.lazy(() => import("./auth/ConnectSales"));
+const Home = React.lazy(() => import("./home/Home"));
 
 
 

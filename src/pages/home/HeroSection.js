@@ -1,7 +1,7 @@
 import {Link} from 'react-router-dom'
 const HeroSection = ()=>{
 return(
-    <div className="row mx-auto justify-content-center ml-lg-3">
+    <div className="row  justify-content-center ml-lg-3">
         <section className="col-md-7">
             <h5 className="color-main">Hassle-free Business Operations For SMEs</h5>
             <h1 className="font-weight-bolder hero-title">Cloud-based</h1>

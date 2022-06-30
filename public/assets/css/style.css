@@ -44,7 +44,7 @@ bg-dark-nav {
   border: 1px solid #4c27b3;
 }
 body {
-  font-family: Helvetica;
+  font-family:'Helvetica Neue', 'Helvetica';
 }
 .icon-size {
   font-size: 4rem;
@@ -106,9 +106,7 @@ a {
   text-align: center;
 }
 
-body {
-  font-family: sans-serif;
-}
+
 a {
   color: #369;
 }
@@ -549,7 +547,7 @@ max-height:100%;
   border-left:1px solid #4c27b3;
 }
 .hero-title{
-  font-size:3.8rem;
+  font-size:1.8rem;
 
 }
 .hero-text{
