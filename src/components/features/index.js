@@ -98,7 +98,7 @@ export const screenCard = [
         image:'pos device.png',
         title:"No Limit Transactions With Tilltroo Go",
         items:[
-           "All in one hand-held smart POS system. This multi-purpose device offers payments, cash register and inventory tracking capabilities.",
+           "All in one hand-held smart POS system. This multi-purpose device offers payments, cash register and inventory tracking.",
            "Now you can serve customers on the go  ",
          
         ]
@@ -114,4 +114,39 @@ export const screenCard = [
          
         ]
     },
+]
+
+export const hoverState = [
+    {
+        id:1,
+        image:'restaurant image.png',
+        icon:'restaurant.svg',
+        title:'Restaurant',
+        text:'Are you running a table service or take-out restaurant, bar, cafe or food kiosk? We are working with several businesses like yours. Find out how our tailored solutions can work for your business',
+        link:'restaurant'
+    },
+    {
+        id:2,
+        image:'retail stores & supermarket.png',
+        icon:'trolley.svg',
+        title:'Retail Stores & Supermarket',
+        text:'From grocery stores to electronics, bookstores to pharmacies, whatever the specialization or complexities, our tailored solutions will deliver the efficiency you need.',
+        link:'store'
+    },
+    {
+        id:3,
+        image:'service businesses.png',
+        icon:'reception.svg',
+        title:'Service Businesses',
+        text:'Whether you are in hospitality, beauty care & salons, our solutions can help you grow',
+        link:'business'
+    },
+    {
+        id:4,
+        image:'fashion apparel.png',
+        icon:'Group 58.svg',
+        title:'Fashion & Apparel',
+        text:'Our solutions help you sort through the clutter and give your business the winning edge.',
+        link:'fashion'
+    }
 ]

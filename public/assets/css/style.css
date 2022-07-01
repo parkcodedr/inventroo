@@ -44,7 +44,7 @@ bg-dark-nav {
   border: 1px solid #4c27b3;
 }
 body {
-  font-family: Helvetica;
+  font-family:'Helvetica Neue', 'Helvetica';
 }
 .icon-size {
   font-size: 4rem;
@@ -106,9 +106,7 @@ a {
   text-align: center;
 }
 
-body {
-  font-family: sans-serif;
-}
+
 a {
   color: #369;
 }
@@ -600,6 +598,49 @@ background-size: contain;
   background-position:left;
 }
 
+/* .flip-card {
+ 
+  perspective: 1000px;
+} */
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+ 
+}
+
+.flip:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
 
 
 
+.flip-card-back {
+  background-color: #2980b9;
+  color: white;
+  transform: rotateY(180deg);
+}
+
+
+.bg-sales{
+  background:url("/app-assets/images/backgrounds/connect-sales.png");
+  background-size:cover;
+  background-repeat: no-repeat;
+}
+
+.flip-card-image {
+  max-width: 15%;
+  max-height: 15%;
+}

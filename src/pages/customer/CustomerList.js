@@ -123,7 +123,7 @@ const CustomerList = () => {
         </Table.Column>
         
       </Table>
-      <div style={{ padding: 20 }}>
+      <div style={{ padding: 5 }}>
         <Pagination
           prev
           next

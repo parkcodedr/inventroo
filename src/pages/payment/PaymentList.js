@@ -7,8 +7,6 @@ import Loader from 'components/Loader';
 import { useTitle } from 'components/hooks/useTitle';
 import {getPayments,deletePayment,deletePaymentComplete} from 'store/actions/payment';
 
-//import fakeData from 'https://github.com/rsuite/rsuite/blob/master/docs/public/data/users.json';
-
 
 
 const PaymentList = () => {
@@ -17,7 +15,6 @@ const PaymentList = () => {
     const {loading,error,payments} = useSelector((state) => state.payments);
     const deleteState = useSelector((state) => state.deleteManufacturer);
     const {loading:deleteLoading,error:deleteError,success:deleteSuccess} = deleteState;
-    const { token} = useSelector((state) => state.auth);
 
     useEffect(()=>{
       if(deleteSuccess){
@@ -107,7 +104,7 @@ const PaymentList = () => {
         </Table.Column>
         
       </Table>
-      <div style={{ padding: 20 }}>
+      <div style={{ padding: 10 }}>
         <Pagination
           prev
           next
