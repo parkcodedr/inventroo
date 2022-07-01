@@ -547,7 +547,7 @@ max-height:100%;
   border-left:1px solid #4c27b3;
 }
 .hero-title{
-  font-size:1.8rem;
+  font-size:3.8rem;
 
 }
 .hero-text{
@@ -638,4 +638,9 @@ background-size: contain;
   background:url("/app-assets/images/backgrounds/connect-sales.png");
   background-size:cover;
   background-repeat: no-repeat;
+}
+
+.flip-card-image {
+  max-width: 15%;
+  max-height: 15%;
 }
