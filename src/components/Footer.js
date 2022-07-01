@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 
 const Footer = ()=>{
     return(
-    <section className="bg-black text-white  pr-lg-5 pl-lg-5 pt-2">
+    <section className="bg-black text-white mt-5  pr-lg-5 pl-lg-5 pt-2">
     <div className="row justify-content-center">
     <div className="col-md-4 ">
     <div className="sales text-center">

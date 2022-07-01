@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 
 const ScreenCard = ({cardDetail})=>{
     return (
-    <div class="card" >
+    <div class="card">
   <img src={`app-assets/images/backgrounds/${cardDetail.image}`} class="card-img-top" alt={cardDetail.title}/>
   <div class="card-body" style={{background:"aliceblue"}}>
     <h5 class="card-title color-main">{cardDetail.title}</h5>

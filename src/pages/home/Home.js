@@ -122,13 +122,18 @@ const Home = () => {
        </div>
        <section className="row mx-auto justify-content-center mt-5">
 
+       <div className="col-md-10">
+       <div className="row">
+       
        {
            screenCard.map(cardItem=>(
-               <div className="col-md-3">
+               <div className="col-md-4">
                <ScreenCard cardDetail={cardItem} />
                </div>
            ))
        }
+       </div>
+       </div>
 
        </section>
 
