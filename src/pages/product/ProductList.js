@@ -5,14 +5,31 @@ import {notify} from 'components/Toast';
 import {ErrorMessage} from 'components/Message';
 import Loader from 'components/Loader';
 import { useTitle } from 'components/hooks/useTitle';
+import { Table,Pagination } from 'rsuite';
 import {getProducts,deleteProduct,deleteProductComplete} from 'store/actions/product';
 
 const ProductList = ()=>{
-    useTitle("Inventroo | Products")
+    useTitle("Inventroo | Products");
     const dispatch = useDispatch();
     const {loading,error,products} = useSelector((state) => state.products);
     const deleteState = useSelector((state) => state.deleteProduct);
     const {loading:deleteLoading,error:deleteError,success:deleteSuccess} = deleteState;
+
+    const [limit, setLimit] = React.useState(10);
+    const [page, setPage] = React.useState(1);
+  
+    const handleChangeLimit = dataKey => {
+      setPage(1);
+      setLimit(dataKey);
+    };
+  
+    const data = products && products.filter((v, i) => {
+      const start = limit * (page - 1);
+      const end = start + limit;
+      return i >= start && i < end;
+    });
+  
+  
 
 
     useEffect(()=>{
@@ -87,52 +104,86 @@ const ProductList = ()=>{
     ):(
 
     <div className="mt-2 mx-auto mb-1">
-    <table className="table table-striped table-responsive-sm">
-  <thead className="btn-main p-1">
-    <tr>
-      <th>NAME</th>
-      <th >UPC</th>
-      <th >STOCK ON HAND</th>
-      <th >REORDER POINT</th>
-      {/* <th >COST PRICE</th>
-      <th >SALES PRICE</th> */}
-      <th >STATUS</th>
-      <th >MANUFACTURER</th>
-      <th>ACTIONS</th>
-    </tr>
-  </thead>
-  <tbody>
 
-{products.map(product=>(
-    <tr key={product.productID}>
-          <td>{product.name}</td>
-          <td>{product.upc}</td>
-          <td>{product.opening_stock}</td>
-          <td>{product.recorder_point}</td>
-          {/* <td>{product.cost_price}</td>
-          <td>{product.sale_price}</td> */}
-          <td>{product.productStatus}</td>
-          <td>{product.manufacturer?.name}</td>
 
-          <td>
-          <Link to={`/dashboard/product/${product.productID}/edit`}>
+<Table height={420} data={data} loading={loading}>
+        <Table.Column flexGrow={1} align="center" fixed>
+          <Table.HeaderCell style={{ padding: 4, backgroundColor: '#4c27b3', color: '#fff' }}>
+            <h6>Name</h6></Table.HeaderCell>
+          <Table.Cell dataKey="name" />
+        </Table.Column>
+
+        <Table.Column width={70} fixed>
+          <Table.HeaderCell style={{ padding: 4, backgroundColor: '#4c27b3', color: '#fff' }}>
+            <h6>Upc</h6></Table.HeaderCell>
+          <Table.Cell dataKey="upc" />
+        </Table.Column>
+
+        <Table.Column flexGrow={1}>
+          <Table.HeaderCell style={{ padding: 4, backgroundColor: '#4c27b3', color: '#fff' }}>
+            <h6>Opening Stock</h6></Table.HeaderCell>
+          <Table.Cell dataKey="opening_stock" />
+        </Table.Column>
+
+        <Table.Column flexGrow={1} >
+          <Table.HeaderCell style={{ padding: 4, backgroundColor: '#4c27b3', color: '#fff' }}><h6>
+            ReOrder Point</h6></Table.HeaderCell>
+          <Table.Cell dataKey='recorder_point'/>
+ 
+        </Table.Column>
+        <Table.Column width={70} fixed>
+          <Table.HeaderCell style={{ padding: 4, backgroundColor: '#4c27b3', color: '#fff' }}><h6>
+            Status</h6></Table.HeaderCell>
+          <Table.Cell dataKey='productStatus'/>
+ 
+        </Table.Column>
+        <Table.Column flexGrow={1} fixed>
+          <Table.HeaderCell style={{ padding: 4, backgroundColor: '#4c27b3', color: '#fff' }}><h6>
+            Manufacturer</h6></Table.HeaderCell>
+          <Table.Cell dataKey='manufacturer.name'/>
+ 
+        </Table.Column>
+
+        <Table.Column flexGrow={1} fixed>
+          <Table.HeaderCell style={{ padding: 4, backgroundColor: '#4c27b3', color: '#fff' }}><h6>Action</h6></Table.HeaderCell>
+          <Table.Cell>
+          {rowData => {
+            return (
+              <span>
+               <Link to={`/dashboard/product/${rowData.productID}/edit`}>
                   
-              <i className="feather icon-edit text-warning"></i>
-              
-                  </Link>
-
-              
-              <i className="feather icon-trash-2 text-danger ml-1 pointer" onClick={()=>deleteHandler(product)}></i>
-              
-          </td>
-    </tr>
-))}
-
-
-
-
-  </tbody>
-  </table>
+                  <i className="feather icon-edit"></i>
+                  
+                      </Link>
+          
+                  <i className="feather icon-trash-2 ml-1 pointer" onClick={()=>deleteHandler(rowData)}></i> 
+              </span>
+            );
+          }}
+        </Table.Cell>
+      
+        </Table.Column>
+        
+      </Table>
+      <div style={{ padding: 5 }}>
+        <Pagination
+          prev
+          next
+          first
+          last
+          ellipsis
+          boundaryLinks
+          maxButtons={5}
+          size="sm"
+          layout={['total', '-', 'limit', '|', 'pager', 'skip']}
+          total={products.length}
+          limitOptions={[10, 20,50,100]}
+          limit={limit}
+          activePage={page}
+          onChangePage={setPage}
+          onChangeLimit={handleChangeLimit}
+        />
+    </div>
     </div>
     )}
 

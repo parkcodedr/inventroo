@@ -1,8 +1,10 @@
 import React from 'react';
-import { NavLink} from 'react-router-dom';
+import { NavLink,useLocation} from 'react-router-dom';
 
 
 const Nav = () => {
+    const {pathname} = useLocation();
+ 
   
     return (
         <div className="main-menu menu-fixed menu-dark menu-accordion menu-shadow expanded" data-scroll-to-active="true">
@@ -13,7 +15,8 @@ const Nav = () => {
           <nav id="sidebar">
             <ul className="list-unstyled components">
 
-            <li className="nav-item"><NavLink  to={'/dashboard'} activeClassName="active-nav">
+            <li className="nav-item">
+                <NavLink  to={'/dashboard'} activeClassName={pathname==="/dashboard"? "active-nav":""}>
             <i className="feather icon-archive"></i><span className="menu-title" data-i18n="Manufacturer">Dashboard</span></NavLink>
           </li>
               <li className="nav-item">
@@ -87,7 +90,7 @@ const Nav = () => {
                     <ul className="collapse" id="returnsSubmenu">
                         
                         <li className="ml-2">
-                            <NavLink to={'/dashboard/return/sales'} activeClassName={"active-nav"}>Sales Returns</NavLink>
+                            <NavLink to={'/dashboard/sales-return'} activeClassName={"active-nav"}>Sales Returns</NavLink>
                         </li>
                         <li className="ml-2">
                             <NavLink to={'/dashboard/return/credit-note/all'} activeClassName={"active-nav"}>Credit Note</NavLink>

@@ -36,8 +36,7 @@ const Login = ()=>{
 
 return(
     <div className="app-content content">
-    <div className="content-overlay"></div>
-    <div className="content-wrapper">
+    <div className="">
     
       <div className="row justify-content-center">
 

@@ -1,8 +1,7 @@
 
 document.querySelectorAll(".drop-zone__input").forEach((inputElement) => {
     const dropZoneElement = inputElement.closest(".drop-zone-new");
-    
-    console.log({dropZoneElement});
+  
     dropZoneElement.addEventListener("click", (e) => {
         alert('ho');
       inputElement.click();
@@ -74,8 +73,8 @@ document.querySelectorAll(".drop-zone__input").forEach((inputElement) => {
   }
   
 
-  var imageLoader = document.getElementById('filePhoto');
-    imageLoader.addEventListener('change', handleImage, false);
+  // var imageLoader = document.getElementById('filePhoto');
+  //   imageLoader.addEventListener('change', handleImage, false);
 
 function handleImage(e) {
     var reader = new FileReader();

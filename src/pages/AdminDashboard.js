@@ -1,26 +1,40 @@
-import React from "react";
+import React,{useEffect} from "react";
 import {
   Switch,
   Route,
-  NavLink,
-  useHistory
+  useHistory,
+  useLocation
 } from "react-router-dom";
 
-import SideBar from "../components/SideBar";
 import Nav from "../components/Nav";
 import TopNav from "../components/TopNav";
 
 import {useSelector} from 'react-redux';
-import {notify} from '../components/Toast';
 import {routes} from '../components/routes/AdminRoutes'
 
 const AdminDashboard = () => {
   const history = useHistory();
+  const {pathname} = useLocation();
   const { token} = useSelector((state) => state.auth);
+
 
   if(!token){
     history.push("/login");
   }
+  useEffect(()=>{
+
+        document.body.classList.add("2-columns");
+        document.body.classList.add("fixed-navbar");
+        document.body.classList.add("vertical-layout");
+        document.body.classList.add("vertical-menu-modern");
+
+    return ()=>{
+      document.body.classList.remove("2-columns");
+      document.body.classList.remove("fixed-navbar");
+      document.body.classList.remove("vertical-layout");
+      document.body.classList.remove("vertical-menu-modern");
+    }
+    },[])
 
     return (
         <>

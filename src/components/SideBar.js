@@ -1,6 +1,8 @@
 import React from 'react';
-import { NavLink,Link } from 'react-router-dom';
+import { NavLink,Link,useLocation } from 'react-router-dom';
+
 const SideBar = () => {
+
     return (
         <div className="main-menu menu-fixed menu-dark menu-accordion menu-shadow bg-main" data-scroll-to-active="true" >
       <div className="main-menu-content bg-main">

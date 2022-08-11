@@ -15,7 +15,7 @@ const CustomerList = () => {
     const {loading:deleteLoading,error:deleteError,success:deleteSuccess} = deleteState;
     const { token} = useSelector((state) => state.auth);
 
-    const [limit, setLimit] = React.useState(10);
+  const [limit, setLimit] = React.useState(10);
   const [page, setPage] = React.useState(1);
 
   const handleChangeLimit = dataKey => {
@@ -46,7 +46,7 @@ const CustomerList = () => {
     return (
       <div className="content-body">
         <>
-        <div class="content-body">
+        <div className="content-body">
 
 </div>
         </>

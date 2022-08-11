@@ -120,24 +120,24 @@ const TillB = ()=>{
 
 return(
     <div className="content-body">
-      <div className="bg-main" style={{ height:'100vh'}}>
-        <section className="d-flex justify-content-between pt-1">
+      <div className="bg-main" style={{ height:'100vh',width:'100vw',overflowY:'auto'}}>
+        <section className="d-flex justify-content-between pt-1 flex-wrap align-items-center">
         <div className="logo">
-        <Link className="nav-link active" to={'/dashboard'}>
+        <Link className="nav-link " to={'/dashboard'}>
                             <img src="/app-assets/images/logo/troo-logo-white.png"
                   alt="branding logo" className="logo-image"/>
         </Link>
         </div>
             <div className="nav-menu">
                     <ul className="nav">
-                    <li className="nav-item pl-3">
+                    <li className="nav-item pl-lg-3 pl-1">
                             <NavLink activeClassName={'till-nav-active'}  to={"/till/register"} className="nav-link text-white" >Register</NavLink>
                         </li>
-                        <li className="nav-item pl-3">
+                        <li className="nav-item pl-lg-3 pl-1">
                             <NavLink to={"/till"} activeClassName={'till-nav-active'} className="nav-link active text-white">
                                 <i className="feather icon-refresh-cw"></i></NavLink>
                         </li>
-                        <li className="nav-item pl-3">
+                        <li className="nav-item pl-lg-3 pl-1">
                             <NavLink activeClassName={'till-nav-active'}  to={"/till/kid"} className="nav-link text-white" >
                             <i className="feather icon-settings"></i>
                             </NavLink>
@@ -170,9 +170,11 @@ return(
         <div className="row justify-content-between">
        {show==false?(
          <>
-          <div className="col-md-9">
-        <div className="input-group">
-  <input type="text" className="form-control" autoFocus placeholder="Write to search" onChange={(e)=>setSearchItem(e.target.value)} />
+          <div className="col-md-8 mb-1 mb-lg-0 ">
+        <div className="input-group ">
+  <input type="text" className="form-control" 
+  autoFocus placeholder="Write to search" 
+  onChange={(e)=>setSearchItem(e.target.value)} />
   <div className="input-group-append">
     <button className="btn btn-success" type="button" onClick={searchProductItem}>Enter</button>
   </div>
@@ -181,13 +183,13 @@ return(
          </>
        ):(
          <>
-         <div className="col-md-9">
+         <div className="col-md-8 mb-1 mb-lg-0">
          <input type="text" className="form-control" placeholder="Scan product barcode" autoFocus onChange={(e)=>scanProductCode(e.target.value)} />
          </div>
          </>
        )}
 
-<div className="btn-container">
+<div className="btn-container ml-1 ml-lg-1">
     <label className="switch btn-color-mode-switch">
           <input type="checkbox" name="color_mode" id="color_mode" onChange={(e)=>setShow(!show)} />
           <label htmlFor="color_mode" data-on="Scan" data-off="Search" className="btn-color-mode-switch-inner"></label>
@@ -252,6 +254,7 @@ return(
                 <h5 className="font-weight-bold">Around-the-corner-Gloceries</h5>
                 <h5 className="font-weight-bold"><i className="feather icon-printer"></i> Print</h5>
               </div>
+    <section style={{overflow:'auto'}}>
     <table className="table table-responsive-lg">
   <thead>
     <tr>
@@ -291,9 +294,10 @@ return(
   
 </table>
 
+    </section>
           <div className="color-light mb-2">
           <div className="">
-            <div className="row mx-auto p-1 justify-content-space-between">
+            <div className="row mx-auto p-1 justify-content-space-between flex-wrap">
               <button className="btn btn-success col m-1">Discount</button>
               <button className="btn btn-success col m-1">Cancel</button>
               <button className="btn btn-success col m-1">Hold</button>
@@ -332,12 +336,12 @@ return(
             
           </div>
           
-          <div className="p-1">
-            <div className="d-flex justify-content-between">
+          <div className="p-1 mx-auto">
+            <div className="d-flex justify-content-between flex-wrap">
              
-              <button className="btn btn-success col-md-3 mr-1">Split Bill</button>
-              <button className="btn btn-success col-md-3 mr-1" data-toggle="modal" data-target="#cashCalculator">Cash Payment</button>
-              <button className="btn btn-success col-md-3 mr-1">Card Payment</button>
+              <button className="btn btn-success col-md-3 mr-1 mb-1">Split Bill</button>
+              <button className="btn btn-success col-md-3 mr-1 mb-1" data-toggle="modal" data-target="#cashCalculator">Cash Payment</button>
+              <button className="btn btn-success col-md-3 mr-1 mb-1">Card Payment</button>
             </div>
           </div>
 

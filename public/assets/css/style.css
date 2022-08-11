@@ -579,14 +579,14 @@ background-size: contain;
 .service-card-left{
 background: transparent url('/app-assets/images/backgrounds/Group 1875.svg') 0% 0% no-repeat padding-box;
 opacity: 1;
-padding:5px 30px;
+padding:2px 2px;
 background-size: contain;
 }
 
 .service-card-right{
   background: transparent url('/app-assets/images/backgrounds/Group 1876.svg') 0% 0% no-repeat padding-box;
   opacity: 1;
-  padding:5px 30px;
+  padding:2px 2px;
   background-size: contain;
   }
 
@@ -643,4 +643,7 @@ background-size: contain;
 .flip-card-image {
   max-width: 15%;
   max-height: 15%;
+}
+.content{
+  margin:0px auto;
 }

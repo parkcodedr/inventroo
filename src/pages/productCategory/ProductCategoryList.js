@@ -63,7 +63,7 @@ const ProductCategoryList = () => {
  <tr key={category.id}>
                 <td>{category.category_name}</td>
                 <td>{category.description}</td>
-                <td>{(category.created_at).substring(0,10)}</td>
+                <td>{category.date_created}</td>
                 <td>
                   <Link to={`/dashboard/product-category/${category.id}/edit`}>
                   <button className="btn btn-warning mr-1">

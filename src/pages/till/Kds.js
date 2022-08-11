@@ -75,22 +75,22 @@ const Kds = ()=>{
    
 
 return(
-    <div className="bg-main" style={{ height:'100vh',width:'100vw' }}>
+    <div className="bg-main" style={{ height:'100vh',width:'100vw',overflowY:'auto' }}>
       <div className="content-wrapper">
-        <section className="d-flex justify-content-between flex-wrap pt-1">
+        <section className="d-flex justify-content-between flex-wrap pt-1 align-items-center">
         
             <div className="nav-menu">
                     <ul className="nav">
                     <li className="nav-item">
-                            <a className="nav-link active" href="#">
+                            <Link className="nav-link" to="/dashboard">
                             <img src="/app-assets/images/logo/troo-logo-white.png"
                   alt="branding logo" className="logo-image"/>
-                            </a>
+                            </Link>
                         </li>
-                        <li className="nav-item pl-3">
+                        <li className="nav-item pl-lg-3 pl-1">
                             <NavLink to={"/till/restaurant"} activeClassName={'till-nav-active'} className="nav-link active text-white" href="#">Till</NavLink>
                         </li>
-                        <li className="nav-item pl-3">
+                        <li className="nav-item pl-lg-3 pl-1">
                             <NavLink activeClassName={'till-nav-active'}  to={"/till/kds"} className="nav-link text-white" href="#">KDS</NavLink>
                         </li>
                     </ul>
@@ -104,7 +104,8 @@ return(
                 <a className="nav-link text-white" href="#">Logout</a>
               </li>
               <li className="nav-item">
-                <Link className="nav-link text-white" to={'/settings'}><i className="feather icon-settings"></i> Settings</Link>
+                <Link className="nav-link text-white" to={'/settings'}>
+                  <i className="feather icon-settings"></i> Settings</Link>
               </li>
             </ul>
         </nav>

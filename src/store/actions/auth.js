@@ -37,6 +37,54 @@ export const getToken = ()=>{
     return token;
 };
 
+const getLocalState = (key)=>{
+    const state = localStorage.getItem(key);
+    return state!==undefined? JSON.parse(state):""
+}
+const setLocalState = (key,data)=>{
+    localStorage.setItem(key,JSON.stringify(data));
+}
+
+const checkAuthTimeout = (expireTime)=>{
+    return (dispatch)=>{
+        console.log(expireTime* 1000 - 60000);
+setTimeout(()=>{
+    dispatch(refreshToken())
+},expireTime * 1000 -  60000)
+    }
+}
+
+const refreshToken = async()=>{
+    return async(dispatch)=>{
+        const token = getToken();
+        const userInfo = getLocalState('user');
+        const header = {
+            headers:{
+                Authorization:`Bearer ${token}`
+            }
+        }
+        try {
+            const res = await ApiService.get('/account/refreshToken',header);
+            const {access_token,expires_in} = res.data.token;
+            console.log(res.data);
+
+            const expirationDate = new Date(
+                new Date().getTime() + expires_in * 1000
+              );
+              console.log(expirationDate);
+              setLocalState('x-token',access_token);
+              setToken(access_token);
+              setLocalState("expirationDate", expirationDate)
+
+                dispatch(authSuccess(access_token,userInfo));
+                dispatch(checkAuthTimeout(expires_in))
+            
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
 export const loginUser = (email, password) => {
     return (dispatch) => {
         dispatch(authStart());
@@ -47,7 +95,13 @@ export const loginUser = (email, password) => {
                     const {access_token,token_type,expires_in} = token;
                     setToken(access_token);
                     localStorage.setItem("user",JSON.stringify(userInfo));
+                    const expirationDate = new Date(
+                        new Date().getTime() + expires_in * 1000
+                      );
+                      setLocalState("expirationDate", expirationDate);
+                     
                     dispatch(authSuccess(access_token,userInfo));
+                    dispatch(checkAuthTimeout(expires_in));
                 }).catch(error => {
                     if (error.response) {
                         const { ResponseMessage } = error.response.data;
@@ -71,4 +125,24 @@ export const logout =()=>{
     Cookies.remove("x-token");
     localStorage.removeItem("user");
   }
+}
+
+
+export const authCheckState = () => {
+    return (dispatch) => {
+      const token = getToken();
+      if (!token) {
+        dispatch(logout());
+      } else {
+
+        const expirationDate = new Date(getLocalState("expirationDate"));
+        if (expirationDate <= new Date()) {
+          dispatch(logout());
+        } else {
+          const userInfo = JSON.parse(getLocalState("user"));
+          dispatch(authSuccess(token, userInfo));
+          dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000));
+        }
+      }
+    }
 }

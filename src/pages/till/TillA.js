@@ -22,10 +22,14 @@ const TillA = ()=>{
   const dispatch = useDispatch();
     usePageSetup();
     useTitle("Inventroo | Till");
+    const getCartFromStorage = ()=>{
+      const cart = localStorage.getItem('cart');
+      return cart? JSON.parse(cart) :[];
+    }
     const {loading,error,categories} = useSelector((state) => state.productCategories);
     const {loading:productLoading,error:productError,products} = useSelector((state) => state.products);
     const {loading:addPaymentLoading,error:addPaymentError,success:paymentSuccess} = useSelector((state) => state.addPayment);
-    const [cart,setCart]=useState([]);
+    const [cart,setCart]=useState(getCartFromStorage());
     const [credit,setCredit]= useState(0);
     const [discount,setDiscount]= useState(0);
     const [tips,setTips]= useState(0);
@@ -45,6 +49,10 @@ const TillA = ()=>{
     const getProduct = (categoryId)=>{
       dispatch(getProductByCategory(categoryId));
     }
+    const addCartToStorage = (cart)=>{
+      localStorage.setItem('cart',JSON.stringify(cart));
+    }
+    
     const addToCart = (product)=>{
       const {cost_price,productID,name} = product;
       const quantity = 1;
@@ -59,15 +67,18 @@ const TillA = ()=>{
   
           )
         );
+        addCartToStorage(cart)
       }else{
         setCart([...cart,
           {rate:cost_price,product_id:productID,quantity,total_cost,product_name:name,currency:"NGN"}])
       }
+      addCartToStorage(cart)
       
     }
      const removeFromCart =(id)=>{
       const newCart = cart.filter(item=>item.product_id!==id);
       setCart(newCart);
+      addCartToStorage(cart)
      }
 
      const ReduceItemFromCart =(product)=>{
@@ -80,6 +91,7 @@ const TillA = ()=>{
   
           )
         );
+        addCartToStorage(cart)
       }
      }
 
@@ -93,13 +105,14 @@ const TillA = ()=>{
   
           )
         );
+        addCartToStorage(cart)
       }
      }
      const sub_total = cart.reduce((accumulator,current)=> accumulator+current.total_cost,0);
     const total = sub_total +discount+tips+tax;
     
     
-    console.log(cart);
+ 
    
     const makePayment = ()=>{
       const payments = new FormData();
@@ -121,6 +134,7 @@ if(paymentSuccess){
   closeModal("cashCalculator")
   notify("success","Payment Successful");
   dispatch(addCashPaymentComplete());
+  localStorage.removeItem('cart');
   setCart([]);
   openModal("receiptModal");
 }
@@ -132,19 +146,19 @@ if(addPaymentError){
 
 return(
     <div className="content-body">
-      <div className="bg-main" style={{ height:'100vh'}}>
-        <section className="d-flex justify-content-between pt-1">
+      <div className="bg-main" style={{ height:'100vh',width:'100vw',overflowY:'auto'}}>
+        <section className="d-flex justify-content-between pt-1 align-items-center mb-1">
             <div className="nav-menu">
                     <ul className="nav">
                     <li className="nav-item">
-                            <a className="nav-link active" href="#">
-                            <img src="/app-assets/images/logo/troo-logo-color.png"alt="branding logo" className="logo-image"/>
-                            </a>
+                            <Link className="nav-link" to="/dashboard">
+                            <img src="/app-assets/images/logo/troo-logo-white.png"alt="branding logo" className="logo-image"/>
+                            </Link>
                         </li>
-                        <li className="nav-item pl-3">
+                        <li className="nav-item pl-1 pl-lg-3">
                             <NavLink to={"/till/restaurant"} activeClassName={'till-nav-active'} className="nav-link active text-white" href="#">Till</NavLink>
                         </li>
-                        <li className="nav-item pl-3">
+                        <li className="nav-item pl-1 pl-lg-3">
                             <NavLink activeClassName={'till-nav-active'}  to={"/till/kds"} className="nav-link text-white" href="#">KDS</NavLink>
                         </li>
                     </ul>
@@ -172,7 +186,7 @@ return(
         </p>
         <ul className="nav nav-pills mb-2" id="pills-tab" role="tablist">
         {categories && categories.map((category,index)=>(
-            <li className="nav-item " role="presentation" key={`${category.id}`}
+            <li className="nav-item" role="presentation" key={`${category.id}`}
             onClick={()=>getProduct(category.id)}
             >
             <a className={index===0?`nav-link text-white active`:`nav-link text-white`} id={`pills-${category.id}-tab`} data-toggle="pill" href={`#pills-${category.id}`} role="tab" aria-controls={`pills-${category.id}`} aria-selected={index===0?`true`:``}>{category.category_name}</a>
@@ -194,7 +208,7 @@ return(
             {
               products && products.map(product=>(
           <div className="col-md-4" key={product.productID}>
-            <li className="list-group-item">
+            <li className="list-group-item mb-1">
               <div className="d-flex justify-content-between align-items-center">
               {product.name}
               <span className="feather icon-plus-circle pointer h4 text-success" onClick={(e)=>addToCart(product)}></span>
@@ -247,11 +261,14 @@ return(
 
             </div>
 
-            <section className="table-wrapper mt-1 bg-white  mx-auto mb-1">
+            <section className="table-wrapper mt-1 bg-white  mx-auto mb-1 ">
+            
               <div className="table-select d-flex justify-content-between color-light pr-2 pl-2 pt-1">
-                <h4 className="font-weight-bold">Select Table</h4>
-                <h4 className="font-weight-bold">Table #1</h4>
+                <h5 className="font-weight-bold">Select Table</h5>
+                <h5 className="font-weight-bold">Table #1</h5>
               </div>
+      <section className='' style={{overflow:'auto'}}>
+        
     <table className="table table-responsive-sm">
   <thead>
     <tr>
@@ -289,7 +306,7 @@ return(
   </tbody>
   
 </table>
-
+</section>
           <div className="color-light">
           <div className="p-1">
             <div className="d-flex justify-content-between flex-wrap ">

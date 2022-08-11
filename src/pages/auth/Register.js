@@ -41,18 +41,7 @@ const handleSubmit = (e)=>{
 const togglePasswordChange = ()=>{
     setTogglePassword(!togglePassword);
 }
-useEffect(()=>{
-    document.body.classList.remove("2-columns");
-    document.body.classList.remove("fixed-navbar");
-    document.body.classList.remove("vertical-layout");
-    document.body.classList.remove("vertical-menu-modern");
-    return ()=>{
-        document.body.classList.add("2-columns");
-        document.body.classList.add("fixed-navbar");
-        document.body.classList.add("vertical-layout");
-        document.body.classList.add("vertical-menu-modern");
-    }
-    },[])
+
 
     return (
         <div className="app-content content">
@@ -94,7 +83,8 @@ useEffect(()=>{
                               <fieldset className="form-group floating-label-form-group">
                                   <label htmlFor="user-password">Password</label>
                                   <div className="row">
-                                      <input type={togglePassword ? "text" : "password"} className="form-control" value={password} onChange={(e)=>setPassword(e.target.value)}
+                                      <input type={togglePassword ? "text" : "password"} 
+                                      className="form-control" value={password} onChange={(e)=>setPassword(e.target.value)}
                                       placeholder="Enter Password" required/>
                                       <span className="feather icon-eye passwordToggle" onClick={togglePasswordChange}></span>
                                       

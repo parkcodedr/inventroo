@@ -40,7 +40,8 @@ EditProductCategory,
 Till,
 AddCreditNote,
 CreditNoteList,
-PaymentList
+PaymentList,
+SalesReturn
 } from '../../pages';
 
 
@@ -273,6 +274,11 @@ export const routes = [
       path: "/dashboard/payment/all",
       exact: true,
       main: () => <PaymentList/>
+    },
+    {
+      path: "/dashboard/sales-return",
+      exact: true,
+      main: () => <SalesReturn/>
     },
 
   ];
