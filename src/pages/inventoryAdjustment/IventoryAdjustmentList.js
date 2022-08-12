@@ -57,7 +57,7 @@ loading? (
 
     <div className="filter">
         <div className="row">
-   <div className="col-md-1">
+   <div className="col-md-2">
    <p>Filter By:</p>
    </div>
    <div className="col-md-3 mr-1 d-flex align-items-center">

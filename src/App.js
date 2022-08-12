@@ -26,9 +26,8 @@ export default function App() {
   const dispatch =  useDispatch();
   const {token} = useSelector(state=>state.auth);
   useEffect(()=>{
-     if(!token){
       dispatch(authCheckState());
-     }
+   
   },[])
 
     return (

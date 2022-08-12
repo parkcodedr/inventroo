@@ -55,7 +55,9 @@ setTimeout(()=>{
 }
 
 const refreshToken = async()=>{
+    
     return async(dispatch)=>{
+        dispatch({type:'REFRESH_TOKEN'})
         const token = getToken();
         const userInfo = getLocalState('user');
         const header = {
@@ -127,9 +129,12 @@ export const logout =()=>{
   }
 }
 
-
+const checkTokenExpire = ()=>{
+    return {type:'CHECK_AUTH_TOKEN_EXPIRE'}
+}
 export const authCheckState = () => {
     return (dispatch) => {
+        dispatch(checkTokenExpire())
       const token = getToken();
       if (!token) {
         dispatch(logout());
@@ -139,7 +144,7 @@ export const authCheckState = () => {
         if (expirationDate <= new Date()) {
           dispatch(logout());
         } else {
-          const userInfo = JSON.parse(getLocalState("user"));
+          const userInfo = getLocalState("user");
           dispatch(authSuccess(token, userInfo));
           dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000));
         }
